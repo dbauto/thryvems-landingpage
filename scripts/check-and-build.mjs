@@ -7,6 +7,7 @@ const html = readFileSync(resolve(root,'thryvems.html'),'utf8');
 const pricingJs = readFileSync(resolve(root,'thryvems-pricing.js'),'utf8');
 const motionJs = readFileSync(resolve(root,'thryvems-motion.js'),'utf8');
 const css = readFileSync(resolve(root,'thryvems-motion.css'),'utf8');
+const heroCss = readFileSync(resolve(root,'thryvems-product-hero.css'),'utf8');
 
 for (const id of ['top','system','modules','pricing','calculator','process','faq','contact']) {
   assert.match(html, new RegExp('id="'+id+'"'), 'Missing required section '+id);
@@ -18,9 +19,12 @@ assert(!html.includes('iQMS'),'Old product name must not appear in ThryveMS page
 assert.match(pricingJs, /fee:4000,incl:15,per:300,max:25/);
 assert.match(pricingJs, /fee:6500,incl:25,per:260,max:75/);
 assert.match(pricingJs, /annual\?0\.8:1/);
-assert.match(motionJs, /puzzleHero/);
-assert.match(css, /\.hero-puzzle/);
-for (const file of ['thryvems-motion.css','thryvems-motion.js','thryvems-pricing.js',
+assert.match(motionJs, /storyItems/);
+assert.match(heroCss, /\.product-hero/);
+assert.match(html, /class="hero product-hero"/);
+assert(!html.includes('puzzle-piece'), 'Rejected puzzle hero must not appear');
+assert(html.indexOf('id="system"') < html.indexOf('class="problem"'), 'The product scroll story should start immediately after the hero');
+for (const file of ['thryvems-motion.css','thryvems-product-hero.css','thryvems-motion.js','thryvems-pricing.js',
   'assets/thryvems-logo.svg','assets/thryvems-logo.png','assets/thync-thryve-logo.png']) {
   assert(existsSync(join(root,file)), 'Referenced asset missing: '+file);
 }
