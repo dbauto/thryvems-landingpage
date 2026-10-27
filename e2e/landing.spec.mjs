@@ -69,3 +69,32 @@ test('problem statement reaches a readable centered hold', async({page})=>{
  expect(Math.min(...data.words)).toBeGreaterThan(.95);
  await page.screenshot({path:'test-results/screenshots/problem-held-desktop.png',fullPage:false});
 });
+
+test('fixed navigation and Thync & Thryve typography on desktop and mobile',async({page})=>{
+  await page.setViewportSize({width:1280,height:900});
+  await page.goto('/thryvems.html');
+  await page.evaluate(()=>document.fonts.ready);
+  const fonts=await page.evaluate(()=>({
+    body:getComputedStyle(document.body).fontFamily,
+    title:getComputedStyle(document.querySelector('h1')).fontFamily,
+    nav:getComputedStyle(document.querySelector('.nav')).position,
+    navFont:getComputedStyle(document.querySelector('.nav-links')).fontFamily
+  }));
+  expect(fonts.body).toContain('Inter');
+  expect(fonts.title).toContain('Montserrat');
+  expect(fonts.navFont).toContain('Montserrat');
+  expect(fonts.nav).toBe('fixed');
+
+  await page.evaluate(()=>window.scrollTo({top:3000,behavior:'instant'}));
+  const navTop=await page.locator('.nav').evaluate(el=>el.getBoundingClientRect().top);
+  expect(Math.abs(navTop-16)).toBeLessThan(2);
+  await page.screenshot({path:'test-results/screenshots/fixed-nav-desktop.png'});
+
+  await page.setViewportSize({width:390,height:844});
+  await page.evaluate(()=>window.scrollTo({top:1900,behavior:'instant'}));
+  const mobileTop=await page.locator('.nav').evaluate(el=>el.getBoundingClientRect().top);
+  expect(Math.abs(mobileTop-10)).toBeLessThan(2);
+  await page.locator('.menu-toggle').click();
+  await expect(page.locator('.mobile-menu')).toHaveClass(/open/);
+  await page.screenshot({path:'test-results/screenshots/fixed-nav-mobile.png'});
+});

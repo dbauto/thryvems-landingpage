@@ -22,3 +22,14 @@
 - Live GitHub Pages is not changed or tested; merge and deployment require the owner's explicit approval.
 - The contact form has no external intake endpoint or user-data submission. Integration requires its own security/privacy review.
 - Plan prices and features are retained as provided in the original page; this design PR does not verify fulfillment or launch readiness of the products.
+
+## 27 Oct 2026 — PR #2: fixed navigation and Thync & Thryve fonts
+- ✅ The public ThryveMS page navigation is fixed in the same position on desktop and mobile while scrolling.
+- ✅ Menu links and company-home relationship remain unchanged; mobile menu still opens and closes.
+- ✅ Matched the parent website’s confirmed font families: Montserrat headings/navigation, Inter body.
+- ✅ Existing hero, animations, module sections, pricing calculator, contact form, product mark and colors retained. Hero replacement is intentionally **Pending client design approval**.
+- ✅ Typecheck, build, Playwright **9/9 passed**: [Check run 40482362462](https://github.com/dbauto/thryvems-landingpage/actions/runs/40482362462).
+- ✅ Screenshots inspected: [desktop/mobile navbar evidence](https://github.com/dbauto/thryvems-landingpage/actions/runs/40482314750/artifacts/12723512120); no visible clipping or horizontal overflow.
+- ✅ Main React QMS app untouched; its UI-GUIDELINES §10 app-only permission, token, dark/light and View as checks are not applicable to this static marketing page.
+- ✅ Backend impact recorded separately as **No backend impact**, no backend PR.
+- ⏳ The client-approved replacement hero, PR merge and live deployment are not done.
