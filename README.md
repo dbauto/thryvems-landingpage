@@ -8,7 +8,22 @@ Static landing pages for Thync & Thryve and its ThryveMS quality management soft
 | ThryveMS solution page, with plans and pricing calculator | `thryvems.html` |
 | Logos (transparent SVG and PNG, standard and reverse) | `assets/` |
 
-No build step. Open `index.html` in a browser, or publish the folder with GitHub Pages (Settings › Pages › Deploy from branch › `main` / root).
+The live GitHub Pages root stays static. Open `index.html` for the company homepage and `thryvems.html` for the product page. Deployment remains owner-controlled; this PR does not change the live branch.
+
+## Immersive ThryveMS product page
+
+The redesigned `thryvems.html` borrows the scroll-driven editorial presentation and puzzle motion developed in the iQMS landing reference while preserving this site's **ThryveMS branding**, the company's separate homepage and service links, **Base / Mid / Enterprise plans**, and the pre-existing PHP estimator logic.
+
+- `thryvems-motion.css` and `thryvems-motion.js`: product landing appearance, responsive behavior, scroll scenes, reduced-motion fallback, back-to-top.
+- `thryvems-pricing.js`: original Base/Mid/annual pricing calculations extracted unchanged.
+- `plan/backend-impact.md`: impact review; no app backend changes.
+- `npm run typecheck`: JavaScript syntax validation (this static site has no TypeScript).
+- `npm run build`: assert essential sections and pricing constants, then build a static `dist/` preview.
+- `npm run e2e`: Playwright tests and screenshots. The Check workflow runs all three on a PR.
+
+Contact forms are a **preview only** and do not send personal data. A proper intake integration requires separate approval and privacy review.
+
+To run the checks locally: `npm install`, `npx playwright install chromium`, then `npm run typecheck && npm run build && npm run e2e`.
 
 ## Pricing calculator
 

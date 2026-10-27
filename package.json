@@ -1,0 +1,14 @@
+{
+  "name": "thryvems-landingpage",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "typecheck": "node --check thryvems-motion.js && node --check thryvems-pricing.js && node --check scripts/check-and-build.mjs && node --check scripts/serve.mjs",
+    "build": "node scripts/check-and-build.mjs",
+    "e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.1"
+  }
+}
