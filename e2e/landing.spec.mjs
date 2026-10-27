@@ -138,3 +138,16 @@ test('hero and storytelling order are accessible with reduced motion', async({pa
  expect(details.heroHeight).toBeLessThan(1400);
  await expect(page.locator('.product-hero-visual')).toBeVisible();
 });
+
+test('mobile story stages are selectable without pinned puzzle animation', async({page})=>{
+ await page.setViewportSize({width:390,height:844});
+ await page.goto('/thryvems.html');
+ const story=page.locator('.story-item');
+ await story.nth(1).click();
+ await expect(story.nth(1)).toHaveAttribute('aria-pressed','true');
+ await expect(page.locator('.demo-top h4')).toHaveText('Documents in review');
+ await story.nth(2).click();
+ await expect(page.locator('.demo-top h4')).toHaveText('Audit management');
+ await expect(page.locator('.demo-panel').nth(2)).toHaveClass(/active/);
+ await page.screenshot({path:'test-results/screenshots/story-mobile-selected.png'});
+});
