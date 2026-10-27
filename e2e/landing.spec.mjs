@@ -62,6 +62,12 @@ for(const width of [390,768,1280,1920]){
   await page.goto('/thryvems.html');
   await expect(page.locator('h1')).toContainText('Made workable.');
   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
+  if (overflow > 2) {
+    const offenders = await page.evaluate(()=>[...document.querySelectorAll('body *')]
+      .filter(el=>{const r=el.getBoundingClientRect();return r.width>0&&(r.right>innerWidth+2||r.left < -2)})
+      .slice(0,14).map(el=>({tag:el.tagName,cls:el.className?.toString().slice(0,90),text:el.textContent?.trim().slice(0,50),rect:{x:Math.round(el.getBoundingClientRect().x),w:Math.round(el.getBoundingClientRect().width),right:Math.round(el.getBoundingClientRect().right)}})));
+    console.log('Overflow diagnostics', width, JSON.stringify(offenders));
+  }
   expect(overflow).toBeLessThanOrEqual(2);
   await page.screenshot({path:'test-results/screenshots/landing-'+width+'.png',fullPage:true});
  });
