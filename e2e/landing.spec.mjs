@@ -23,7 +23,7 @@ test('calculator keeps existing Base, Mid and annual price rules', async({page})
  await expect(page.locator('[data-b="perMonthTxt"]')).toHaveText('₱5,600');
  await page.locator('#calculator [data-action="pickMid"]').click();
  await expect(page.locator('[data-b="planName"]').first()).toHaveText('Mid');
- await page.locator('#users').fill('35');
+ await page.locator('#users').evaluate(el=>{el.value='35';el.dispatchEvent(new Event('input',{bubbles:true}));});
  await expect(page.locator('[data-b="perMonthTxt"]')).toHaveText('₱7,280');
 });
 test('puzzle assembles and holds with a scroll-to-top control',async({page})=>{
@@ -41,7 +41,7 @@ test('puzzle assembles and holds with a scroll-to-top control',async({page})=>{
  await expect(page.locator('.back-to-top')).toHaveClass(/visible/);
  await page.screenshot({path:'test-results/screenshots/puzzle-held-desktop.png',fullPage:false});
  await page.locator('.back-to-top').click();
- await page.waitForFunction(()=>scrollY<10,{timeout:15000});
+ await page.waitForFunction(()=>scrollY<10,{}, {timeout:15000});
 });
 for(const width of [390,768,1280,1920]){
  test('responsive layout '+width+'px has no horizontal overflow and produces screenshot',async({page})=>{
