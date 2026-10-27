@@ -4,7 +4,9 @@ mkdirSync('test-results/screenshots',{recursive:true});
 test('product landing preserves the company identity, modules, tiers and navigation',async({page})=>{
  await page.goto('/thryvems.html');
  await expect(page).toHaveTitle(/ThryveMS/);
- await expect(page.locator('.puzzle-piece')).toHaveCount(9);
+ await expect(page.locator('.puzzle-piece')).toHaveCount(0);
+ await expect(page.locator('.product-hero')).toBeVisible();
+ await expect(page.locator('.product-hero-caption')).toContainText('Synthetic example data');
  await expect(page.locator('#pricing')).toBeAttached();
  await expect(page.locator('#pricing')).toContainText('Base');
  await expect(page.locator('#pricing')).toContainText('Mid');
@@ -26,20 +28,31 @@ test('calculator keeps existing Base, Mid and annual price rules', async({page})
  await page.locator('#users').evaluate(el=>{el.value='35';el.dispatchEvent(new Event('input',{bubbles:true}));});
  await expect(page.locator('[data-b="perMonthTxt"]')).toHaveText('₱7,280');
 });
-test('puzzle assembles and holds with a scroll-to-top control',async({page})=>{
+test('product hero is static, followed by scroll-driven feature story',async({page})=>{
  await page.setViewportSize({width:1280,height:900});
  await page.goto('/thryvems.html');
- const scroll=async raw=>page.evaluate(raw=>{
-  const hero=document.querySelector('.hero-puzzle');
-  window.scrollTo({top:hero.offsetTop+Math.max(1,hero.offsetHeight-innerHeight)*raw,behavior:"instant"});
- },raw);
- await scroll(.56);
- await expect(page.locator('.hero-puzzle')).toHaveClass(/focused/);
- await expect(page.locator('.hero-puzzle')).toHaveClass(/solved/);
- const center=await page.locator('.puzzle-stage').evaluate(el=>{const r=el.getBoundingClientRect();return r.top+r.height/2});
- expect(Math.abs(center-450)).toBeLessThan(55);
+ await expect(page.locator('h1')).toContainText('Quality management.');
+ await expect(page.locator('h1')).toContainText('Made workable.');
+ await expect(page.locator('.puzzle-stage')).toHaveCount(0);
+ await expect(page.locator('.product-hero-browser')).toBeVisible();
+ await page.screenshot({path:'test-results/screenshots/product-hero-desktop.png'});
+ await page.evaluate(()=>{
+  const section=document.querySelector('#system');
+  window.scrollTo({top:section.getBoundingClientRect().top+scrollY+230,behavior:'instant'});
+ });
+ await page.waitForTimeout(180);
+ await expect(page.locator('.story-item').first()).toHaveClass(/active/);
+ await expect(page.locator('.demo-panel').first()).toHaveClass(/active/);
+ await page.screenshot({path:'test-results/screenshots/story-readiness-desktop.png'});
+ await page.evaluate(()=>{
+  const item=document.querySelectorAll('.story-item')[2];
+  window.scrollTo({top:item.getBoundingClientRect().top+scrollY-230,behavior:'instant'});
+ });
+ await page.waitForTimeout(180);
+ await expect(page.locator('.story-item').nth(2)).toHaveClass(/active/);
+ await expect(page.locator('.demo-panel').nth(2)).toHaveClass(/active/);
+ await page.screenshot({path:'test-results/screenshots/story-audits-desktop.png'});
  await expect(page.locator('.back-to-top')).toHaveClass(/visible/);
- await page.screenshot({path:'test-results/screenshots/puzzle-held-desktop.png',fullPage:false});
  await page.locator('.back-to-top').click();
  await page.waitForFunction(()=>scrollY<10,{}, {timeout:15000});
 });
@@ -47,8 +60,14 @@ for(const width of [390,768,1280,1920]){
  test('responsive layout '+width+'px has no horizontal overflow and produces screenshot',async({page})=>{
   await page.setViewportSize({width,height:900});
   await page.goto('/thryvems.html');
-  await expect(page.locator('h1')).toContainText('Bring every');
+  await expect(page.locator('h1')).toContainText('Made workable.');
   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
+  if (overflow > 2) {
+    const offenders = await page.evaluate(()=>[...document.querySelectorAll('body *')]
+      .filter(el=>{const r=el.getBoundingClientRect();return r.width>0&&(r.right>innerWidth+2||r.left < -2)})
+      .slice(0,14).map(el=>({tag:el.tagName,cls:el.className?.toString().slice(0,90),text:el.textContent?.trim().slice(0,50),rect:{x:Math.round(el.getBoundingClientRect().x),w:Math.round(el.getBoundingClientRect().width),right:Math.round(el.getBoundingClientRect().right)}})));
+    console.log('Overflow diagnostics', width, JSON.stringify(offenders));
+  }
   expect(overflow).toBeLessThanOrEqual(2);
   await page.screenshot({path:'test-results/screenshots/landing-'+width+'.png',fullPage:true});
  });
@@ -97,4 +116,38 @@ test('fixed navigation and Thync & Thryve typography on desktop and mobile',asyn
   await page.locator('.menu-toggle').click();
   await expect(page.locator('.mobile-menu')).toHaveClass(/open/);
   await page.screenshot({path:'test-results/screenshots/fixed-nav-mobile.png'});
+});
+
+test('hero and storytelling order are accessible with reduced motion', async({page})=>{
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await page.goto('/thryvems.html');
+ const details=await page.evaluate(()=>{
+  const hero=document.querySelector('.product-hero');
+  const system=document.querySelector('#system');
+  const problem=document.querySelector('.problem');
+  return {
+   heroBeforeSystem:hero.compareDocumentPosition(system) & Node.DOCUMENT_POSITION_FOLLOWING,
+   storyBeforeProblem:system.compareDocumentPosition(problem) & Node.DOCUMENT_POSITION_FOLLOWING,
+   heroPosition:getComputedStyle(hero).position,
+   heroHeight:hero.getBoundingClientRect().height
+  };
+ });
+ expect(details.heroBeforeSystem).toBeTruthy();
+ expect(details.storyBeforeProblem).toBeTruthy();
+ expect(details.heroPosition).not.toBe('sticky');
+ expect(details.heroHeight).toBeLessThan(1400);
+ await expect(page.locator('.product-hero-visual')).toBeVisible();
+});
+
+test('mobile story stages are selectable without pinned puzzle animation', async({page})=>{
+ await page.setViewportSize({width:390,height:844});
+ await page.goto('/thryvems.html');
+ const story=page.locator('.story-item');
+ await story.nth(1).click();
+ await expect(story.nth(1)).toHaveAttribute('aria-pressed','true');
+ await expect(page.locator('.demo-top h4')).toHaveText('Documents in review');
+ await story.nth(2).click();
+ await expect(page.locator('.demo-top h4')).toHaveText('Audit management');
+ await expect(page.locator('.demo-panel').nth(2)).toHaveClass(/active/);
+ await page.screenshot({path:'test-results/screenshots/story-mobile-selected.png'});
 });

@@ -19,3 +19,13 @@
 - APIs, workflows, permissions, process scope, classifications, security, integrations, events and backend tests: no change.
 - Contact remains an unconnected preview.
 - Existing app and backend synchronization items remain **Pending**, without claiming completion.
+
+## 27 Oct 2026 — product-focused hero + scroll story after hero (PR #3)
+
+**No backend impact.** The hero of the static public ThryveMS landing is replaced with a product-focused introduction and synthetic dashboard illustration; the existing four-step UI narrative is moved directly after the hero. Pricing simulator, preview-only contact form, company navigation, and app functionality are unchanged.
+
+- Database schemas, relationships and records: no change.
+- APIs, app workflows, permissions, access rules, process scope, classifications and security: no change.
+- Backend integrations, events, and tests: no change.
+- This public page does not connect to the ThryveMS app backend, and the illustrative dashboard is explicitly synthetic.
+- Backend architecture synchronization items already pending in the backend repository remain **Pending**; no backend PR is necessary for this UI-only marketing change.

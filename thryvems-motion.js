@@ -2,15 +2,6 @@
   const root = document.documentElement;
   const progress = document.querySelector('.scroll-progress span');
   const backToTop = document.querySelector('.back-to-top');
-  const puzzleHero = document.querySelector('.hero-puzzle');
-  const puzzleStage = document.querySelector('.puzzle-stage');
-  const puzzlePieces = Array.from(document.querySelectorAll('.puzzle-piece'));
-  const puzzleTitle = document.querySelector('.hero-puzzle-title');
-  const heroSticky = document.querySelector('.hero-sticky');
-  const heroTop = document.querySelector('.hero-puzzle-top');
-  const heroCopy = document.querySelector('.hero-puzzle-copy');
-  const puzzleWrap = document.querySelector('.puzzle-wrap');
-  const puzzleMeta = document.querySelector('.puzzle-meta');
   const problemSection = document.querySelector('.problem');
   const problemScroll = document.querySelector('.problem-scroll');
   const problemStatement = document.querySelector('.big-statement');
@@ -20,6 +11,13 @@
   const mobileMenu = document.querySelector('.mobile-menu');
   const storyItems = Array.from(document.querySelectorAll('.story-item'));
   const panels = Array.from(document.querySelectorAll('.demo-panel'));
+  const demoTitle = document.querySelector('.demo-top h4');
+  const demoPill = document.querySelector('.demo-pill');
+  const demoNavItems = Array.from(document.querySelectorAll('.demo-nav span'));
+  const storyTitles = ['ISO 9001 readiness', 'Documents in review', 'Audit management', 'Corrective actions'];
+  const storyDescriptions = ['Open by clause', 'Revision control', 'Audit schedule', 'Assigned actions'];
+  const storyNavIndices = [0, 2, 3, 4];
+  let selectedMobileStory = null;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const setMenu = (open) => {
@@ -78,6 +76,23 @@
   }, { threshold: 0.14 });
   reveals.forEach(el => revealObserver.observe(el));
 
+  // On smaller screens the narrative cards are tappable, not an inaccessible
+  // off-screen automatic sequence.
+  storyItems.forEach((item, index) => {
+    item.setAttribute('role', 'button');
+    item.tabIndex = 0;
+    item.addEventListener('click', () => {
+      selectedMobileStory = index;
+      updateScroll();
+    });
+    item.addEventListener('keydown', event => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      selectedMobileStory = index;
+      updateScroll();
+    });
+  });
+
   const updateScroll = () => {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     const max = document.documentElement.scrollHeight - window.innerHeight;
@@ -88,113 +103,6 @@
       backToTop.classList.toggle('visible', shouldShow);
       backToTop.setAttribute('aria-hidden', shouldShow ? 'false' : 'true');
       backToTop.tabIndex = shouldShow ? 0 : -1;
-    }
-
-    if (puzzleHero && puzzlePieces.length) {
-      const heroRect = puzzleHero.getBoundingClientRect();
-      const travel = Math.max(1, puzzleHero.offsetHeight - window.innerHeight);
-      const raw = Math.max(0, Math.min(1, -heroRect.top / travel));
-      const desktopMotion = !reduceMotion && window.innerWidth > 760;
-
-      const phase = (value, start, end) => {
-        const n = Math.max(0, Math.min(1, (value - start) / Math.max(.001, end - start)));
-        return n * n * (3 - 2 * n);
-      };
-
-      const offsetTopWithin = (element, ancestor) => {
-        let top = 0;
-        let node = element;
-        let guard = 0;
-
-        while (node && node !== ancestor && guard < 12) {
-          top += node.offsetTop || 0;
-          node = node.offsetParent;
-          guard += 1;
-        }
-
-        return top;
-      };
-
-      // Avenna-style sequence:
-      // 1) scattered pieces assemble
-      // 2) connected puzzle becomes the full-screen focus
-      // 3) puzzle exits upward and hands off to the next scene
-      const assemble = phase(raw, .05, .30);
-      const focus = phase(raw, .30, .43);
-
-      // Hold the completed puzzle fully clear for roughly one viewport of scroll.
-      // Only after that hold should the handoff to the next section begin.
-      const exit = phase(raw, .72, .96);
-
-      puzzlePieces.forEach((piece, index) => {
-        if (!desktopMotion) {
-          piece.style.transform = 'none';
-          return;
-        }
-
-        const sx = Number(piece.dataset.sx || 0);
-        const sy = Number(piece.dataset.sy || 0);
-        const sr = Number(piece.dataset.sr || 0);
-        const x = sx * (1 - assemble);
-        const y = sy * (1 - assemble);
-        const r = sr * (1 - assemble);
-        const scale = .92 + (.08 * assemble);
-
-        const motionGate = Math.max(0, Math.min(1, raw / .07));
-        const drift = Math.sin((scrollTop * .008) + index) * 2 * (1 - assemble) * motionGate;
-
-        piece.style.transform =
-          'translate3d(' + (x + drift) + 'px,' + y + 'px,0) rotate(' + r + 'deg) scale(' + scale + ')';
-      });
-
-      puzzleHero.classList.toggle('solved', assemble > .96);
-      puzzleHero.classList.toggle('focused', focus > .55 && exit < .05);
-
-      if (heroTop && desktopMotion) {
-        heroTop.style.opacity = String(1 - focus);
-        heroTop.style.transform = 'translateY(' + (-28 * focus) + 'px)';
-      }
-
-      if (heroCopy && desktopMotion) {
-        heroCopy.style.opacity = String(1 - focus);
-        heroCopy.style.transform =
-          'translate3d(0,' + (-70 * focus) + 'px,0) scale(' + (1 - .025 * focus) + ')';
-      }
-
-      if (puzzleMeta && desktopMotion) {
-        puzzleMeta.style.opacity = String(1 - Math.min(1, focus * 1.25));
-        puzzleMeta.style.transform = 'translateY(' + (-18 * focus) + 'px)';
-      }
-
-      if (puzzleStage && heroSticky && desktopMotion) {
-        const stageScale = .965 + assemble * .035 + focus * .27 - exit * .035;
-
-        // Center the completed puzzle using its real layout position instead of
-        // a fixed pixel offset. This keeps the hold frame centered vertically
-        // on different viewport heights and screen sizes.
-        const layoutTop = offsetTopWithin(puzzleStage, heroSticky);
-        const layoutCenter = layoutTop + (puzzleStage.offsetHeight / 2);
-        const viewportCenter = heroSticky.clientHeight / 2;
-        const centerShift = viewportCenter - layoutCenter;
-
-        const stageY = (centerShift * focus) - (165 * exit);
-        puzzleStage.style.transform =
-          'translate3d(0,' + stageY + 'px,0) scale(' + stageScale + ')';
-      }
-
-      if (puzzleWrap && desktopMotion) {
-        puzzleWrap.style.transform = 'translateY(' + (-10 * focus) + 'px)';
-      }
-
-      if (heroSticky && desktopMotion) {
-        // Keep the completed puzzle at full opacity throughout the hold phase.
-        heroSticky.style.opacity = exit > 0 ? String(1 - exit * .96) : '1';
-        heroSticky.style.transform = 'translateY(' + (-78 * exit) + 'px)';
-      }
-
-      if (puzzleTitle && desktopMotion) {
-        puzzleTitle.style.transform = 'translateY(' + (-10 * assemble) + 'px)';
-      }
     }
 
     if (problemScroll && problemWords.length) {
@@ -253,8 +161,15 @@
       const center = rect.top + rect.height / 2;
       if (center < window.innerHeight * .68) activeIndex = i;
     });
-    storyItems.forEach((item, i) => item.classList.toggle('active', i === activeIndex));
+    if (window.innerWidth <= 1100 && selectedMobileStory !== null) activeIndex = selectedMobileStory;
+    storyItems.forEach((item, i) => {
+      item.classList.toggle('active', i === activeIndex);
+      item.setAttribute('aria-pressed', i === activeIndex ? 'true' : 'false');
+    });
     panels.forEach((panel, i) => panel.classList.toggle('active', i === activeIndex));
+    if (demoTitle) demoTitle.textContent = storyTitles[activeIndex] || storyTitles[0];
+    if (demoPill) demoPill.textContent = storyDescriptions[activeIndex] || storyDescriptions[0];
+    demoNavItems.forEach((nav, index) => nav.classList.toggle('active', index === storyNavIndices[activeIndex]));
   };
 
   let ticking = false;
@@ -269,16 +184,6 @@
   };
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', updateScroll);
-
-  if (puzzleStage && !reduceMotion) {
-    puzzleStage.addEventListener('pointermove', (event) => {
-      if (window.innerWidth <= 760 || puzzleHero?.classList.contains('solved')) return;
-      const rect = puzzleStage.getBoundingClientRect();
-      const nx = (event.clientX - rect.left) / rect.width - .5;
-      const ny = (event.clientY - rect.top) / rect.height - .5;
-      puzzleStage.style.perspectiveOrigin = ((nx + .5) * 100) + '% ' + ((ny + .5) * 100) + '%';
-    });
-  }
 
   updateScroll();
 
