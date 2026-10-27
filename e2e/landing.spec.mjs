@@ -31,7 +31,7 @@ test('puzzle assembles and holds with a scroll-to-top control',async({page})=>{
  await page.goto('/thryvems.html');
  const scroll=async raw=>page.evaluate(raw=>{
   const hero=document.querySelector('.hero-puzzle');
-  window.scrollTo(0,hero.offsetTop+Math.max(1,hero.offsetHeight-innerHeight)*raw);
+  window.scrollTo({top:hero.offsetTop+Math.max(1,hero.offsetHeight-innerHeight)*raw,behavior:"instant"});
  },raw);
  await scroll(.56);
  await expect(page.locator('.hero-puzzle')).toHaveClass(/focused/);
@@ -58,7 +58,7 @@ test('problem statement reaches a readable centered hold', async({page})=>{
  await page.goto('/thryvems.html');
  await page.evaluate(()=>{
   const section=document.querySelector('.problem-scroll');
-  window.scrollTo(0,section.getBoundingClientRect().top+scrollY+Math.max(1,section.offsetHeight-innerHeight)*.55);
+  window.scrollTo({top:section.getBoundingClientRect().top+scrollY+Math.max(1,section.offsetHeight-innerHeight)*.55,behavior:"instant"});
  });
  await page.waitForTimeout(200);
  const data=await page.locator('.big-statement').evaluate(el=>{
