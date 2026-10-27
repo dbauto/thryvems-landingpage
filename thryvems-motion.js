@@ -11,6 +11,13 @@
   const mobileMenu = document.querySelector('.mobile-menu');
   const storyItems = Array.from(document.querySelectorAll('.story-item'));
   const panels = Array.from(document.querySelectorAll('.demo-panel'));
+  const demoTitle = document.querySelector('.demo-top h4');
+  const demoPill = document.querySelector('.demo-pill');
+  const demoNavItems = Array.from(document.querySelectorAll('.demo-nav span'));
+  const storyTitles = ['ISO 9001 readiness', 'Documents in review', 'Audit management', 'Corrective actions'];
+  const storyDescriptions = ['Open by clause', 'Revision control', 'Audit schedule', 'Assigned actions'];
+  const storyNavIndices = [0, 2, 3, 4];
+  let selectedMobileStory = null;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const setMenu = (open) => {
@@ -68,6 +75,23 @@
     });
   }, { threshold: 0.14 });
   reveals.forEach(el => revealObserver.observe(el));
+
+  // On smaller screens the narrative cards are tappable, not an inaccessible
+  // off-screen automatic sequence.
+  storyItems.forEach((item, index) => {
+    item.setAttribute('role', 'button');
+    item.tabIndex = 0;
+    item.addEventListener('click', () => {
+      selectedMobileStory = index;
+      updateScroll();
+    });
+    item.addEventListener('keydown', event => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      selectedMobileStory = index;
+      updateScroll();
+    });
+  });
 
   const updateScroll = () => {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -137,8 +161,15 @@
       const center = rect.top + rect.height / 2;
       if (center < window.innerHeight * .68) activeIndex = i;
     });
-    storyItems.forEach((item, i) => item.classList.toggle('active', i === activeIndex));
+    if (window.innerWidth <= 1100 && selectedMobileStory !== null) activeIndex = selectedMobileStory;
+    storyItems.forEach((item, i) => {
+      item.classList.toggle('active', i === activeIndex);
+      item.setAttribute('aria-pressed', i === activeIndex ? 'true' : 'false');
+    });
     panels.forEach((panel, i) => panel.classList.toggle('active', i === activeIndex));
+    if (demoTitle) demoTitle.textContent = storyTitles[activeIndex] || storyTitles[0];
+    if (demoPill) demoPill.textContent = storyDescriptions[activeIndex] || storyDescriptions[0];
+    demoNavItems.forEach((nav, index) => nav.classList.toggle('active', index === storyNavIndices[activeIndex]));
   };
 
   let ticking = false;
