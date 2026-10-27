@@ -33,3 +33,17 @@
 - ✅ Main React QMS app untouched; its UI-GUIDELINES §10 app-only permission, token, dark/light and View as checks are not applicable to this static marketing page.
 - ✅ Backend impact recorded separately as **No backend impact**, no backend PR.
 - ⏳ The client-approved replacement hero, PR merge and live deployment are not done.
+
+## 27 Oct 2026 — PR #3: product-focused hero, scrolling product story afterwards
+- ✅ Explicit owner design direction: **product-focused static hero** with **scroll-driven product storytelling in the next section**. Client-rejected puzzle hero removed, not recolored or reused.
+- ✅ Parent-company hierarchy visible: Thync & Thryve → Solutions → ThryveMS; product uses Montserrat/Inter from PR #2.
+- ✅ Static illustrative ThryveMS overview (synthetic examples labeled), headline and two clear CTAs. No fabricated live metrics or third-party media.
+- ✅ Four-stage scroll story moved immediately after hero: readiness, documents, audits, corrective actions. The demo sidebar and title update with the active stage. Mobile allows tap/keyboard stage selection.
+- ✅ "Real problem" follows product story with original text animation; no content lost from modules, pricing, estimator, integrations, FAQ or contact.
+- ✅ Existing sticky nav (PR #2) and bottom-center scroll-to-top kept.
+- ✅ Browser evidence checked: [Check run 40487486198](https://github.com/dbauto/thryvems-landingpage/actions/runs/40487486198) **success** — JavaScript syntax, static build, Playwright **11/11 passed**.
+- ✅ [Screenshots](https://github.com/dbauto/thryvems-landingpage/actions/runs/40487486198/artifacts/12725682665) captured for product hero, readiness/audit scroll stages, mobile stage and 390/768/1280/1920 full layouts; visually inspected desktop hero, mobile opening and feature story.
+- ✅ E2E confirms no horizontal overflow at the four prescribed widths, no leftover puzzle in rendered HTML, full pricing calculation, fixed nav and accessible reduced-motion ordering.
+- ✅ No modifications to the React client app: permissions, tokens, app menu, dark mode, View as and classification checks remain untouched (application UI-GUIDELINES §10 not applicable to this marketing-only page).
+- ✅ Explicit **No backend impact** assessment recorded; no new API or upload.
+- ⏳ PR #2 must be approved and merged before the stacked hero PR can target main. Neither PR has owner approval to merge/deploy yet.
