@@ -31,7 +31,7 @@ for (const file of ['thryvems-motion.css','thryvems-product-hero.css','thryvems-
 const dest=resolve(root,'dist');
 rmSync(dest,{recursive:true,force:true});
 mkdirSync(dest,{recursive:true});
-for(const file of ['index.html','thryvems.html','thryvems-motion.css','thryvems-motion.js','thryvems-pricing.js']) {
+for(const file of ['index.html','thryvems.html','thryvems-motion.css','thryvems-product-hero.css','thryvems-motion.js','thryvems-pricing.js']) {
   copyFileSync(resolve(root,file), join(dest,file));
 }
 cpSync(resolve(root,'assets'),join(dest,'assets'),{recursive:true});
