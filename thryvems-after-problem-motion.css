@@ -1,0 +1,175 @@
+/* Post-problem motion system
+   Keeps the existing ThryveMS page, Montserrat / Inter fonts, brand palette,
+   cards, content, pricing and interactions; only scroll movement is new.
+   All entrance states are reversible and never leave content inaccessible.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  /* 01. Capabilities: one staggered, gently tilted grid, not eight identical fades. */
+  html.after-problem-motion #modules .module.reveal.visible {
+    opacity:calc(.58 + var(--after-progress, 1) * .42);
+    transform:
+      translate3d(0,calc((1 - var(--after-progress, 1)) * 58px),0)
+      rotate(calc((1 - var(--after-progress, 1)) * -2.2deg));
+    transition:box-shadow .3s ease, background-color .2s ease;
+    will-change:transform,opacity;
+  }
+  html.after-problem-motion #modules .module.reveal.visible:nth-child(even) {
+    transform:
+      translate3d(0,calc((1 - var(--after-progress, 1)) * 70px),0)
+      rotate(calc((1 - var(--after-progress, 1)) * 2deg));
+  }
+  html.after-problem-motion #modules .module.reveal.visible:hover {
+    transform:translate3d(0,-7px,0) rotate(0);
+  }
+  #modules .module .module-icon svg {
+    transition:transform .4s cubic-bezier(.2,.8,.2,1);
+  }
+  #modules .module:hover .module-icon svg {
+    transform:rotate(-10deg) scale(1.14);
+  }
+
+  /* 02. Plans: tier cards settle into the exact existing price grid.
+     No CSS or JS touches a price value, seat selector or plan selection. */
+  html.after-problem-motion #pricing > div:nth-child(2) > div {
+    opacity:calc(.62 + var(--after-progress, 1) * .38);
+    transform:
+      translate3d(0,calc((1 - var(--after-progress, 1)) * 78px),0)
+      scale(calc(.96 + var(--after-progress, 1) * .04));
+    transform-origin:center top;
+    will-change:transform,opacity;
+  }
+  html.after-problem-motion #calculator {
+    opacity:calc(.76 + var(--after-progress, 1) * .24);
+    transform:translate3d(0,calc((1 - var(--after-progress, 1)) * 40px),0);
+    will-change:transform,opacity;
+  }
+  html.after-problem-motion .section-crossover > div {
+    opacity:calc(.66 + var(--after-progress, 1) * .34);
+    transform:translate3d(0,calc((1 - var(--after-progress, 1)) * 42px),0);
+    will-change:transform,opacity;
+  }
+
+  /* 03. Connected stack: existing cards land from three subtly different
+     positions in the original Microsoft 365 illustration. */
+  html.after-problem-motion .integration-visual.reveal.visible {
+    opacity:1;transform:none;
+  }
+  html.after-problem-motion .integration-visual .stack-card.one {
+    opacity:calc(.45 + var(--after-progress, 1) * .55);
+    transform:
+      translate3d(
+        calc((1 - var(--after-progress, 1)) * -58px),
+        calc((1 - var(--after-progress, 1)) * -48px),0)
+      rotate(calc(-3deg + (1 - var(--after-progress, 1)) * -7deg));
+    will-change:transform,opacity;
+  }
+  html.after-problem-motion .integration-visual .stack-card.two {
+    opacity:calc(.45 + var(--after-progress, 1) * .55);
+    transform:
+      translate3d(
+        calc((1 - var(--after-progress, 1)) * 64px),
+        calc((1 - var(--after-progress, 1)) * 50px),0)
+      rotate(calc(5deg + (1 - var(--after-progress, 1)) * 8deg));
+    will-change:transform,opacity;
+  }
+  html.after-problem-motion .integration-visual .stack-card.three {
+    opacity:calc(.45 + var(--after-progress, 1) * .55);
+    transform:
+      translate3d(
+        calc((1 - var(--after-progress, 1)) * -48px),
+        calc((1 - var(--after-progress, 1)) * 65px),0)
+      rotate(calc(-2deg + (1 - var(--after-progress, 1)) * -7deg));
+    will-change:transform,opacity;
+  }
+
+  /* 04. Implementation: visible scroll progress down the existing step list,
+     and an active row that eases into its reading position. */
+  html.after-problem-motion .process-list { position:relative; }
+  html.after-problem-motion .process-list::before {
+    content:"";position:absolute;top:0;left:0;width:3px;
+    height:calc(var(--after-line, 0) * 100%);
+    background:var(--deep);z-index:1;pointer-events:none;
+  }
+  html.after-problem-motion .process-step.reveal.visible {
+    opacity:1;
+    transform:translate3d(0,calc((1 - var(--after-progress, 1)) * 26px),0);
+    transition:none;will-change:transform;
+  }
+  html.after-problem-motion .process-step .n {
+    display:inline-block;
+    transform:translateX(calc((1 - var(--after-progress, 1)) * -8px));
+    transition:color .2s ease;
+  }
+  html.after-problem-motion .process-step h3 {
+    transform:translateX(calc((1 - var(--after-progress, 1)) * 18px));
+  }
+  html.after-problem-motion .process-step svg {
+    transform:translateX(calc((1 - var(--after-progress, 1)) * -14px));
+    opacity:calc(.4 + var(--after-progress, 1) * .45);
+  }
+  html.after-problem-motion .process-step.after-step-current h3 {
+    color:var(--deep);
+  }
+  html.after-problem-motion .process-step.after-step-current svg {
+    opacity:1;
+  }
+
+  /* 05. FAQ and ending: individual items arrive; the contact copy and form
+     settle on different beats while the existing form remains fully usable. */
+  html.after-problem-motion #faq .faq-item {
+    opacity:calc(.60 + var(--after-progress, 1) * .40);
+    transform:translate3d(calc((1 - var(--after-progress, 1)) * 22px),0,0);
+    will-change:transform,opacity;
+  }
+  html.after-problem-motion #contact .contact-card.reveal.visible {
+    opacity:1;transform:none;
+  }
+  html.after-problem-motion #contact .contact-card::before {
+    transform:translate3d(0,calc((1 - var(--after-progress, 1)) * -55px),0);
+  }
+  html.after-problem-motion #contact .contact-copy {
+    opacity:calc(.68 + var(--after-progress, 1) * .32);
+    transform:translate3d(0,calc((1 - var(--after-progress, 1)) * 52px),0);
+    will-change:transform,opacity;
+  }
+  html.after-problem-motion #contact .contact-form {
+    opacity:calc(.78 + var(--after-progress, 1) * .22);
+    transform:translate3d(0,calc((1 - var(--after-progress, 1)) * 40px),0);
+    will-change:transform,opacity;
+  }
+}
+
+/* Narrow screens: smaller movement, no card rotations or busy diagram travel. */
+@media (max-width:760px) and (prefers-reduced-motion:no-preference) {
+  html.after-problem-motion #modules .module.reveal.visible,
+  html.after-problem-motion #modules .module.reveal.visible:nth-child(even) {
+    transform:translate3d(0,calc((1 - var(--after-progress, 1)) * 25px),0);
+  }
+  html.after-problem-motion #pricing > div:nth-child(2) > div {
+    transform:translate3d(0,calc((1 - var(--after-progress, 1)) * 30px),0);
+  }
+  html.after-problem-motion .integration-visual .stack-card.one,
+  html.after-problem-motion .integration-visual .stack-card.two,
+  html.after-problem-motion .integration-visual .stack-card.three {
+    transform:none;opacity:1;will-change:auto;
+  }
+  html.after-problem-motion #contact .contact-copy,
+  html.after-problem-motion #contact .contact-form {
+    transform:translate3d(0,calc((1 - var(--after-progress, 1)) * 20px),0);
+  }
+}
+
+/* Accessibility: users who prefer less motion get static readable content. */
+@media (prefers-reduced-motion:reduce) {
+  html.after-problem-motion #modules .module,
+  html.after-problem-motion #pricing > div:nth-child(2) > div,
+  html.after-problem-motion #calculator,
+  html.after-problem-motion .section-crossover > div,
+  html.after-problem-motion .integration-visual .stack-card,
+  html.after-problem-motion .process-step,
+  html.after-problem-motion #faq .faq-item,
+  html.after-problem-motion #contact .contact-copy,
+  html.after-problem-motion #contact .contact-form {
+    opacity:1!important;transform:none!important;animation:none!important;
+  }
+}
