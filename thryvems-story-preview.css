@@ -55,11 +55,15 @@
 .story-screen-panel.demo-panel{
   position:absolute;inset:0;left:0;top:0;right:0;bottom:0;
   margin:0;padding:0;overflow:hidden;
-  opacity:0;transform:translateY(14px);
-  transition:opacity .38s ease,transform .38s cubic-bezier(.2,.8,.2,1);
+  display:none;opacity:1;transform:none;
+  transition:none;
 }
 .story-screen-panel.demo-panel.active{
-  opacity:1;transform:none;
+  display:block;animation:story-panel-in .28s ease both;
+}
+@keyframes story-panel-in{
+  from{opacity:.25;transform:translateY(9px)}
+  to{opacity:1;transform:none}
 }
 .story-browser-caption{
   text-align:right;color:rgba(255,255,255,.7);
@@ -223,4 +227,11 @@
 }
 @media(prefers-reduced-motion:reduce){
   .story-screen-panel.demo-panel{transition:none;transform:none}
+}
+/* Leave room for the final action stage to remain in its sticky reading position. */
+@media(min-width:1101px){
+  .system-scroll .story-list{padding-bottom:480px}
+}
+@media(prefers-reduced-motion:reduce){
+  .story-screen-panel.demo-panel.active{animation:none}
 }
