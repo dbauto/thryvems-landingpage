@@ -61,12 +61,7 @@
       set(card, '--after-progress', smooth((layerEntry - i * .16) / .68))
     );
 
-    // A single vertical reading indicator follows the existing 4 process steps.
-    const listRect = processList.getBoundingClientRect();
-    const line = (window.innerHeight * .53 - listRect.top) /
-      Math.max(1, listRect.height);
-    set(processList, '--after-line', smooth(line));
-
+    // Each existing step divider tracks its own entry progress.
     steps.forEach((step, index) => {
       const p = smooth(entering(step, .81, .43));
       set(step, '--after-progress', p);
