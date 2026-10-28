@@ -224,7 +224,15 @@ test('post-problem modules, tiers, stack and timeline animate as scroll advances
    window.scrollTo({top:target,behavior:'instant'});
  },{selector,offset});
  const progress=selector=>page.locator(selector).first().evaluate(el=>Number(el.style.getPropertyValue('--after-progress')));
- const line=()=>page.locator('.process-list').evaluate(el=>Number(el.style.getPropertyValue('--after-line')));
+ const rowUnderline=()=>page.locator('.process-step').first().evaluate(el=>{
+   const row=el.getBoundingClientRect();
+   const style=getComputedStyle(el,'::after');
+   const number=el.querySelector('.n').getBoundingClientRect();
+   return {width:parseFloat(style.width),height:parseFloat(style.height),
+     left:parseFloat(style.left),bottom:parseFloat(style.bottom),
+     color:style.backgroundColor,numberBottom:number.bottom,
+     rowBottom:row.bottom,processListBefore:getComputedStyle(el.parentElement,'::before').content};
+ });
 
  await go('#modules .module',600);
  await expect.poll(()=>progress('#modules .module')).toBeGreaterThan(.05);
@@ -250,13 +258,24 @@ test('post-problem modules, tiers, stack and timeline animate as scroll advances
  await page.waitForTimeout(950);
  await page.screenshot({path:'test-results/screenshots/motion-integration.png'});
 
- await go('.process-list',100);
- await expect.poll(line).toBeGreaterThan(.25);
- const first=await line();
+ await go('.process-list',250);
+ await expect.poll(()=>progress('.process-step')).toBeGreaterThan(.20);
+ const underline=await rowUnderline();
+ expect(underline.processListBefore).toBe('none');
+ expect(underline.height).toBe(2);
+ expect(underline.left).toBe(0);
+ expect(underline.bottom).toBe(-1);
+ expect(underline.width).toBeGreaterThan(900);
+ await page.screenshot({path:'test-results/screenshots/motion-process-line-aligned.png'});
+ const partial=await progress('.process-step');
+ await go('.process-step:first-child',100);
+ await expect.poll(()=>progress('.process-step')).toBeGreaterThan(.95);
+ expect(await progress('.process-step')).toBeGreaterThan(partial);
  await go('.process-step:last-child',110);
- await expect.poll(line).toBeGreaterThan(.80);
- expect(await line()).toBeGreaterThan(first);
+ await expect.poll(()=>progress('.process-step:last-child')).toBeGreaterThan(.95);
  await page.screenshot({path:'test-results/screenshots/motion-process.png'});
+ await go('.process-step:first-child',640);
+ await expect.poll(()=>progress('.process-step')).toBeLessThan(partial);
 
  await go('#contact .contact-card',180);
  await expect.poll(()=>progress('#contact .contact-copy')).toBeGreaterThan(.70);
@@ -286,4 +305,36 @@ test('post-problem choreography stays compact on mobile and honors reduced motio
  await expect(page.locator('[data-b="baseShown"]')).not.toBeEmpty();
  await expect(page.locator('.integration-visual .stack-card')).toHaveCount(3);
  await page.screenshot({path:'test-results/screenshots/motion-reduced-mobile.png'});
+});
+
+test('implementation progress never crosses numbered steps at desktop and mobile sizes',async({page})=>{
+ for (const width of [390,768,1280,1920]) {
+   await page.setViewportSize({width,height:900});
+   await page.goto('/thryvems.html');
+   await page.evaluate(()=>{
+     const list=document.querySelector('.process-list');
+     window.scrollTo({top:list.getBoundingClientRect().top+scrollY-220,behavior:'instant'});
+   });
+   await expect.poll(()=>page.locator('.process-step').first().evaluate(
+     el=>Number(el.style.getPropertyValue('--after-progress')))).toBeGreaterThan(.20);
+   const placement=await page.evaluate(()=>{
+     const list=document.querySelector('.process-list');
+     const row=list.querySelector('.process-step');
+     const num=row.querySelector('.n').getBoundingClientRect();
+     const rowRect=row.getBoundingClientRect();
+     const line=getComputedStyle(row,'::after');
+     return {verticalLine:getComputedStyle(list,'::before').content,
+       underlineHeight:parseFloat(line.height),left:parseFloat(line.left),
+       right:parseFloat(line.right),rowHeight:rowRect.height,
+       numberBottom:num.bottom,rowBottom:rowRect.bottom,
+       overflows:document.documentElement.scrollWidth-document.documentElement.clientWidth};
+   });
+   expect(placement.verticalLine).toBe('none');
+   expect(placement.underlineHeight).toBe(2);
+   expect(placement.left).toBe(0);
+   expect(placement.right).toBe(0);
+   expect(placement.rowBottom-placement.numberBottom).toBeGreaterThan(10);
+   expect(placement.overflows).toBeLessThanOrEqual(2);
+   await page.screenshot({path:'test-results/screenshots/implementation-progress-'+width+'.png'});
+ }
 });
