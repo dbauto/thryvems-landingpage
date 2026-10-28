@@ -246,6 +246,8 @@ test('post-problem modules, tiers, stack and timeline animate as scroll advances
  await go('.integration-visual',140);
  await expect.poll(()=>progress('.integration-visual .stack-card.one')).toBeGreaterThan(.8);
  await expect(page.locator('.stack-card')).toHaveCount(3);
+ await expect(page.locator('.integration h2')).toHaveClass(/visible/);
+ await page.waitForTimeout(950);
  await page.screenshot({path:'test-results/screenshots/motion-integration.png'});
 
  await go('.process-list',100);
@@ -259,6 +261,8 @@ test('post-problem modules, tiers, stack and timeline animate as scroll advances
  await go('#contact .contact-card',180);
  await expect.poll(()=>progress('#contact .contact-copy')).toBeGreaterThan(.70);
  await expect(page.locator('.contact-form')).toBeVisible();
+ await expect(page.locator('.contact-card')).toHaveClass(/visible/);
+ await page.waitForTimeout(950);
  await page.screenshot({path:'test-results/screenshots/motion-contact.png'});
 });
 
