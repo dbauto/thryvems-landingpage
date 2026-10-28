@@ -42,8 +42,11 @@ for (const file of ['thryvems-motion.css','thryvems-product-hero.css','thryvems-
 const dest=resolve(root,'dist');
 rmSync(dest,{recursive:true,force:true});
 mkdirSync(dest,{recursive:true});
-for(const file of ['index.html','thryvems.html','thryvems-motion.css','thryvems-product-hero.css','thryvems-story-preview.css','thryvems-motion.js','thryvems-pricing.js']) {
+for(const file of ['index.html','thryvems.html','thryvems-motion.css','thryvems-product-hero.css','thryvems-story-preview.css','thryvems-after-problem-motion.css','thryvems-motion.js','thryvems-after-problem-motion.js','thryvems-pricing.js']) {
   copyFileSync(resolve(root,file), join(dest,file));
 }
 cpSync(resolve(root,'assets'),join(dest,'assets'),{recursive:true});
+for (const file of ['thryvems-after-problem-motion.css','thryvems-after-problem-motion.js']) {
+  assert(existsSync(join(dest,file)), 'Build output is missing motion asset: '+file);
+}
 console.log('Static build validation passed. Product page, calculator, company homepage, and assets copied to dist.');
