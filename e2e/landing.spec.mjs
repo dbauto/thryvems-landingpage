@@ -43,6 +43,12 @@ test('product hero is static, followed by scroll-driven feature story',async({pa
  await page.waitForTimeout(180);
  await expect(page.locator('.story-item').first()).toHaveClass(/active/);
  await expect(page.locator('.demo-panel').first()).toHaveClass(/active/);
+ await expect(page.locator('.story-browser')).toBeVisible();
+ await expect(page.locator('.story-browser-sidebar img')).toHaveAttribute('src','assets/thryvems-logo.svg');
+ await expect(page.locator('.story-screen-panel')).toHaveCount(4);
+ await expect(page.locator('.story-readiness')).toBeVisible();
+ await expect(page.locator('.story-browser-caption')).toContainText('Synthetic example data');
+ await expect(page.locator('.story-browser-location')).toHaveText('Overview');
  await page.screenshot({path:'test-results/screenshots/story-readiness-desktop.png'});
  await page.evaluate(()=>{
   const item=document.querySelectorAll('.story-item')[2];
@@ -51,6 +57,8 @@ test('product hero is static, followed by scroll-driven feature story',async({pa
  await page.waitForTimeout(180);
  await expect(page.locator('.story-item').nth(2)).toHaveClass(/active/);
  await expect(page.locator('.demo-panel').nth(2)).toHaveClass(/active/);
+ await expect(page.locator('.story-audit-calendar')).toBeVisible();
+ await expect(page.locator('.story-browser-location')).toHaveText('Audits');
  await page.screenshot({path:'test-results/screenshots/story-audits-desktop.png'});
  await expect(page.locator('.back-to-top')).toHaveClass(/visible/);
  await page.locator('.back-to-top').click();
@@ -150,4 +158,48 @@ test('mobile story stages are selectable without pinned puzzle animation', async
  await expect(page.locator('.demo-top h4')).toHaveText('Audit management');
  await expect(page.locator('.demo-panel').nth(2)).toHaveClass(/active/);
  await page.screenshot({path:'test-results/screenshots/story-mobile-selected.png'});
+});
+
+test('scroll story keeps the hero dashboard design while panels change',async({page})=>{
+ await page.setViewportSize({width:1280,height:900});
+ await page.goto('/thryvems.html');
+ await page.evaluate(()=>{
+   const story=document.querySelector('#system');
+   window.scrollTo({top:story.getBoundingClientRect().top+scrollY+225,behavior:'instant'});
+ });
+ await expect(page.locator('.story-screen-panel').first()).toHaveClass(/active/);
+ const style=await page.locator('.story-browser').evaluate(el=>({
+   frame:getComputedStyle(el).borderRadius,
+   side:getComputedStyle(el.querySelector('.story-browser-sidebar')).backgroundColor,
+   visible:getComputedStyle(el).visibility,
+   layout:el.querySelector('.story-browser-app').getBoundingClientRect().height
+ }));
+ expect(style.visible).toBe('visible');
+ expect(style.layout).toBeGreaterThan(350);
+ await expect(page.locator('.story-metrics')).toBeVisible();
+ await page.screenshot({path:'test-results/screenshots/story-matching-hero-readiness.png'});
+ const labels=['Documents in review','Audit management','Corrective actions'];
+ for(let i=1;i<4;i++){
+   await page.evaluate(i=>{
+      const item=document.querySelectorAll('.story-item')[i];
+      window.scrollTo({top:item.getBoundingClientRect().top+scrollY-220,behavior:'instant'});
+   },i);
+   await expect(page.locator('.demo-panel').nth(i)).toHaveClass(/active/);
+   await expect(page.locator('.demo-top h4')).toHaveText(labels[i-1]);
+ }
+ await expect(page.locator('.story-actions-card')).toBeVisible();
+ await page.screenshot({path:'test-results/screenshots/story-matching-hero-actions.png'});
+});
+test('mobile story preview matches hero shell and supports all stage selections', async({page})=>{
+ await page.setViewportSize({width:390,height:844});
+ await page.goto('/thryvems.html');
+ await page.locator('.story-item').nth(1).click();
+ await expect(page.locator('.story-browser-location')).toHaveText('Documents');
+ await expect(page.locator('.story-document-list')).toBeVisible();
+ await page.locator('.story-item').nth(3).click();
+ await expect(page.locator('.story-actions-card')).toBeVisible();
+ await expect(page.locator('.demo-nav span').nth(3)).toHaveClass(/active/);
+ await page.screenshot({path:'test-results/screenshots/story-matching-hero-mobile-actions.png'});
+ const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
+ expect(overflow).toBeLessThanOrEqual(2);
 });
