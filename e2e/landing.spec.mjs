@@ -177,6 +177,8 @@ test('scroll story keeps the hero dashboard design while panels change',async({p
  expect(style.visible).toBe('visible');
  expect(style.layout).toBeGreaterThan(350);
  await expect(page.locator('.story-metrics')).toBeVisible();
+ await expect(page.locator('.product-sticky')).toHaveCSS('opacity','1');
+ await expect(page.locator('.story-screen-panel').nth(1)).toHaveCSS('display','none');
  await page.screenshot({path:'test-results/screenshots/story-matching-hero-readiness.png'});
  const labels=['Documents in review','Audit management','Corrective actions'];
  for(let i=1;i<4;i++){
@@ -188,6 +190,8 @@ test('scroll story keeps the hero dashboard design while panels change',async({p
    await expect(page.locator('.demo-top h4')).toHaveText(labels[i-1]);
  }
  await expect(page.locator('.story-actions-card')).toBeVisible();
+ await expect(page.locator('.story-screen-panel').first()).toHaveCSS('display','none');
+ await page.waitForTimeout(340);
  await page.screenshot({path:'test-results/screenshots/story-matching-hero-actions.png'});
 });
 test('mobile story preview matches hero shell and supports all stage selections', async({page})=>{
@@ -199,6 +203,11 @@ test('mobile story preview matches hero shell and supports all stage selections'
  await page.locator('.story-item').nth(3).click();
  await expect(page.locator('.story-actions-card')).toBeVisible();
  await expect(page.locator('.demo-nav span').nth(3)).toHaveClass(/active/);
+ await page.locator('.story-browser').scrollIntoViewIfNeeded();
+ await page.waitForTimeout(340);
+ const previewRect=await page.locator('.story-browser').evaluate(el=>{const r=el.getBoundingClientRect();return {top:r.top,bottom:r.bottom}});
+ expect(previewRect.top).toBeLessThan(844);
+ expect(previewRect.bottom).toBeGreaterThan(0);
  await page.screenshot({path:'test-results/screenshots/story-matching-hero-mobile-actions.png'});
  const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
  expect(overflow).toBeLessThanOrEqual(2);
