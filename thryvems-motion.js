@@ -11,6 +11,7 @@
   const mobileMenu = document.querySelector('.mobile-menu');
   const storyItems = Array.from(document.querySelectorAll('.story-item'));
   const panels = Array.from(document.querySelectorAll('.demo-panel'));
+  const storyPreview = document.querySelector('.story-browser');
   const demoTitle = document.querySelector('.demo-top h4');
   const demoPill = document.querySelector('.demo-pill');
   const demoNavItems = Array.from(document.querySelectorAll('.demo-nav span'));
@@ -84,15 +85,22 @@
   storyItems.forEach((item, index) => {
     item.setAttribute('role', 'button');
     item.tabIndex = 0;
-    item.addEventListener('click', () => {
+    const selectStory = () => {
+      if (window.innerWidth > 1100) return;
       selectedMobileStory = index;
       updateScroll();
-    });
+      if (storyPreview) {
+        storyPreview.scrollIntoView({
+          behavior: reduceMotion ? 'auto' : 'smooth',
+          block: 'center'
+        });
+      }
+    };
+    item.addEventListener('click', selectStory);
     item.addEventListener('keydown', event => {
       if (event.key !== 'Enter' && event.key !== ' ') return;
       event.preventDefault();
-      selectedMobileStory = index;
-      updateScroll();
+      selectStory();
     });
   });
 
