@@ -268,9 +268,9 @@ test('post-problem modules, tiers, stack and timeline animate as scroll advances
  expect(underline.width).toBeGreaterThan(900);
  await page.screenshot({path:'test-results/screenshots/motion-process-line-aligned.png'});
  await go('.process-step:first-child',600);
- await expect.poll(()=>progress('.process-step')).toBeGreaterThan(.15);
+ await expect.poll(()=>progress('.process-step')).toBeLessThan(.9);
  const partial=await progress('.process-step');
- expect(partial).toBeLessThan(.9);
+ expect(partial).toBeGreaterThan(.15);
  await go('.process-step:first-child',100);
  await expect.poll(()=>progress('.process-step')).toBeGreaterThan(.95);
  expect(await progress('.process-step')).toBeGreaterThan(partial);
