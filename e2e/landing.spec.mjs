@@ -34,7 +34,7 @@ test('product hero is static, followed by scroll-driven feature story',async({pa
  await expect(page.locator('h1')).toContainText('Quality management.');
  await expect(page.locator('h1')).toContainText('Made workable.');
  await expect(page.locator('.puzzle-stage')).toHaveCount(0);
- await expect(page.locator('.product-hero-browser')).toBeVisible();
+ await expect(page.locator('.product-hero .product-hero-browser')).toBeVisible();
  await page.screenshot({path:'test-results/screenshots/product-hero-desktop.png'});
  await page.evaluate(()=>{
   const section=document.querySelector('#system');
