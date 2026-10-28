@@ -212,3 +212,74 @@ test('mobile story preview matches hero shell and supports all stage selections'
  const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
  expect(overflow).toBeLessThanOrEqual(2);
 });
+
+test('post-problem modules, tiers, stack and timeline animate as scroll advances and reverses',async({page})=>{
+ await page.setViewportSize({width:1280,height:900});
+ await page.goto('/thryvems.html');
+ await expect(page.locator('html')).toHaveClass(/after-problem-motion/);
+ const go=(selector,offset)=>page.evaluate(({selector,offset})=>{
+   const el=document.querySelector(selector);
+   if(!el) throw Error('Missing target '+selector);
+   const target=el.getBoundingClientRect().top+scrollY-offset;
+   window.scrollTo({top:target,behavior:'instant'});
+ },{selector,offset});
+ const progress=selector=>page.locator(selector).first().evaluate(el=>Number(el.style.getPropertyValue('--after-progress')));
+ const line=()=>page.locator('.process-list').evaluate(el=>Number(el.style.getPropertyValue('--after-line')));
+
+ await go('#modules .module',600);
+ await expect.poll(()=>progress('#modules .module')).toBeGreaterThan(.05);
+ const mid=await progress('#modules .module');
+ await page.screenshot({path:'test-results/screenshots/motion-modules-mid.png'});
+ await go('#modules .module',100);
+ await expect.poll(()=>progress('#modules .module')).toBeGreaterThan(.95);
+ const full=await progress('#modules .module');
+ expect(full).toBeGreaterThan(mid);
+ await page.screenshot({path:'test-results/screenshots/motion-modules-full.png'});
+ await go('#modules .module',650);
+ await expect.poll(()=>progress('#modules .module')).toBeLessThan(mid);
+
+ await go('#pricing > div:nth-child(2)',270);
+ await expect.poll(()=>progress('#pricing > div:nth-child(2) > div')).toBeGreaterThan(.85);
+ await expect(page.locator('#pricing')).toContainText('Enterprise');
+ await page.screenshot({path:'test-results/screenshots/motion-pricing.png'});
+
+ await go('.integration-visual',140);
+ await expect.poll(()=>progress('.integration-visual .stack-card.one')).toBeGreaterThan(.8);
+ await expect(page.locator('.stack-card')).toHaveCount(3);
+ await page.screenshot({path:'test-results/screenshots/motion-integration.png'});
+
+ await go('.process-list',100);
+ await expect.poll(line).toBeGreaterThan(.25);
+ const first=await line();
+ await go('.process-step:last-child',110);
+ await expect.poll(line).toBeGreaterThan(.80);
+ expect(await line()).toBeGreaterThan(first);
+ await page.screenshot({path:'test-results/screenshots/motion-process.png'});
+
+ await go('#contact .contact-card',180);
+ await expect.poll(()=>progress('#contact .contact-copy')).toBeGreaterThan(.70);
+ await expect(page.locator('.contact-form')).toBeVisible();
+ await page.screenshot({path:'test-results/screenshots/motion-contact.png'});
+});
+
+test('post-problem choreography stays compact on mobile and honors reduced motion',async({page})=>{
+ await page.setViewportSize({width:390,height:844});
+ await page.goto('/thryvems.html');
+ await page.evaluate(()=>{
+  const card=document.querySelector('#modules .module');
+  window.scrollTo({top:card.getBoundingClientRect().top+scrollY-140,behavior:'instant'});
+ });
+ await expect.poll(()=>page.locator('#modules .module').first().evaluate(el=>Number(el.style.getPropertyValue('--after-progress')))).toBeGreaterThan(.95);
+ const mobile=await page.locator('#modules .module').first().evaluate(el=>getComputedStyle(el).transform);
+ expect(mobile).not.toBe('none');
+ await page.screenshot({path:'test-results/screenshots/motion-modules-mobile.png'});
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth)).toBeLessThanOrEqual(2);
+
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await page.reload();
+ await expect(page.locator('html')).not.toHaveClass(/after-problem-motion/);
+ await page.locator('#pricing').scrollIntoViewIfNeeded();
+ await expect(page.locator('[data-b="baseShown"]')).not.toBeEmpty();
+ await expect(page.locator('.integration-visual .stack-card')).toHaveCount(3);
+ await page.screenshot({path:'test-results/screenshots/motion-reduced-mobile.png'});
+});
