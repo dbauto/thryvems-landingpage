@@ -61,3 +61,21 @@
 - ✅ Product-app UI guidelines §10: app/ source, nav, token palette, roles, permissions, View as, light/dark modes and classification checks untouched (no app-specific screen changed). This is a public static marketing-page refinement.
 - ✅ **No backend impact** (plan/backend-impact.md): DB schemas/relationships, APIs, workflows, permissions, security, process/classification scope, integrations, events and backend tests unchanged. No backend PR. Existing backend sync remains **Pending**.
 - ⏳ PR review/merge and GitHub Pages deployment require user approval. No production website changes made in this PR.
+
+
+## 28 Oct 2026 — PR #5: post-problem scroll animation review
+
+- ✅ Scoped to animations in existing public landing sections **after "The real problem"**; approved product hero, earlier readiness/documents/audits/actions scroll story, page structure, copy, brand palette and Montserrat/Inter fonts are preserved.
+- ✅ Core capability cards stagger into the existing grid with gently alternating tilt and reversible scroll tracking.
+- ✅ Base/Mid/Enterprise pricing cards, subscription calculator and consultancy/training cross-sell have distinct entrance motion. Pricing JavaScript SHA compared identical against main; full pricing calculator tests still passed.
+- ✅ Microsoft 365 three-card illustration assembles with different layer paths; screenshot checked again after existing text reveals complete to ensure readable contrast.
+- ✅ Implementation steps use a line that tracks scroll progress and readable text/arrow movement. No step names or instructions changed.
+- ✅ FAQ items and final contact copy/form reveal at distinct rates; existing contact form remains explicitly preview-only and doesn't submit data.
+- ✅ On mobile (<761px), tilts are removed and travel is reduced; native `prefers-reduced-motion` disables the enhancement. Visual reading is reversible on upward scroll.
+- ✅ No new app menu, colors, components, data access, runtime permissions, product records, upload handlers or backend functionality. App UI-GUIDELINES §10 applies to the React QMS app, which remains untouched. The public landing matches its own existing product design.
+- ✅ [Check 40712214726](https://github.com/dbauto/thryvems-landingpage/actions/runs/40712214726) **passed** typecheck, static build and all 15 Chromium browser tests, including forward/reverse scroll, mobile/reduced-motion, original calculator, fixed nav and no horizontal overflow at 390, 768, 1280 and 1920.
+- ✅ [Check 40712816534](https://github.com/dbauto/thryvems-landingpage/actions/runs/40712816534) **passed** the same tests with improved end-of-reveal screenshot timing.
+- ✅ [Screenshot evidence](https://github.com/dbauto/thryvems-landingpage/actions/runs/40712816534/artifacts/12826972381) visually inspected for intermediate/full modules, plan cards, Microsoft 365 stack, implementation track, closing CTA and mobile modules. Final integration and CTA captures are fully readable, with no unintended clipping.
+- ✅ Verified main-branch HTML hero markup and module-grid markup unchanged; pricing JS byte-identical.
+- ✅ **No backend impact** separately assessed; schemas, relationships, APIs, workflow, permissions, security, client/process classification, integrations, events and backend tests unchanged. Existing architecture sync **Pending**.
+- ⏳ Owner approval still required before PR merge or live deployment. Live site has not been changed in this PR.
