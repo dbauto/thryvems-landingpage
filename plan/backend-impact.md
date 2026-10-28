@@ -39,3 +39,14 @@
 - Integrations, events and backend tests: unchanged.
 - Subscription calculator, contact submission behavior, authentication and app UI: unchanged.
 - Existing backend architecture synchronization items remain **Pending**. There is no new backend implementation or backend documentation PR required.
+
+
+## 28 Oct 2026 — rich motion after "The real problem" (PR #5)
+
+**No backend impact.** Added a dedicated scroll-position animation layer to the existing public ThryveMS marketing site. The module cards, existing three pricing tiers and calculator presentation, Microsoft 365 diagram, four implementation steps, FAQ list and closing contact scene respond to scrolling. No content, records or business operations have changed.
+
+- Database schemas, relationships, persistence, API calls: unchanged.
+- Workflows, roles, permission checks, client/process isolation, classifications, access/security: unchanged.
+- Integrations, event handling and backend tests: unchanged.
+- Prices, user limits, calculator arithmetic, contact form behavior and sign-in: unchanged.
+- No app code was changed. Existing architecture synchronization work stays **Pending**; a backend PR is unnecessary for static animations.
