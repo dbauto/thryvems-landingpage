@@ -29,3 +29,13 @@
 - Backend integrations, events, and tests: no change.
 - This public page does not connect to the ThryveMS app backend, and the illustrative dashboard is explicitly synthetic.
 - Backend architecture synchronization items already pending in the backend repository remain **Pending**; no backend PR is necessary for this UI-only marketing change.
+
+## 28 Oct 2026 — scroll-story visual alignment with the existing hero (PR #4)
+
+**No backend impact.** This change is restricted to the public static landing-page's scroll-story preview. It reuses the hero's illustrated browser frame, sidebar and dashboard card patterns for its four existing feature states, while retaining the existing scroll triggers, mobile selection and user-facing product story. All numbers, names and examples in the preview are synthetic.
+
+- Database schemas and relationships: unchanged.
+- APIs, workflows, permissions, access/security, client and process isolation, classification checks: unchanged.
+- Integrations, events and backend tests: unchanged.
+- Subscription calculator, contact submission behavior, authentication and app UI: unchanged.
+- Existing backend architecture synchronization items remain **Pending**. There is no new backend implementation or backend documentation PR required.
