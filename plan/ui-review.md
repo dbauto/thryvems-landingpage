@@ -47,3 +47,17 @@
 - ✅ No modifications to the React client app: permissions, tokens, app menu, dark mode, View as and classification checks remain untouched (application UI-GUIDELINES §10 not applicable to this marketing-only page).
 - ✅ Explicit **No backend impact** assessment recorded; no new API or upload.
 - ⏳ PR #2 must be approved and merged before the stacked hero PR can target main. Neither PR has owner approval to merge/deploy yet.
+
+## 28 Oct 2026 — PR #4: visually match scroll-story preview to approved hero
+
+- ✅ Scope approved: **only** the sticky visual preview inside “Follow the work. See how it connects.” changed, not the hero or the four-step story structure.
+- ✅ Uses the existing hero mockup’s ThryveMS browser frame, green logo/sidebar, light dashboard cards, progress/status indicators and synthetic example data.
+- ✅ Readiness, Documents, Audits and Corrective actions use the same dashboard shell; scroll-based stage switching and mobile tap/keyboard selection preserved. Active route and sidebar indicator follow the stage.
+- ✅ Existing product hero, company fonts, fixed navigation, copy, FAQ, pricing/calculator, backend, contact form and other sections preserved.
+- ✅ Prevented panel overlays during state changes: only active preview is displayed; entrance motion is short and reduced-motion users see no animation.
+- ✅ Removed premature fade of the sticky preview; added desktop scroll room for the last Actions stage; mobile selection brings the preview into view.
+- ✅ [GitHub Check 40651637774](https://github.com/dbauto/thryvems-landingpage/actions/runs/40651637774) **success**: JavaScript syntax/typecheck passed, static build passed, **13/13 Chromium browser tests passed**, including pricing, four story states, mobile state selection and no horizontal overflow at **390/768/1280/1920px**.
+- ✅ [Screenshot evidence](https://github.com/dbauto/thryvems-landingpage/actions/runs/40651637774/artifacts/12800555026) reviewed: desktop readiness preview, final Actions preview, mobile Actions preview, full-page responsive captures. All previews are bright, readable at their intended layout size, and clearly labeled as synthetic.
+- ✅ Product-app UI guidelines §10: app/ source, nav, token palette, roles, permissions, View as, light/dark modes and classification checks untouched (no app-specific screen changed). This is a public static marketing-page refinement.
+- ✅ **No backend impact** (plan/backend-impact.md): DB schemas/relationships, APIs, workflows, permissions, security, process/classification scope, integrations, events and backend tests unchanged. No backend PR. Existing backend sync remains **Pending**.
+- ⏳ PR review/merge and GitHub Pages deployment require user approval. No production website changes made in this PR.

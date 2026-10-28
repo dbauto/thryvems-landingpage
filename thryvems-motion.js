@@ -11,12 +11,16 @@
   const mobileMenu = document.querySelector('.mobile-menu');
   const storyItems = Array.from(document.querySelectorAll('.story-item'));
   const panels = Array.from(document.querySelectorAll('.demo-panel'));
+  const storyPreview = document.querySelector('.story-browser');
   const demoTitle = document.querySelector('.demo-top h4');
   const demoPill = document.querySelector('.demo-pill');
   const demoNavItems = Array.from(document.querySelectorAll('.demo-nav span'));
   const storyTitles = ['ISO 9001 readiness', 'Documents in review', 'Audit management', 'Corrective actions'];
   const storyDescriptions = ['Open by clause', 'Revision control', 'Audit schedule', 'Assigned actions'];
-  const storyNavIndices = [0, 2, 3, 4];
+  const storyNavIndices = [0, 1, 3, 3];
+  const storyLocations = ['Overview', 'Documents', 'Audits', 'Audits'];
+  const storyBrowserLocation = document.querySelector('.story-browser-location');
+  const storyScreenLocation = document.querySelector('.story-screen-location');
   let selectedMobileStory = null;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -81,15 +85,22 @@
   storyItems.forEach((item, index) => {
     item.setAttribute('role', 'button');
     item.tabIndex = 0;
-    item.addEventListener('click', () => {
+    const selectStory = () => {
+      if (window.innerWidth > 1100) return;
       selectedMobileStory = index;
       updateScroll();
-    });
+      if (storyPreview) {
+        storyPreview.scrollIntoView({
+          behavior: reduceMotion ? 'auto' : 'smooth',
+          block: 'center'
+        });
+      }
+    };
+    item.addEventListener('click', selectStory);
     item.addEventListener('keydown', event => {
       if (event.key !== 'Enter' && event.key !== ' ') return;
       event.preventDefault();
-      selectedMobileStory = index;
-      updateScroll();
+      selectStory();
     });
   });
 
@@ -170,6 +181,8 @@
     if (demoTitle) demoTitle.textContent = storyTitles[activeIndex] || storyTitles[0];
     if (demoPill) demoPill.textContent = storyDescriptions[activeIndex] || storyDescriptions[0];
     demoNavItems.forEach((nav, index) => nav.classList.toggle('active', index === storyNavIndices[activeIndex]));
+    if (storyBrowserLocation) storyBrowserLocation.textContent = storyLocations[activeIndex];
+    if (storyScreenLocation) storyScreenLocation.textContent = storyLocations[activeIndex].toUpperCase();
   };
 
   let ticking = false;
