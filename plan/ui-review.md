@@ -79,3 +79,16 @@
 - ✅ Verified main-branch HTML hero markup and module-grid markup unchanged; pricing JS byte-identical.
 - ✅ **No backend impact** separately assessed; schemas, relationships, APIs, workflow, permissions, security, client/process classification, integrations, events and backend tests unchanged. Existing architecture sync **Pending**.
 - ⏳ Owner approval still required before PR merge or live deployment. Live site has not been changed in this PR.
+
+
+## 28 Oct 2026 — PR #6: implementation progress indicator correction
+- ✅ User screenshot verified: vertical progress marker ran along the Implementation list's left edge and crossed the "01" number; the marker did not align to existing horizontal separators.
+- ✅ Minimal correction: removed the vertical pseudo-element and list-length JS; each existing step border receives a 2px green scroll-progress underline. Step text, numbers, title, arrows, spacing and grid remain unchanged.
+- ✅ Animation stays scroll driven (including reversal). Underlines remain inside their own row bottoms and never cross step numbers. Old vertical `::before` no longer renders.
+- ✅ Same brand fonts, colors and existing horizontal separators. No UI redesign, no changed labels, forms, navigation, pricing or workflow.
+- ✅ Browser tests at 390/768/1280/1920px verify no stray vertical line, underline 2px height, zero left/right offset, sufficient distance from step numbers, and no horizontal page overflow.
+- ✅ [Check 40716378370](https://github.com/dbauto/thryvems-landingpage/actions/runs/40716378370): JavaScript typecheck **passed**, static build **passed**, Playwright Chromium **16/16 passed**. Previous run's only failure was a premature animation-frame assertion; corrected with explicit wait and rerun.
+- ✅ [Screenshots](https://github.com/dbauto/thryvems-landingpage/actions/runs/40716378370/artifacts/12828401711): visually inspected desktop 1280px and mobile 390px. Both show aligned horizontal underline on the existing row separators, with clear step numbers and no intrusive vertical rule.
+- ✅ Main QMS application UI not changed. Its UI-GUIDELINES §10 app-only light/dark, permissions, View as and component checks are not applicable to this static public landing fix.
+- ✅ **No backend impact** documented in `plan/backend-impact.md`: database schemas, relationships, APIs, business workflows, roles and access checks, security, classification, integration, events and tests unchanged. Existing architecture sync remains Pending.
+- ⏳ PR not merged or deployed; requires owner approval.

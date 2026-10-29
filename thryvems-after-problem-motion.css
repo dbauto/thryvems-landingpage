@@ -82,18 +82,19 @@
     will-change:transform,opacity;
   }
 
-  /* 04. Implementation: visible scroll progress down the existing step list,
-     and an active row that eases into its reading position. */
-  html.after-problem-motion .process-list { position:relative; }
-  html.after-problem-motion .process-list::before {
-    content:"";position:absolute;top:0;left:0;width:3px;
-    height:calc(var(--after-line, 0) * 100%);
-    background:var(--deep);z-index:1;pointer-events:none;
-  }
+  /* 04. Implementation: animate the existing row dividers instead of a
+     floating vertical line. The progress accent never crosses a step number. */
   html.after-problem-motion .process-step.reveal.visible {
+    position:relative;
     opacity:1;
     transform:translate3d(0,calc((1 - var(--after-progress, 1)) * 26px),0);
     transition:none;will-change:transform;
+  }
+  html.after-problem-motion .process-step.reveal.visible::after {
+    content:"";position:absolute;left:0;right:0;bottom:-1px;
+    height:2px;background:var(--deep);pointer-events:none;
+    transform:scaleX(var(--after-progress, 0));
+    transform-origin:left center;opacity:.72;
   }
   html.after-problem-motion .process-step .n {
     display:inline-block;

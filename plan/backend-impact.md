@@ -50,3 +50,13 @@
 - Integrations, event handling and backend tests: unchanged.
 - Prices, user limits, calculator arithmetic, contact form behavior and sign-in: unchanged.
 - No app code was changed. Existing architecture synchronization work stays **Pending**; a backend PR is unnecessary for static animations.
+
+## 28 Oct 2026 — implementation progress-line correction (PR #6)
+
+**No backend impact.** The public ThryveMS marketing site had a floating vertical scroll-progress pseudo-element that overlapped the Implementation step numbers. PR #6 replaces it with a progress underline along each existing row divider, removes the obsolete list-height calculation, and keeps all content, behavior, application links, pricing, and form handling unchanged.
+
+- Database schemas/relationships, APIs and persistence: unchanged.
+- Backend workflows, permissions, client/process scope, classifications and security: unchanged.
+- Integrations, events, backend tests, and identity/auth: unchanged.
+- No real user data; all examples remain synthetic.
+- No backend PR required. Existing backend architecture synchronization remains **Pending**.
