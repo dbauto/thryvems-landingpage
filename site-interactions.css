@@ -5,3 +5,6 @@
 .site-cookie-notice a{color:#0B7D6B;text-decoration:underline;text-underline-offset:2px}
 .site-cookie-dismiss{font:700 14px Montserrat,system-ui,sans-serif;border:0;background:#0A4639;color:#FFFFFF;border-radius:999px;padding:12px 19px;white-space:nowrap;cursor:pointer}
 .site-cookie-dismiss:focus-visible{outline:3px solid #0B7D6B;outline-offset:3px}
+@media(max-width:860px){.site-cookie-notice{top:86px;bottom:auto;max-width:420px}}
+@media(max-width:600px){.site-cookie-notice{top:76px;bottom:auto;left:12px;right:12px;flex-direction:column;align-items:stretch;gap:14px;padding:18px}.site-cookie-dismiss{align-self:flex-start}}
+@media(prefers-reduced-motion:reduce){.site-cookie-notice{transition:none}}
