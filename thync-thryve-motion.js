@@ -16,7 +16,7 @@
   const root = document.documentElement;
   const routeLength = path.getTotalLength();
   const revealTargets = [
-    ...document.querySelectorAll('.company-step, #services > div[id], .company-standard, .company-delivery-card')
+    ...document.querySelectorAll('.company-step, #services > div[id], .company-standard, .company-delivery-card, .company-solution-plans > a, .company-work-steps > div')
   ];
   const heroCards = [...document.querySelectorAll('#top .company-hero-tiles > a')];
   let ticking = false;
