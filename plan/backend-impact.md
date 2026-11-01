@@ -154,3 +154,13 @@
 - QMS client isolation, roles/permissions, process scope, confidential classifications, security boundaries: **unchanged**.
 - External integrations: **no new integration**; Search Console setup is a documented owner-only step, not an automated connected account or API call.
 - Existing backend CM PR #26 is merged; any unimplemented marketing intake work remains independently **Pending**. No linked backend architecture PR is needed for this read-only SEO QA effort.
+
+## 2 Nov 2026 — Phase 3 ISO commercial SEO (PR proposed)
+
+**No backend impact.** Changes are static text paragraphs inside four existing, already-public ISO landing pages, a source-controlled keyword intent map, CI-only checks, unit tests, and acceptance documentation. Existing page URLs, six-item navigation, branding, CSS, fonts, responsive components, forms, data collection, cookies, worker deployment, authentication and privacy controls are unchanged.
+
+- Database schemas and relationships: unchanged.
+- QMS/marketing APIs, workflows, permissions, tenant and process scope, classifications, security and events: unchanged.
+- Integrations and backend tests: unchanged; linking to ISO's public news page is an ordinary hyperlink, not an integration.
+- Existing backend architecture repository PRs #12, #27 and #28 represent separate pending implementation/synchronization work; this static text change does not resolve or modify them.
+- No backend change-management PR is necessary. Editorial verification of actual commercial offerings, credentials, service areas and public contacts remains pending owner confirmation and must not be invented.
