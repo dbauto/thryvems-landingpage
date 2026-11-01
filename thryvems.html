@@ -514,19 +514,22 @@
             <p>Tell us how your current quality process works, where the friction is, and which part you want to improve first. We can map the right ThryveMS starting point around that.</p>
           </div>
 
-          <form class="contact-form">
+          <form class="contact-form site-inquiry-form" data-inquiry-form="thryvems">
             <label for="name">YOUR NAME</label>
-            <input id="name" name="name" placeholder="Name" required />
+            <input id="name" name="name" placeholder="Name" maxlength="120" autocomplete="name" required />
             <label for="company">ORGANIZATION</label>
-            <input id="company" name="company" placeholder="Company / organization" />
+            <input id="company" name="company" placeholder="Company / organization" maxlength="160" />
+            <label for="email">WORK EMAIL</label>
+            <input id="email" name="email" type="email" maxlength="254" autocomplete="email" required placeholder="Work email" />
             <label for="need">WHAT DO YOU WANT TO IMPROVE FIRST?</label>
-            <textarea id="need" name="need" placeholder="Document control, audits, CAPA, surveys, readiness, custom workflow..."></textarea>
-            <button class="btn lime" type="submit">
+            <textarea id="need" name="message" maxlength="3000" placeholder="Document control, audits, CAPA, surveys, readiness, custom workflow..."></textarea>
+            <div class="site-human-check" data-human-check aria-label="Human verification"></div>
+            <button class="btn lime" type="submit" data-inquiry-submit disabled aria-disabled="true">
               Request a walkthrough
               <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </button>
-            <p class="form-note">Preview only — this form does not send enquiries yet. Contact integration is pending.</p>
-            <div class="form-success">This is a visual preview. No enquiry was sent.</div>
+            <p class="form-note site-inquiry-status" role="status" aria-live="polite" data-inquiry-status>Enquiries are not available yet. Secure delivery and human verification must be configured first.</p><p class="site-data-note">Read our <a href="./cookies.html">cookie and verification notice</a> before sending an enquiry.</p>
+            
           </form>
         </div>
       </div>
@@ -543,5 +546,7 @@
   <script src="./thryvems-pricing.js?v=20261027-1" defer></script>
   <script src="./thryvems-after-problem-motion.js?v=20261028-2" defer></script>
   <script src="./site-cookie-notice.js?v=20261101-3" defer></script>
+<script src="./site-inquiry-config.js?v=20261101-1" defer></script>
+<script src="./site-inquiry.js?v=20261101-1" defer></script>
 </body>
 </html>
