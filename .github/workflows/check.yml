@@ -26,6 +26,9 @@ jobs:
       - name: Audit live domain (evidence only; not a deployment gate)
         run: npm run audit:live
         continue-on-error: true
+      - name: Audit live responsive pages and capture screenshots (evidence only)
+        run: npm run audit:live-mobile
+        continue-on-error: true
       - name: Upload screenshots and test report
         if: always()
         uses: actions/upload-artifact@v4
