@@ -112,6 +112,21 @@
 - ⏳ Live site has not been changed; owner must approve PR merge and GitHub Pages deployment.
 
 
+## 1 Nov 2026 — PR #9: motion-graphics scroll story on the company landing
+
+- ✅ Existing Thync & Thryve visual identity retained: parent company logo, Montserrat/Inter typography, forest/teal/soft-green palette, rounded cards, seven-category ISO catalog, About, navigation and contact form disclosure. ThryveMS product page source untouched.
+- ✅ New four-stage *pinned* desktop scroll scene communicates the real service relationship: Understand → Train → Implement → Maintain and improve. It is not a generic fade sequence: ISO requirements/people/process/ThryveMS cards translate and rotate into their places in a connected illustration; a green path progressively draws and a dot follows it.
+- ✅ Story caption says services depend on the company's circumstances; ThryveMS remains described as an in-development ISO 9001 digital QMS. No certification guarantee or unverified service claims introduced.
+- ✅ Distinct motion in the existing hero pillars, ISO guide cards, service rows, seven categories and training options, Solutions plans and How we work. Existing prices, links, copy and HTML interactive behavior retained.
+- ✅ Forward/reverse scroll restores the correct stage, counters and path; mobile (390/768) shows the whole graphic without trapping touch scroll in a long sticky scene. Reduced-motion and missing JS show an accessible, legible static illustration.
+- ✅ Native details/summary accordion keyboard access retained; no new top-level navigation, route, booking UI, fake contact success, external libraries, third-party assets, personal data or security surface.
+- ✅ [Check 41284604371](https://github.com/dbauto/thryvems-landingpage/actions/runs/41284604371) **success** (29/29 Playwright tests plus JS syntax/typecheck and static build).
+- ✅ [Final motion-layout Check 41285130196](https://github.com/dbauto/thryvems-landingpage/actions/runs/41285130196) **success**: typecheck, static build, Chromium Playwright **30/30 passed**. Explicit tests for all four story states and reverse motion; moving connector token; mobile 390/768, desktop 1280/1920, reduced motion/no JS, geometry of secondary card separation, typography and original product/booking/catalog regressions. No horizontal overflow at four widths.
+- ✅ [Screenshot artifact 13073944498](https://github.com/dbauto/thryvems-landingpage/actions/runs/41285130196/artifacts/13073944498) visually inspected: four 1280px scroll stages, 390px illustration, existing Solutions cards and How we work. Last refinement corrected the earlier card-overlap transient and gave the mobile board label clearance; updated screenshots show no overlap or clipping.
+- ✅ React QMS app unchanged: app-specific UI-GUIDELINES §10 light/dark, roles/View as, app tokens and access checks are not applicable to the static company landing change. All applicable public responsive, keyboard, reduced motion and product regression gates passed.
+- ✅ **No backend impact:** static presentation and scroll-only JavaScript/SVG, no APIs/databases, relationships, workflows, permissions, client/process/classification scope, integrations, backend events or tests. Existing backend architecture synchronization is **Pending**.
+- ⏳ No live deployment or merge. Owner approval required. Separate Back to top PR #8 remains pending independently; do not merge implicitly.
+
 ## 1 Nov 2026 — PR #8: company Back to top matching the product landing
 
 - ✅ Used the current ThryveMS product landing as the reference: exact 58px desktop/52px mobile bottom-centred circular control, dark green background, white up arrow, tiny TOP label, hover, entrance transition and focus ring. Only the static company homepage has new markup; the product page remains unchanged.

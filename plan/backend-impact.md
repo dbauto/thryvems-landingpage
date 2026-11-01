@@ -74,6 +74,18 @@
 - Existing frontend/backend architecture synchronization remains **Pending**. A backend documentation PR is not needed for this static content update. Any future real booking/intake integration requires its own backend impact/privacy assessment before implementation.
 
 
+## 1 Nov 2026 — company ISO service scroll-story graphics (PR #9)
+
+**No backend impact.** The public Thync & Thryve company homepage gains a pinned four-chapter scroll explanation of the existing services, plus client-side object travel, a connector path and mild parallax/entrance motion on existing sections. All visual data is static decorative HTML/SVG and browser scroll position. The seven subject categories, training/consultancy scope, product links and disabled enquiry form are preserved.
+
+- Database models/schemas/relationships, persistence, migrations: unchanged.
+- API endpoints and backend workflows: unchanged; nothing is submitted or sent.
+- Organization/client and process isolation, RBAC, information classifications, security/authentication: unchanged.
+- Integrations, calendar/email/lead intake, server events, backend tests: unchanged.
+- React QMS application and ThryveMS product landing: unchanged.
+- A separate company Back to top change is pending in PR #8, with no merge/deployment approval inferred.
+- Existing backend architecture synchronization work stays **Pending**. No backend PR is necessary for this static visual-only change.
+
 ## 1 Nov 2026 — company Back to top button (PR #8)
 
 **No backend impact.** This change adds a bottom-centered Back to top button to the public, static Thync & Thryve company homepage, matching the product landing's appearance and scroll behavior. It uses a fixed-position styled button and browser scroll handling only, with no data submission or server calls.
