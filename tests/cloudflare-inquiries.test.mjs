@@ -12,3 +12,16 @@ test('rejects challenge failed server-side',async()=>{const original=globalThis.
 test('rejects valid captcha for unrelated hostname',async()=>{const original=globalThis.fetch;globalThis.fetch=async()=>Response.json({success:true,hostname:'malicious.example.invalid',action:'company_inquiry'});try{const x=await worker.fetch(request(),env());assert.equal(x.status,403);}finally{globalThis.fetch=original;}});
 test('rejects mismatched Turnstile action',async()=>{const original=globalThis.fetch;globalThis.fetch=async()=>Response.json({success:true,hostname:'thyncandthryve.com',action:'product_inquiry'});try{const x=await worker.fetch(request(),env());assert.equal(x.status,403);}finally{globalThis.fetch=original;}});
 test('sends once only when challenge fully validated',async()=>{const original=globalThis.fetch;globalThis.fetch=async()=>Response.json({success:true,hostname:'thyncandthryve.com',action:'company_inquiry'});let mail;try{const x=await worker.fetch(request(),env({EMAIL:{send:async m=>{mail=m;return{messageId:'synthetic'}}}}));assert.equal(x.status,200);assert.equal(mail.to,'test@example.invalid');assert.equal(mail.subject,'Thync & Thryve service enquiry');assert.match(mail.text,/Synthetic Test/);}finally{globalThis.fetch=original;}});
+
+test('browser preflight returns empty HTTP 204 with proper CORS headers without sender configuration',async()=>{
+ const request=new Request('https://worker.example.invalid/',{
+  method:'OPTIONS',
+  headers:{Origin:origin,'Access-Control-Request-Method':'POST','Access-Control-Request-Headers':'content-type'}
+ });
+ const response=await worker.fetch(request,env({EMAIL_ENABLED:'0'}));
+ assert.equal(response.status,204);
+ assert.equal(await response.text(),'');
+ assert.equal(response.headers.get('access-control-allow-origin'),origin);
+ assert.match(response.headers.get('access-control-allow-methods'),/POST/);
+ assert.match(response.headers.get('access-control-allow-headers'),/content-type/);
+});
