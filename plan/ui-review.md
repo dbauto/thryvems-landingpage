@@ -225,3 +225,12 @@
 - ✅ QMS UI-GUIDELINES §10 light/dark, View As access, process/classification controls, sidebar and app components **not applicable**: the QMS application is not modified. No user-facing redesign or new screenshot required by this PR.
 - ⏳ Full test results must be recorded from the actual PR Check; no claims of Google index success or public ranking are allowed. A GSC property must be verified by the company before Google URL Inspection acceptance.
 - ✅ No backend impact in `plan/backend-impact.md`, and no personal or client sample data exposed.
+
+## 2 Nov 2026 — Phase 3 ISO commercial SEO, PR #23
+
+- ✅ **No redesign** and no new top-level menu: HOME, LEARN, TRAININGS, CONSULTANCY, SOLUTIONS, ABOUT US are unchanged. Existing Thync & Thryve branding, font families, colour palette, cards, responsive CSS, scroll motion, price calculator, cookie notice and fail-closed contact forms are unchanged.
+- ✅ Content-only sections use existing `seo-main`, `section`, `h2` and paragraph components. They improve buyers' scope and fee understanding, not marketing claims or navigation.
+- ✅ No QMS app UI changes: §10 light/dark appearance, View As roles, sidebar and app access checks are **not applicable** to the public marketing HTML. Existing permission/isolation/security controls untouched.
+- ⏳ New browser test captures the four modified pages at **390, 768, 1280, 1920 px** (16 screenshots) and checks the unchanged six-item navigation and zero horizontal scroll. Mark green only after CI; screenshots must be reviewed before merge.
+- ⏳ Source Check (typecheck/build/e2e, metadata and buyer-guide QA) and screenshot artifact result to be recorded from a completed run, not inferred.
+- ✅ `plan/backend-impact.md` documents **No backend impact** and preserves unrelated backend PR synchronization as pending.
