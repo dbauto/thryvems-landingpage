@@ -40,6 +40,17 @@ assert(companyHtml.includes('Enquiry form not yet active') &&
   companyHtml.includes('disabled aria-disabled="true"'), 'Do not claim working lead submission');
 assert(companyHtml.includes('thync-thryve-company.css'), 'Company styles not loaded');
 assert.match(companyCss,/company-catalog-grid/);
+const companyFavicon = readFileSync(resolve(root,'assets/thync-thryve-favicon.png'));
+assert(companyHtml.includes('rel="icon" type="image/png" sizes="64x64" href="./assets/thync-thryve-favicon.png?v=20261101-2"'),
+  'Company page must use the Thync & Thryve emblem favicon');
+assert(!companyHtml.includes('<link rel="icon" href="assets/thryvems-logo.png">'),
+  'Company favicon must not use the ThryveMS product mark');
+assert(html.includes('href="./assets/thryvems-logo.png"'),
+  'Product page favicon must remain ThryveMS');
+assert(companyFavicon.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10])),
+  'Company favicon must be a valid PNG');
+assert(companyFavicon.readUInt32BE(16)===64 && companyFavicon.readUInt32BE(20)===64,
+  'Company favicon must be square and readable at browser-tab sizes');
 assert(companyHtml.includes('class="company-back-to-top"') && companyHtml.includes('aria-label="Back to top"'), 'Company back to top button missing');
 assert(companyHtml.includes('thync-thryve-back-to-top.js'), 'Company back to top JS not loaded');
 assert.match(companyCss,/\.company-back-to-top\.visible/);
@@ -71,7 +82,7 @@ assert.match(html, /class="hero product-hero"/);
 assert(!html.includes('puzzle-piece'), 'Rejected puzzle hero must not appear');
 assert(html.indexOf('id="system"') < html.indexOf('class="problem"'), 'The product scroll story should start immediately after the hero');
 for (const file of ['thryvems-motion.css','thryvems-product-hero.css','thryvems-story-preview.css','thryvems-after-problem-motion.css','thryvems-after-problem-motion.js','thryvems-motion.js','thryvems-pricing.js',
-  'assets/thryvems-logo.svg','assets/thryvems-logo.png','assets/thync-thryve-logo.png','thync-thryve-company.css','thync-thryve-motion.css','thync-thryve-motion.js','thync-thryve-back-to-top.js']) {
+  'assets/thryvems-logo.svg','assets/thryvems-logo.png','assets/thync-thryve-logo.png','assets/thync-thryve-favicon.png','thync-thryve-company.css','thync-thryve-motion.css','thync-thryve-motion.js','thync-thryve-back-to-top.js']) {
   assert(existsSync(join(root,file)), 'Referenced asset missing: '+file);
 }
 const dest=resolve(root,'dist');
