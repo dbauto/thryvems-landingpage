@@ -39,3 +39,6 @@
 - [ ] Latest Pages deployment verified successful and HTTPS works on apex/www
 - [ ] Final enablement PR/CI/screenshots reviewed and owner approves merging
 - [ ] Backend architecture change record and traceability updated/approved (currently Pending)
+
+## Turnstile widget prepared — 1 Nov 2026
+A **Managed** Cloudflare Turnstile widget named *Thync & Thryve public inquiry forms* was created in the connected Thync & Thryve Cloudflare account, restricted to the apex and `www` domains. Its **public** site key is now in `site-inquiry-config.js`. The secret is not in source or chat; retrieve it inside the owning Cloudflare account to configure Formspree directly. **Formspree recipient/secret verification and received email have not been configured or tested.** The form stays `enabled:false`, with no Formspree ID.
