@@ -145,7 +145,17 @@
 - ✅ Existing Thync & Thryve company green/white palette, Montserrat/Inter fonts, menu, service catalog, motion graphics and product pricing layout preserved in source.
 - ✅ Cookie information is an unobtrusive dismissible notice; no optional trackers or advertising scripts introduced.
 - ✅ Both contact forms default disabled and cannot claim success without confirmed JSON acknowledgement from a future server after Turnstile completion. The product page's old fake success is removed.
-- ⏳ Responsive screenshots at 390/768/1280/1920, browser tests, typecheck, build and Check: **pending execution**.
+- ✅ [GitHub Check 41288451487](https://github.com/dbauto/thryvems-landingpage/actions/runs/41288451487) on final UI source commit: JS syntax/typecheck **passed**, static build **passed**, Chromium Playwright **36/36 passed (51.7s)**, including both forms disabled without verified backend, mocked verified/failed Turnstile delivery, cookie banner dismissal/storage, original product/company behaviors, 390/768/1280/1920px no horizontal overflow, reduced-motion and keyboard flows. [Screenshots](https://github.com/dbauto/thryvems-landingpage/actions/runs/41288451487/artifacts/13076301979) captured; visually inspected product contact (label order and readability), company and mobile layouts, banner position and preserved Back to top. No live email delivery was tested.
 - ⏳ Real server-side Turnstile tests, actual email receipt, live domain DNS/SSL and production smoke tests: **not run**; Cloudflare access blocked.
 - ⏳ Cookie/privacy notice must be reviewed before enabling real personal-data intake.
 - ⏳ Backend impact: public-site API/integration requirements pending at https://github.com/dbauto/thryvems-backend/pull/24; QMS client data/authorization/process/classification unchanged. No backend implementation authorized.
+
+### UI-GUIDELINES §10 applicability check (public static site only)
+
+- ✅ No React QMS app source or sidebar/nav/tokens modified; no new top-level company menu items. Reused website colours, fonts, cards and source wording except expressly activated privacy/inquiry labels.
+- ✅ No unwanted horizontal scroll at 390, 768, 1280 and 1920px: Playwright run 41288451487.
+- ✅ Company and product public-site browser regressions, key interactions and reduced-motion checks: run 41288451487 (36/36).
+- ✅ Screenshot inspection from artifact 13076301979: company 390/1280 and ThryveMS product contact with cookie notice. Existing website brand, footer and scroll effects preserved.
+- N/A: QMS React app light/dark modes, View as role-scoping and QMS-specific banned legacy wording checks because the QMS application itself was not changed. Existing public product branding remains ThryveMS.
+- ⏳ Live site, Turnstile server, authenticated Cloudflare Pages/DNS, email inbox receipt, and Philippine DPA/retention signoff remain **Pending**; the new forms deliberately fail closed.
+- ⏳ Frontend `plan/progress.md` is required as last commit after verification.
