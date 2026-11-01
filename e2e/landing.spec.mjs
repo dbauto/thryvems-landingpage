@@ -692,8 +692,8 @@ test('enquiry forms fail closed with no Formspree account or Turnstile configure
  await expect(company.locator('[data-inquiry-submit]')).toBeDisabled();
  await expect(company).toContainText('not send or save enquiries yet');
  await expect(page.locator('.site-cookie-notice')).toBeVisible();
- await expect(page.locator('head script[src*="site-inquiry-config.js"]')).toHaveCount(1);
- await expect(page.locator('head script[src*="site-inquiry.js"]')).toHaveCount(1);
+ await expect(page.locator('script[src*="site-inquiry-config.js"]')).toHaveCount(1);
+ await expect(page.locator('script[src*="site-inquiry.js"]')).toHaveCount(1);
  await page.goto('/thryvems.html');
  const product=page.locator('[data-inquiry-form="thryvems"]');
  await expect(product.locator('[data-inquiry-submit]')).toBeDisabled();
