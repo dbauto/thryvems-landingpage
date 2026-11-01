@@ -148,7 +148,8 @@
   .company-motion-header{margin-bottom:26px}
   .company-motion-chapter{grid-template-columns:34px 1fr}
   .company-motion-chapter h3{font-size:17px}
-  .company-motion-board{border-radius:20px}
+  .company-motion-board{border-radius:20px;aspect-ratio:560/470}
+  .company-motion-board-label{top:4px}
   .company-motion-object{padding:9px 9px 12px;border-radius:14px}
   .company-motion-object-kicker{font-size:8px}
   .company-motion-object svg{width:25px;height:25px}
@@ -179,11 +180,12 @@
   .company-motion-enabled .company-work-steps > div{
     opacity:calc(.53 + var(--scene-reveal,1)*.47);
     transform:translate3d(
-      calc((1 - var(--scene-reveal,1))*var(--start-x,-42px)),
-      calc((1 - var(--scene-reveal,1))*35px),0);
+      calc((1 - var(--scene-reveal,1))*var(--start-x,-6px)),
+      calc((1 - var(--scene-reveal,1))*8px),0)
+      scale(calc(.98 + var(--scene-reveal,1)*.02));
   }
   .company-motion-enabled .company-solution-plans > a:nth-child(even),
-  .company-motion-enabled .company-work-steps > div:nth-child(even){--start-x:42px}
+  .company-motion-enabled .company-work-steps > div:nth-child(even){--start-x:6px}
   .company-motion-enabled .company-solution-plans > a:focus-visible{
     outline:3px solid #5DD6BE;outline-offset:3px;
   }
