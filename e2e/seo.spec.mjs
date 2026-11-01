@@ -16,7 +16,7 @@ for(const slug of slugs){
   await expect(page.locator('meta[name="description"]')).toHaveAttribute('content',/.{75,}/);
   await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(1);
   await expect(page.locator('details')).toHaveCount(6);
-  await expect(page.getByRole('link',{name:'HOME'})).toHaveAttribute('href','/');
+  await expect(page.getByRole('link',{name:'HOME',exact:true})).toHaveAttribute('href','/');
  });
 }
 test('robots.txt, sitemap.xml and main canonical all agree',async({page,request})=>{
