@@ -19,6 +19,15 @@ const heroCss = readFileSync(resolve(root,'thryvems-product-hero.css'),'utf8');
 const postProblemCss = readFileSync(resolve(root,'thryvems-after-problem-motion.css'),'utf8');
 const postProblemJs = readFileSync(resolve(root,'thryvems-after-problem-motion.js'),'utf8');
 const storyCss = readFileSync(resolve(root,'thryvems-story-preview.css'),'utf8');
+const cookieJs = readFileSync(resolve(root,'site-cookie-notice.js'),'utf8');
+const cookieHtml = readFileSync(resolve(root,'cookies.html'),'utf8');
+const cookieCss = readFileSync(resolve(root,'site-interactions.css'),'utf8');
+for (const page of [companyHtml,html]) {
+  assert(page.includes('site-cookie-notice.js') && page.includes('site-interactions.css'), 'Cookie notice must be on both landing pages');
+}
+assert(cookieJs.includes('thync-thryve.cookie-notice.v1'), 'Cookie acknowledgement must persist locally');
+assert(cookieJs.includes('cookies.html') && cookieHtml.includes('We currently do not use optional analytics'), 'Cookie details must be truthful');
+assert(cookieCss.includes('.site-cookie-notice'), 'Cookie notice uses existing company brand styles');
 
 for (const id of ['top','system','modules','pricing','calculator','process','faq','contact']) {
   assert.match(html, new RegExp('id="'+id+'"'), 'Missing required section '+id);
@@ -91,7 +100,7 @@ for (const file of ['thryvems-motion.css','thryvems-product-hero.css','thryvems-
 const dest=resolve(root,'dist');
 rmSync(dest,{recursive:true,force:true});
 mkdirSync(dest,{recursive:true});
-for(const file of ['index.html','thync-thryve-company.css','thync-thryve-motion.css','thync-thryve-motion.js','thync-thryve-back-to-top.js','thryvems.html','thryvems-motion.css','thryvems-product-hero.css','thryvems-story-preview.css','thryvems-after-problem-motion.css','thryvems-motion.js','thryvems-after-problem-motion.js','thryvems-pricing.js']) {
+for(const file of ['cookies.html','site-cookie-notice.js','site-interactions.css','index.html','thync-thryve-company.css','thync-thryve-motion.css','thync-thryve-motion.js','thync-thryve-back-to-top.js','thryvems.html','thryvems-motion.css','thryvems-product-hero.css','thryvems-story-preview.css','thryvems-after-problem-motion.css','thryvems-motion.js','thryvems-after-problem-motion.js','thryvems-pricing.js']) {
   copyFileSync(resolve(root,file), join(dest,file));
 }
 cpSync(resolve(root,'assets'),join(dest,'assets'),{recursive:true});
