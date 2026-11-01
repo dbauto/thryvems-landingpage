@@ -217,3 +217,11 @@
 - ⚠️ Production Chromium at 390, 768, 1280, 1920px for company, product and consultancy: **11/12** PASS and screenshots captured [artifact](https://github.com/dbauto/thryvems-landingpage/actions/runs/41335613398/artifacts/13095003461); production product 390px still has **2px actual sideways scroll** because PR CSS is not deployed. Screenshot capture is recorded; independent manual visual review is not claimed.
 - ✅ QMS app UI-GUIDELINES §10 app-only light/dark, role View As, access, app sidebar, token palette and components **not applicable** (no app UI edits). Static marketing CSS and full existing browser regression tested. No change to server APIs, integrations, forms or security.
 - ⏳ **NOT ACCEPTED:** need owner approval and merge, verify actual deployed CSS, rerun production 12/12, inspect screenshots, repeat successful domain + responsive audits at least 24h apart before Phase 1 sign-off. Google indexing is Phase 2, not tested.
+
+## 2 Nov 2026 — SEO Phase 2 indexing readiness (draft PR #22)
+
+- ✅ **No UI change**: company/product design, six-item nav, existing logo, colours, Montserrat/Inter fonts, page copy, card layout, animations, pricing and disabled form state untouched. No new top-level menu or QMS application component.
+- ✅ GitHub source and browser baseline remain the reference; this PR adds only read-only crawl and Google evidence validation plus CI/runbook files.
+- ✅ QMS UI-GUIDELINES §10 light/dark, View As access, process/classification controls, sidebar and app components **not applicable**: the QMS application is not modified. No user-facing redesign or new screenshot required by this PR.
+- ⏳ Full test results must be recorded from the actual PR Check; no claims of Google index success or public ranking are allowed. A GSC property must be verified by the company before Google URL Inspection acceptance.
+- ✅ No backend impact in `plan/backend-impact.md`, and no personal or client sample data exposed.

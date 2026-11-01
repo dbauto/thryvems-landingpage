@@ -145,3 +145,12 @@
 - QMS and public inquiry APIs/workflows, roles/permissions, tenant/process scope, classification/security, authentication, integrations, backend events and tests: unchanged.
 - Existing public marketing inquiry integration remains disabled. Unrelated backend change-management [PR #26](https://github.com/dbauto/thryvems-backend/pull/26) is **merged**; its pending implementation and production activation are **not changed** by this public SEO audit.
 - No new backend architecture PR is necessary. Public GitHub Pages DNS and HTTPS have passed all 18 automated external checks, without access to or modifications of the Cloudflare zone. Production publication of this CSS fix still requires owner approval.
+
+## 2 Nov 2026 — SEO Phase 2 Google discovery/indexing readiness (proposed PR)
+
+**No backend impact.** This PR adds static source-level discovery checks, deterministic indexing-evidence validation, a publicly safe Google Search Console owner runbook, a metric acceptance table and CI reports. It does **not** activate a Google API integration, collect visitor data, enable tracking cookies, store Google verification TXT tokens, add production endpoints or change live inquiry handling.
+
+- Schemas/relationships/migrations, QMS and marketing APIs, operations, workflow rules and events: **unchanged**.
+- QMS client isolation, roles/permissions, process scope, confidential classifications, security boundaries: **unchanged**.
+- External integrations: **no new integration**; Search Console setup is a documented owner-only step, not an automated connected account or API call.
+- Existing backend CM PR #26 is merged; any unimplemented marketing intake work remains independently **Pending**. No linked backend architecture PR is needed for this read-only SEO QA effort.
