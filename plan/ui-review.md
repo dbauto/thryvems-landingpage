@@ -139,3 +139,13 @@
 - ✅ **No backend impact:** public static presentation only. No database/schema, API, business workflows, security/access/classification, external integrations, events or backend tests. Existing backend architecture synchronization remains Pending.
 - ✅ Main QMS app UI untouched. UI-GUIDELINES §10 checks for client roles/light-dark/View as are not applicable to this static public-site button. Responsive, keyboard and reduced motion checks executed.
 - ⏳ PR not merged, live Pages not changed. Owner approval required.
+
+## 1 Nov 2026 — cookie notice and inquiry readiness (PR pending)
+
+- ✅ Existing Thync & Thryve company green/white palette, Montserrat/Inter fonts, menu, service catalog, motion graphics and product pricing layout preserved in source.
+- ✅ Cookie information is an unobtrusive dismissible notice; no optional trackers or advertising scripts introduced.
+- ✅ Both contact forms default disabled and cannot claim success without confirmed JSON acknowledgement from a future server after Turnstile completion. The product page's old fake success is removed.
+- ⏳ Responsive screenshots at 390/768/1280/1920, browser tests, typecheck, build and Check: **pending execution**.
+- ⏳ Real server-side Turnstile tests, actual email receipt, live domain DNS/SSL and production smoke tests: **not run**; Cloudflare access blocked.
+- ⏳ Cookie/privacy notice must be reviewed before enabling real personal-data intake.
+- ⏳ Backend impact: public-site API/integration requirements pending at https://github.com/dbauto/thryvems-backend/pull/24; QMS client data/authorization/process/classification unchanged. No backend implementation authorized.
