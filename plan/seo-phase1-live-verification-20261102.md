@@ -4,7 +4,7 @@
 
 Confirm that the existing public **Thync & Thryve** GitHub Pages website is accessible, secure, crawlable and consistent with the SEO files merged in PR #20. **Do not change its design, app, pricing, inquiry protections, DNS, email settings or production deployment without separate approval.**
 
-**Status: PENDING — NOT ACCEPTED.** GitHub build and browser tests passing does not establish live-domain availability or Google indexing.
+**Status: PENDING — NOT ACCEPTED.** The 18 automated DNS/HTTPS/crawlability checks pass in public CI. The separate live mobile audit found one narrow-screen defect, and the 24-hour repeat check is still pending. Green source CI does not establish Google indexing.
 
 ## Baseline evidence recorded on 2 Nov 2026
 
@@ -43,7 +43,7 @@ Run `npm run audit:live` in a networked runtime (Node 22). It writes `phase1-liv
 | --- | --- | --- |
 | Codebase build / SEO page presence | PASS (source only) | Main Check 41331487971 and PR #20 |
 | A1–A8 live production | **PASS — 18/18** | GitHub Actions public-runner Check 41333953855, audit 01:57 PHT 2 Nov 2026 |
-| A9 live mobile | **PENDING** | New production Chromium 390/768/1280/1920 screenshots are being tested; do not claim pass before CI |
+| A9 live mobile | **FAIL on current production (11/12)** | [Live browser Check 41334662058](https://github.com/dbauto/thryvems-landingpage/actions/runs/41334662058): company 4/4, consultancy 4/4, software 3/4; 390px software document scroll width 392px vs viewport 390px. The initial consultancy result was a premature style-load measurement; it PASSED after waiting for CSS/fonts. Scoped fix is proposed in this **unmerged PR**, not deployed. |
 | A10 24-hour repeat | **PENDING** | No two successful live probes |
 | DNS account access | **UNAVAILABLE (no change needed based on current audit)** | Both connected Cloudflare accounts returned no zones; public DNS nevertheless passed all targets |
 | Production deployment and GitHub Pages custom domain | **LIVE HTTP/TLS verified; settings review pending** | Public response checks passed; private Pages configuration could not be inspected |
@@ -54,7 +54,7 @@ Run `npm run audit:live` in a networked runtime (Node 22). It writes `phase1-liv
 1. Public DNS/HTTPS now passes: **no DNS remediation is indicated by this audit**. If future changes are necessary, first determine which Cloudflare account manages the zone and get approval; do not transfer zones, change nameservers or touch mail settings.
 2. Read current apex/www DNS records and GitHub → Settings → Pages (custom domain, HTTPS and publishing source), then reconcile with the [owner DNS runbook](github-pages-domain.md). **Preserve all existing MX, SPF, DKIM, DMARC, Workspace, verification and subdomain records.** Any DNS edit requires explicit owner approval based on current records.
 3. Keep `npm run audit:live` as a regression check, document any future actual failures and repair only their demonstrated root causes. PR #20 already contains the 11 static pages; do not rewrite them to compensate for DNS.
-4. Capture actual public browser screenshots for 390, 768, 1280 and 1920 px including company, product and one SEO detail page using `npm run audit:live-mobile`; check nav and horizontal overflow.
+4. Actual public mobile screens are now captured in [GitHub Check 41334662058 artifact](https://github.com/dbauto/thryvems-landingpage/actions/runs/41334662058/artifacts/13094468011): 11/12 passed after waiting for CSS/fonts; 390px product page overflowed by 2px. The PR includes a narrowly scoped `html { overflow-x: clip; }` containment rule for the existing intentionally animated product marquee and an e2e regression assertion. **Do not count this as fixed on production before approved merge/deploy and fresh live test.**
 5. Repeat live audit at least 24 hours after first clean run. Log two artifact links, timestamp, commit SHA and a screenshot sheet. Mark Phase 1 **PASSED** only when all A1–A10 succeed. Never interpret a green CI run with a non-blocking probe as Phase 1 success.
 
 ## Backend impact
