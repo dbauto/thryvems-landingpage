@@ -7,6 +7,7 @@
 <meta name="description" content="Thync & Thryve provides ISO training and consultancy across quality, environment, safety, technology, food safety, governance and specialist sectors, with ThryveMS as its digital QMS solution.">
 <link rel="icon" type="image/png" sizes="64x64" href="./assets/thync-thryve-favicon.png?v=20261101-2">
 <link rel="stylesheet" href="./thync-thryve-company.css?v=20261101-1">
+<link rel="stylesheet" href="./site-interactions.css?v=20261101-1">
 <link rel="stylesheet" href="./thync-thryve-motion.css?v=20261101-1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
@@ -391,12 +392,14 @@ a{color:#0A4639}a:hover{color:#0B7D6B}
 <h2 style="margin: 0; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 48px; line-height: 1.08; letter-spacing: -0.02em; color: #FFFFFF">Where do you want to start?</h2>
 <p style="margin: 20px 0 0; font-size: 18px; line-height: 1.6; color: #F0FBF8; max-width: 440px">Start with the ISO topic or challenge you want to discuss. Our training and consultancy scopes depend on your organization, and ThryveMS walkthroughs cover the current product preview.</p>
 </div>
-<form class="company-contact-preview" onsubmit="return false" style="flex: 1 1 460px; min-width: 0; background: #FFFFFF; border-radius: 24px; padding: 32px; display: flex; flex-direction: column; gap: 16px">
-<label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600">Your name<input type="text" style="font: inherit; font-size: 16px; padding: 14px; border: 1px solid #B9D3CB; border-radius: 12px"></label>
-<label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600">Work email<input type="email" style="font: inherit; font-size: 16px; padding: 14px; border: 1px solid #B9D3CB; border-radius: 12px"></label>
-<label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600">I'm interested in<select style="font: inherit; font-size: 16px; padding: 14px; border: 1px solid #B9D3CB; border-radius: 12px; background: #FFFFFF"><option>Learning resources</option><option>Trainings</option><option>Consultancy</option><option>ThryveMS</option><option>Not sure yet</option></select></label>
-<button type="button" disabled aria-disabled="true" style="font: inherit; font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; background: #0A4639; color: #FFFFFF; border: 0; padding: 17px 28px; border-radius: 999px; cursor: pointer">Enquiry form not yet active</button>
-<p class="company-preview-note" role="status">This form is a website preview. It does not send or save enquiries. A booking or contact service must be connected before accepting requests.</p>
+<form class="company-contact-preview site-inquiry-form" data-inquiry-form="company" style="flex: 1 1 460px; min-width: 0; background: #FFFFFF; border-radius: 24px; padding: 32px; display: flex; flex-direction: column; gap: 16px">
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600">Your name<input type="text" name="name" autocomplete="name" maxlength="120" required style="font: inherit; font-size: 16px; padding: 14px; border: 1px solid #B9D3CB; border-radius: 12px"></label>
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600">Work email<input type="email" name="email" autocomplete="email" maxlength="254" required style="font: inherit; font-size: 16px; padding: 14px; border: 1px solid #B9D3CB; border-radius: 12px"></label>
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600">I'm interested in<select name="interest" style="font: inherit; font-size: 16px; padding: 14px; border: 1px solid #B9D3CB; border-radius: 12px; background: #FFFFFF"><option>Learning resources</option><option>Trainings</option><option>Consultancy</option><option>ThryveMS</option><option>Not sure yet</option></select></label>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600">Your message (optional)<textarea name="message" maxlength="3000" rows="3" style="font:inherit;font-size:16px;padding:14px;border:1px solid #B9D3CB;border-radius:12px;resize:vertical"></textarea></label>
+<div class="site-human-check" data-human-check aria-label="Human verification"></div>
+<button type="submit" data-inquiry-submit disabled aria-disabled="true" style="font: inherit; font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; background: #0A4639; color: #FFFFFF; border: 0; padding: 17px 28px; border-radius: 999px; cursor: pointer">Enquiry form not yet active</button>
+<p class="company-preview-note site-inquiry-status" role="status" aria-live="polite" data-inquiry-status>This form does not send or save enquiries yet. Secure email delivery and human verification must be configured first.</p><p class="site-data-note">Before sending, read our <a href="./cookies.html">cookie and verification notice</a>. We only use enquiry details to respond once the service is activated.</p>
 </form>
 </div>
 </section>
@@ -411,7 +414,7 @@ a{color:#0A4639}a:hover{color:#0B7D6B}
 <div style="display: flex; flex-wrap: wrap; gap: 56px; font-size: 14px">
 <div style="display: flex; flex-direction: column; gap: 10px"><span style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.12em; color: #5DD6BE">SERVICES</span><a href="#iso-guide" style="color: #C6E3DB; text-decoration: none">Learn</a><a href="#programs" style="color: #C6E3DB; text-decoration: none">Trainings</a><a href="#consultancy-areas" style="color: #C6E3DB; text-decoration: none">Consultancy</a></div>
 <div style="display: flex; flex-direction: column; gap: 10px"><span style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.12em; color: #5DD6BE">SOLUTIONS</span><a href="thryvems.html" style="color: #C6E3DB; text-decoration: none">ThryveMS</a><a href="thryvems.html" style="color: #C6E3DB; text-decoration: none">Pricing</a></div>
-<div style="display: flex; flex-direction: column; gap: 10px"><span style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.12em; color: #5DD6BE">COMPANY</span><a href="#about" style="color: #C6E3DB; text-decoration: none">About us</a><a href="#contact" style="color: #C6E3DB; text-decoration: none">Contact</a></div>
+<div style="display: flex; flex-direction: column; gap: 10px"><span style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.12em; color: #5DD6BE">COMPANY</span><a href="#about" style="color: #C6E3DB; text-decoration: none">About us</a><a href="#contact" style="color: #C6E3DB; text-decoration: none">Contact</a><a href="cookies.html" style="color: #C6E3DB; text-decoration: none">Cookies</a></div>
 </div>
 </div>
 <div style="max-width: 1240px; margin: 0 auto; padding: 20px 24px 32px; border-top: 1px solid #1F6B5B; font-size: 12px; color: #9CC4B9">© 2026 Thync &amp; Thryve</div>
@@ -419,6 +422,8 @@ a{color:#0A4639}a:hover{color:#0B7D6B}
 
 </div>
 
+<script src="./site-cookie-notice.js?v=20261101-1" defer></script>
+<script src="./site-inquiry.js?v=20261101-1" defer></script>
 <script src="./thync-thryve-motion.js?v=20261101-1" defer></script>
 <script src="./thync-thryve-back-to-top.js?v=20261101-1" defer></script>
 </body>

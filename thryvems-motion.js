@@ -226,12 +226,6 @@
     });
   });
 
-  document.querySelector('.contact-form')?.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const success = document.querySelector('.form-success');
-    if (success) success.classList.add('show');
-  });
-
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', event => {
       const id = link.getAttribute('href');

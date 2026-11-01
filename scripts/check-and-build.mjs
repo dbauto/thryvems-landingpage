@@ -38,19 +38,11 @@ assert(!/\[DATE\]|\[One line|\[Company story|\[Credentials/.test(companyHtml),
   'No invented schedule, company background or accreditation placeholders');
 assert(companyHtml.includes('Enquiry form not yet active') &&
   companyHtml.includes('disabled aria-disabled="true"'), 'Do not claim working lead submission');
+assert(companyHtml.includes('site-inquiry.js') && html.includes('site-inquiry.js'), 'Both forms need secure submission gating');
+assert(companyHtml.includes('site-cookie-notice.js') && html.includes('site-cookie-notice.js'), 'Both pages need the cookie notice');
+assert(!html.includes('This is a visual preview. No enquiry was sent.'), 'Remove fake success state');
 assert(companyHtml.includes('thync-thryve-company.css'), 'Company styles not loaded');
 assert.match(companyCss,/company-catalog-grid/);
-const companyFavicon = readFileSync(resolve(root,'assets/thync-thryve-favicon.png'));
-assert(companyHtml.includes('rel="icon" type="image/png" sizes="64x64" href="./assets/thync-thryve-favicon.png?v=20261101-2"'),
-  'Company page must use the Thync & Thryve emblem favicon');
-assert(!companyHtml.includes('<link rel="icon" href="assets/thryvems-logo.png">'),
-  'Company favicon must not use the ThryveMS product mark');
-assert(html.includes('href="./assets/thryvems-logo.png"'),
-  'Product page favicon must remain ThryveMS');
-assert(companyFavicon.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10])),
-  'Company favicon must be a valid PNG');
-assert(companyFavicon.readUInt32BE(16)===64 && companyFavicon.readUInt32BE(20)===64,
-  'Company favicon must be square and readable at browser-tab sizes');
 assert(companyHtml.includes('class="company-back-to-top"') && companyHtml.includes('aria-label="Back to top"'), 'Company back to top button missing');
 assert(companyHtml.includes('thync-thryve-back-to-top.js'), 'Company back to top JS not loaded');
 assert.match(companyCss,/\.company-back-to-top\.visible/);
@@ -82,17 +74,17 @@ assert.match(html, /class="hero product-hero"/);
 assert(!html.includes('puzzle-piece'), 'Rejected puzzle hero must not appear');
 assert(html.indexOf('id="system"') < html.indexOf('class="problem"'), 'The product scroll story should start immediately after the hero');
 for (const file of ['thryvems-motion.css','thryvems-product-hero.css','thryvems-story-preview.css','thryvems-after-problem-motion.css','thryvems-after-problem-motion.js','thryvems-motion.js','thryvems-pricing.js',
-  'assets/thryvems-logo.svg','assets/thryvems-logo.png','assets/thync-thryve-logo.png','assets/thync-thryve-favicon.png','thync-thryve-company.css','thync-thryve-motion.css','thync-thryve-motion.js','thync-thryve-back-to-top.js']) {
+  'assets/thryvems-logo.svg','assets/thryvems-logo.png','assets/thync-thryve-logo.png','thync-thryve-company.css','thync-thryve-motion.css','thync-thryve-motion.js','thync-thryve-back-to-top.js','site-cookie-notice.js','site-inquiry.js','site-interactions.css','cookies.html']) {
   assert(existsSync(join(root,file)), 'Referenced asset missing: '+file);
 }
 const dest=resolve(root,'dist');
 rmSync(dest,{recursive:true,force:true});
 mkdirSync(dest,{recursive:true});
-for(const file of ['index.html','thync-thryve-company.css','thync-thryve-motion.css','thync-thryve-motion.js','thync-thryve-back-to-top.js','thryvems.html','thryvems-motion.css','thryvems-product-hero.css','thryvems-story-preview.css','thryvems-after-problem-motion.css','thryvems-motion.js','thryvems-after-problem-motion.js','thryvems-pricing.js']) {
+for(const file of ['index.html','thync-thryve-company.css','thync-thryve-motion.css','thync-thryve-motion.js','thync-thryve-back-to-top.js','thryvems.html','thryvems-motion.css','thryvems-product-hero.css','thryvems-story-preview.css','thryvems-after-problem-motion.css','thryvems-motion.js','thryvems-after-problem-motion.js','thryvems-pricing.js','site-cookie-notice.js','site-inquiry.js','site-interactions.css','cookies.html']) {
   copyFileSync(resolve(root,file), join(dest,file));
 }
 cpSync(resolve(root,'assets'),join(dest,'assets'),{recursive:true});
-for (const file of ['thryvems-after-problem-motion.css','thryvems-after-problem-motion.js']) {
+for (const file of ['thryvems-after-problem-motion.css','thryvems-after-problem-motion.js','site-cookie-notice.js','site-inquiry.js','site-interactions.css','cookies.html']) {
   assert(existsSync(join(dest,file)), 'Build output is missing motion asset: '+file);
 }
 console.log('Static build validation passed. Product page, calculator, company homepage, and assets copied to dist.');

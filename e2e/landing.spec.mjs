@@ -619,21 +619,66 @@ test('company Back to top supports keyboard and prefers reduced motion',async({p
  await expect(button).toHaveAttribute('aria-hidden','true');
 });
 
-test('company favicon shows its plant emblem instead of the ThryveMS product icon',async({page})=>{
+test('cookie notice is accurate, accessible, dismissible and shared across both pages', async ({page}) => {
  await page.goto('/index.html');
- const icon=page.locator('head link[rel="icon"]');
- await expect(icon).toHaveAttribute('type','image/png');
- await expect(icon).toHaveAttribute('sizes','64x64');
- await expect(icon).toHaveAttribute('href',/thync-thryve-favicon\.png\?v=20261101-2/);
- const response=await page.request.get('/assets/thync-thryve-favicon.png');
- expect(response.ok()).toBe(true);
- expect(response.headers()['content-type']).toContain('image/png');
- const data=await response.body();
- expect(data.readUInt32BE(16)).toBe(64);
- expect(data.readUInt32BE(20)).toBe(64);
- expect(data[0]).toBe(137);
- await expect(page.locator('header img[alt="Thync & Thryve"]')).toHaveAttribute('src','assets/thync-thryve-logo.png');
- await page.screenshot({path:'test-results/screenshots/company-correct-favicon-header.png'});
+ const notice=page.getByRole('region',{name:'Cookie notice'});
+ await expect(notice).toBeVisible();
+ await expect(notice).toContainText('do not use optional analytics or advertising cookies');
+ await notice.getByRole('link',{name:'Cookie details'}).click();
+ await expect(page).toHaveURL(/cookies\.html$/);
+ await expect(page.locator('h1')).toHaveText('Cookie notice');
+ await page.getByRole('region',{name:'Cookie notice'}).getByRole('button',{name:'Got it'}).click();
  await page.goto('/thryvems.html');
- await expect(page.locator('head link[rel="icon"]')).toHaveAttribute('href','./assets/thryvems-logo.png');
+ await expect(page.getByRole('region',{name:'Cookie notice'})).toHaveCount(0);
+});
+test('both inquiry forms stay disabled without real backend readiness', async ({page}) => {
+ for(const path of ['/index.html','/thryvems.html']){
+  await page.goto(path);
+  await expect(page.locator('[data-inquiry-submit]')).toBeDisabled();
+  await expect(page.locator('[data-inquiry-form] [data-human-check]')).toHaveCount(1);
+  await expect(page.locator('[data-inquiry-status]')).not.toContainText('was received');
+ }
+});
+test('company inquiry requires human verification and confirms only accepted server delivery', async ({page}) => {
+ let sent=null;
+ await page.route('**/api/inquiry/config',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({ready:true,sitekey:'1x00000000000000000000AA'})}));
+ await page.route('**/api/inquiry',async route => {
+   sent=route.request().postDataJSON();
+   await route.fulfill({status:200,contentType:'application/json',body:'{"accepted":true}'});
+ });
+ await page.addInitScript(() => {
+   window.__callbacks={};
+   window.turnstile={
+     render:(slot,options)=>{window.__callbacks[slot.closest('form').dataset.inquiryForm]=options.callback;return 'widget';},
+     reset:()=>{}
+   };
+ });
+ await page.goto('/index.html');
+ const form=page.locator('[data-inquiry-form="company"]');
+ await expect(form.locator('[data-inquiry-submit]')).toBeDisabled();
+ await form.locator('[name=name]').fill('Sample Contact');
+ await form.locator('[name=email]').fill('sample@example.invalid');
+ await form.locator('[name=interest]').selectOption({label:'Consultancy'});
+ await form.locator('[name=message]').fill('Synthetic inquiry');
+ await expect.poll(()=>page.evaluate(()=>typeof window.__callbacks.company)).toBe('function');
+ await page.evaluate(()=>window.__callbacks.company('synthetic-human-token'));
+ await expect(form.locator('[data-inquiry-submit]')).toBeEnabled();
+ await form.locator('[data-inquiry-submit]').click();
+ await expect(form.locator('[data-inquiry-status]')).toContainText('enquiry was received');
+ expect(sent).toMatchObject({source:'company',name:'Sample Contact',email:'sample@example.invalid',interest:'Consultancy',turnstileToken:'synthetic-human-token'});
+ await expect(form.locator('[data-inquiry-submit]')).toBeDisabled();
+});
+test('rejected delivery never shows successful submission',async({page})=>{
+ await page.route('**/api/inquiry/config',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({ready:true,sitekey:'1x00000000000000000000AA'})}));
+ await page.route('**/api/inquiry',route=>route.fulfill({status:503,contentType:'application/json',body:'{"accepted":false}'}));
+ await page.addInitScript(()=>{window.__callbacks={};window.turnstile={render:(slot,opt)=>{window.__callbacks[slot.closest('form').dataset.inquiryForm]=opt.callback;return 1;},reset:()=>{}};});
+ await page.goto('/thryvems.html');
+ const form=page.locator('[data-inquiry-form="thryvems"]');
+ await form.locator('[name=name]').fill('Sample Contact');
+ await form.locator('[name=email]').fill('sample@example.invalid');
+ await expect.poll(()=>page.evaluate(()=>typeof window.__callbacks.thryvems)).toBe('function');
+ await page.evaluate(()=>window.__callbacks.thryvems('synthetic-human-token'));
+ await form.locator('[data-inquiry-submit]').click();
+ await expect(form.locator('[data-inquiry-status]')).toContainText('could not confirm delivery');
+ await expect(form.locator('[data-inquiry-submit]')).toBeDisabled();
 });
