@@ -1,16 +1,17 @@
 /* Cookie notice and secure enquiry states: existing green/white Thync & Thryve visual language. */
-.site-cookie-notice{position:fixed;z-index:140;bottom:18px;left:18px;right:18px;max-width:680px;display:flex;align-items:center;gap:24px;border:1px solid #B9D3CB;border-radius:20px;padding:20px 22px;background:#FFFFFF;color:#0A4639;box-shadow:0 18px 50px rgba(10,42,34,.18);font:400 14px/1.55 Inter,system-ui,sans-serif}
+.site-cookie-notice{position:fixed;z-index:140;bottom:18px;left:18px;right:18px;max-width:420px;display:flex;align-items:center;gap:24px;border:1px solid #B9D3CB;border-radius:20px;padding:20px 22px;background:#FFFFFF;color:#0A4639;box-shadow:0 18px 50px rgba(10,42,34,.18);font:400 14px/1.55 Inter,system-ui,sans-serif}
 .site-cookie-notice strong{font:700 16px Montserrat,system-ui,sans-serif}
 .site-cookie-notice p{margin:6px 0 0}
 .site-cookie-notice a{color:#0B7D6B;text-decoration:underline;text-underline-offset:2px}
 .site-cookie-dismiss{font:700 14px Montserrat,system-ui,sans-serif;border:0;background:#0A4639;color:#FFFFFF;border-radius:999px;padding:12px 19px;white-space:nowrap;cursor:pointer}
 .site-cookie-dismiss:focus-visible,.site-inquiry-form button:focus-visible{outline:3px solid #0B7D6B;outline-offset:3px}
 .site-inquiry-status{font:400 13px/1.55 Inter,system-ui,sans-serif;margin:0;color:#35594F}
-.site-inquiry-status[data-state="error"]{color:#A13D34}
+.site-inquiry-status[data-state="error"]{color:#0A4639;font-weight:600}
 .site-inquiry-status[data-state="success"]{color:#0A4639;font-weight:600}
 .site-inquiry-form button:disabled{opacity:.65;cursor:not-allowed}
 .site-human-check{min-height:0}
 .site-data-note{font:400 13px/1.5 Inter,system-ui,sans-serif;margin:0}
 .site-data-note a{color:inherit;text-decoration:underline;text-underline-offset:2px}
-@media(max-width:600px){.site-cookie-notice{bottom:12px;left:12px;right:12px;flex-direction:column;align-items:stretch;gap:14px;padding:18px}.site-cookie-dismiss{align-self:flex-start}}
+@media(max-width:860px){.site-cookie-notice{top:86px;bottom:auto;max-width:420px}}
+@media(max-width:600px){.site-cookie-notice{top:76px;bottom:auto;left:12px;right:12px;flex-direction:column;align-items:stretch;gap:14px;padding:18px}.site-cookie-dismiss{align-self:flex-start}}
 @media(prefers-reduced-motion:reduce){.site-cookie-notice{transition:none}}
