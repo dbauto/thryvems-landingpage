@@ -16,7 +16,8 @@
   --radius:28px;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+/* Keep the intentionally animated marquee from expanding the root horizontal scroll range. */
+html{scroll-behavior:smooth;overflow-x:clip}
 body{
   margin:0;
   background:var(--paper);
