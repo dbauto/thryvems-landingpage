@@ -1,6 +1,6 @@
 // Public inquiry endpoint for Cloudflare Workers. Not deployed until DNS, email and live tests are approved.
 const ALLOWED_ORIGINS=new Set(['https://thyncandthryve.com','https://www.thyncandthryve.com']);
-const reply=(code,body,origin)=>new Response(JSON.stringify(body),{status:code,headers:{'content-type':'application/json; charset=utf-8','cache-control':'no-store','access-control-allow-origin':ALLOWED_ORIGINS.has(origin)?origin:'https://thyncandthryve.com','vary':'Origin','access-control-allow-methods':'POST, OPTIONS','access-control-allow-headers':'content-type'}});
+const reply=(code,body,origin)=>new Response(code===204?null:JSON.stringify(body),{status:code,headers:{'content-type':'application/json; charset=utf-8','cache-control':'no-store','access-control-allow-origin':ALLOWED_ORIGINS.has(origin)?origin:'https://thyncandthryve.com','vary':'Origin','access-control-allow-methods':'POST, OPTIONS','access-control-allow-headers':'content-type'}});
 const clean=(data,key,max)=>{const value=data[key];return typeof value==='string'&&value.length<=max?value.trim():null;};
 export default {
  async fetch(request,env){
