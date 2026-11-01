@@ -60,3 +60,15 @@
 - Integrations, events, backend tests, and identity/auth: unchanged.
 - No real user data; all examples remain synthetic.
 - No backend PR required. Existing backend architecture synchronization remains **Pending**.
+
+
+## 1 Nov 2026 — parent company landing ISO catalog (PR #7)
+
+**No backend impact.** The Thync & Thryve *public static homepage* now describes ISO guidance, seven training/consultancy subject categories, delivery options, company identity and the separate ThryveMS product. The enquiry button is explicitly disabled pending a separately approved and privacy-reviewed lead/booking integration.
+
+- Database schemas, records, relationships and migrations: unchanged.
+- APIs, sign-in, organization and process scope, data classifications, authorization and client isolation: unchanged.
+- Backend workflows, audit events, notifications, security and integrations: unchanged; **no form submission or calendar integration added**.
+- QMS product page, subscription calculator and React app: unchanged.
+- Tests added only for static HTML, navigation, responsive presentation and truthful form disclosure. No backend tests or server behavior altered.
+- Existing frontend/backend architecture synchronization remains **Pending**. A backend documentation PR is not needed for this static content update. Any future real booking/intake integration requires its own backend impact/privacy assessment before implementation.
