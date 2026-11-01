@@ -72,3 +72,14 @@
 - QMS product page, subscription calculator and React app: unchanged.
 - Tests added only for static HTML, navigation, responsive presentation and truthful form disclosure. No backend tests or server behavior altered.
 - Existing frontend/backend architecture synchronization remains **Pending**. A backend documentation PR is not needed for this static content update. Any future real booking/intake integration requires its own backend impact/privacy assessment before implementation.
+
+
+## 1 Nov 2026 — company Back to top button (PR #8)
+
+**No backend impact.** This change adds a bottom-centered Back to top button to the public, static Thync & Thryve company homepage, matching the product landing's appearance and scroll behavior. It uses a fixed-position styled button and browser scroll handling only, with no data submission or server calls.
+
+- Database schemas, relationships, data storage, migrations: unchanged.
+- APIs, workflows, user roles and permissions, organization/client and process access, information classification, authentication/security: unchanged.
+- Integrations, backend events, server-side tests and QMS application: unchanged.
+- No personal information captured. Company enquiry form remains inactive, and the ThryveMS product page and pricing are unchanged.
+- Existing backend architecture synchronization remains **Pending**. No backend PR is needed for this static-only enhancement.
