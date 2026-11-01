@@ -643,3 +643,42 @@ test('GitHub Pages custom apex domain configuration is included in publication a
  expect(result.status()).toBe(200);
  expect((await result.text()).trim()).toBe('thyncandthryve.com');
 });
+
+test('company and product cookie notice appears without optional tracking', async ({page})=>{
+ await page.goto('/index.html');
+ const banner=page.locator('.site-cookie-notice');
+ await expect(banner).toBeVisible();
+ await expect(banner).toContainText('We do not use optional analytics or advertising cookies.');
+ await expect(banner.getByRole('link',{name:'Cookie details'})).toHaveAttribute('href','./cookies.html');
+ await page.goto('/thryvems.html');
+ await expect(page.locator('.site-cookie-notice')).toBeVisible();
+ await expect(page.locator('.contact-form')).toContainText('Preview only');
+ await page.goto('/cookies.html');
+ await expect(page.getByRole('heading',{name:'Cookie notice'})).toBeVisible();
+ await expect(page.getByText('We currently do not use optional analytics, advertising, or marketing cookies')).toBeVisible();
+});
+
+test('cookie acknowledgement persists between pages without requiring consent',async({page})=>{
+ await page.goto('/index.html');
+ await page.locator('.site-cookie-dismiss').click();
+ await expect(page.locator('.site-cookie-notice')).toHaveCount(0);
+ expect(await page.evaluate(()=>localStorage.getItem('thync-thryve.cookie-notice.v1'))).toBe('acknowledged');
+ await page.goto('/thryvems.html');
+ await expect(page.locator('.site-cookie-notice')).toHaveCount(0);
+});
+
+test('cookie notice remains within mobile viewport and can be dismissed',async({page})=>{
+ await page.setViewportSize({width:390,height:844});
+ await page.goto('/index.html');
+ const banner=page.locator('.site-cookie-notice');
+ await expect(banner).toBeVisible();
+ const bounds=await banner.boundingBox();
+ expect(bounds).not.toBeNull();
+ expect(bounds.x).toBeGreaterThanOrEqual(0);
+ expect(bounds.x+bounds.width).toBeLessThanOrEqual(391);
+ await page.screenshot({path:'test-results/screenshots/company-cookie-390.png'});
+ await banner.getByRole('button',{name:'Got it'}).click();
+ await expect(banner).toHaveCount(0);
+ await page.goto('/thryvems.html');
+ await expect(page.locator('.site-cookie-notice')).toHaveCount(0);
+});
