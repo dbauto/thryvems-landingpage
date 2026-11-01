@@ -31,7 +31,7 @@ test('robots.txt, sitemap.xml and main canonical all agree',async({page,request}
  await page.goto('/');
  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href','https://thyncandthryve.com/');
  await expect(page.locator('h1')).toContainText('ISO consultancy in the Philippines');
- const sections=page.locator('#iso-service-guides');
+ const sections=page.locator('section[aria-labelledby="iso-service-guides"]');
  await expect(sections.getByRole('link',{name:'ISO 9001 certification'})).toHaveAttribute('href','/iso-9001-certification-philippines/');
  await page.goto('/thryvems.html');
  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href','https://thyncandthryve.com/thryvems.html');
