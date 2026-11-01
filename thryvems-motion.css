@@ -24,6 +24,8 @@ body{
   font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   overflow-x:hidden;
 }
+/* The product story contains moving artwork; contain its narrow mobile overshoot inside the main element without changing the document scroll container. */
+main#top{overflow-x:clip}
 body.menu-open{overflow:hidden}
 a{color:inherit;text-decoration:none}
 button,input,textarea{font:inherit}
