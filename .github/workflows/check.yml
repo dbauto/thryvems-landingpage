@@ -29,6 +29,8 @@ jobs:
       - name: Audit live responsive pages and capture screenshots (evidence only)
         run: npm run audit:live-mobile
         continue-on-error: true
+      - name: Verify Google indexing technical readiness
+        run: npm run audit:indexing-readiness
       - name: Upload screenshots and test report
         if: always()
         uses: actions/upload-artifact@v4
@@ -38,4 +40,5 @@ jobs:
             test-results/
             playwright-report/
             phase1-live-audit.json
+            phase2-indexing-readiness.json
           if-no-files-found: ignore
