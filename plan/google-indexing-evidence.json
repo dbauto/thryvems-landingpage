@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "property": "sc-domain:thyncandthryve.com",
+  "ownerVerified": false,
+  "sitemapSubmitted": false,
+  "sitemapGoogleStatus": "NOT_VERIFIED",
+  "lastReviewedAt": null,
+  "note": "All rows begin NOT_VERIFIED. Do not change status without dated Google Search Console evidence; do not paste verification tokens or user emails.",
+  "pages": [
+    {
+      "path": "/",
+      "status": "NOT_VERIFIED",
+      "checkedAt": null,
+      "googleReport": null,
+      "evidenceUrl": null
+    },
+    {
+      "path": "/thryvems.html",
+      "status": "NOT_VERIFIED",
+      "checkedAt": null,
+      "googleReport": null,
+      "evidenceUrl": null
+    },
+    {
+      "path": "/iso-consultancy-philippines/",
+      "status": "NOT_VERIFIED",
+      "checkedAt": null,
+      "googleReport": null,
+      "evidenceUrl": null
+    },
+    {
+      "path": "/iso-9001-certification-philippines/",
+      "status": "NOT_VERIFIED",
+      "checkedAt": null,
+      "googleReport": null,
+      "evidenceUrl": null
+    },
+    {
+      "path": "/iso-14001-certification-philippines/",
+      "status": "NOT_VERIFIED",
+      "checkedAt": null,
+      "googleReport": null,
+      "evidenceUrl": null
+    },
+    {
+      "path": "/iso-45001-consultant-philippines/",
+      "status": "NOT_VERIFIED",
+      "checkedAt": null,
+      "googleReport": null,
+      "evidenceUrl": null
+    },
+    {
+      "path": "/iso-27001-consultant-philippines/",
+      "status": "NOT_VERIFIED",
+      "checkedAt": null,
+      "googleReport": null,
+      "evidenceUrl": null
+    },
+    {
+      "path": "/iso-22000-consultant-philippines/",
+      "status": "NOT_VERIFIED",
+      "checkedAt": null,
+      "googleReport": null,
+      "evidenceUrl": null
+    },
+    {
+      "path": "/trainings/iso-internal-auditor-training-philippines/",
+      "status": "NOT_VERIFIED",
+      "checkedAt": null,
+      "googleReport": null,
+      "evidenceUrl": null
+    },
+    {
+      "path": "/learn/how-to-get-iso-certified-philippines/",
+      "status": "NOT_VERIFIED",
+      "checkedAt": null,
+      "googleReport": null,
+      "evidenceUrl": null
+    },
+    {
+      "path": "/learn/iso-certification-cost-philippines/",
+      "status": "NOT_VERIFIED",
+      "checkedAt": null,
+      "googleReport": null,
+      "evidenceUrl": null
+    }
+  ]
+}
