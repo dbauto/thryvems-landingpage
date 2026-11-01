@@ -139,7 +139,7 @@
 
 ## 2 Nov 2026 — Phase 1 live SEO verification (PR pending)
 
-**No QMS backend impact.** This change adds a read-only production-site verification scripts, their tests, CI evidence and runbook, plus one limited product-landing CSS overflow containment rule. No marketing content, navigation, pricing, DNS, certificate configuration, deployment configuration, app APIs or production data are changed. It sends only unauthenticated GET requests to the public company domain.
+**No QMS backend impact.** This change adds a read-only production-site verification scripts, their tests, CI evidence and runbook. No marketing content, CSS, navigation, pricing, DNS, certificate configuration, deployment configuration, app APIs or production data are changed. It sends only unauthenticated GET requests to the public company domain.
 
 - Database schemas/relationships/migrations: unchanged.
 - QMS and public inquiry APIs/workflows, roles/permissions, tenant/process scope, classification/security, authentication, integrations, backend events and tests: unchanged.
