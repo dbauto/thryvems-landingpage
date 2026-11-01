@@ -39,6 +39,7 @@
       let token = '', sending = false, widgetId;
       widgetId = turnstile.render(slot, {
         sitekey: config.sitekey,
+        action: form.dataset.inquiryForm === 'thryvems' ? 'product_inquiry' : 'company_inquiry',
         callback: (value) => { token = value; submit.disabled = !value; submit.setAttribute('aria-disabled', String(!value)); },
         'expired-callback': () => { token = ''; submit.disabled = true; submit.setAttribute('aria-disabled','true'); },
         'error-callback': () => { token = ''; submit.disabled = true; submit.setAttribute('aria-disabled','true'); setStatus(form,'Human verification could not load. Try again.','error'); },
