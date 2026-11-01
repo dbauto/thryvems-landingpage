@@ -3,6 +3,9 @@ import { resolve, join } from 'node:path';
 import assert from 'node:assert/strict';
 
 const root = process.cwd();
+const apexDomain = readFileSync(resolve(root, 'CNAME'), 'utf8').trim();
+assert.equal(apexDomain, 'thycandthryve.com', 'GitHub Pages must target only the approved company apex domain');
+assert(!/\\s/.test(apexDomain), 'GitHub Pages CNAME must contain only one domain');
 const html = readFileSync(resolve(root,'thryvems.html'),'utf8');
 const companyHtml = readFileSync(resolve(root,'index.html'),'utf8');
 const companyCss = readFileSync(resolve(root,'thync-thryve-company.css'),'utf8');
@@ -92,6 +95,7 @@ for(const file of ['index.html','thync-thryve-company.css','thync-thryve-motion.
   copyFileSync(resolve(root,file), join(dest,file));
 }
 cpSync(resolve(root,'assets'),join(dest,'assets'),{recursive:true});
+copyFileSync(resolve(root,'CNAME'),join(dest,'CNAME'));
 for (const file of ['thryvems-after-problem-motion.css','thryvems-after-problem-motion.js']) {
   assert(existsSync(join(dest,file)), 'Build output is missing motion asset: '+file);
 }
