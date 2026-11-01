@@ -92,3 +92,21 @@
 - ✅ Main QMS application UI not changed. Its UI-GUIDELINES §10 app-only light/dark, permissions, View as and component checks are not applicable to this static public landing fix.
 - ✅ **No backend impact** documented in `plan/backend-impact.md`: database schemas, relationships, APIs, business workflows, roles and access checks, security, classification, integration, events and tests unchanged. Existing architecture sync remains Pending.
 - ⏳ PR not merged or deployed; requires owner approval.
+
+
+## 1 Nov 2026 — PR #7: Thync & Thryve company homepage content update
+
+- ✅ Existing company design retained: parent-company logo, Montserrat/Inter fonts, forest/teal/soft-green palette, hero pillar tiles, rounded cards and original site/product hierarchy. Product landing `thryvems.html` and its motion, calculator, and story are unchanged.
+- ✅ Business-partner services corrected: training and consultancy both cover seven ISO/management-system categories (quality; environment; OH&S; information/technology; food safety; risk/continuity/governance; specialist industries). Every category contains training titles and a matching consultancy explanation.
+- ✅ Education-led entry explains that relevant standards depend on operations, goals and customer/regulatory requirements. No unsupported automatic ISO recommendation or certification guarantee.
+- ✅ Plain HTML `details/summary` allow keyboard-friendly expansion/collapse; programs are discoverable without loading a different page.
+- ✅ No fabricated training schedules, registerable public sessions, trainer accreditations, organization history, testimonials, staff identities or certifications. Proposed course availability and specialist delivery caveats retained.
+- ✅ ThryveMS remains identified as the separate *in-development* ISO 9001 QMS product, not software for every ISO standard.
+- ✅ Existing intake was already a preview; disabled its nonworking send button and explained that the form does not save/send. Header and program links now say Enquiry information, not “Book” or fake course registration.
+- ✅ Updated main nav/hero card anchor targets to real sections; no deleted menu item or changed visual identity.
+- ✅ [Code Check 41282362047](https://github.com/dbauto/thryvems-landingpage/actions/runs/41282362047) **success**: static syntax/typecheck, build and original/product plus company E2E green.
+- ✅ [Final content/mobile Check 41282595446](https://github.com/dbauto/thryvems-landingpage/actions/runs/41282595446) **success**: typecheck, build and **22/22 Chromium tests passed**. Responsive no-overflow at 390/768/1280/1920, seven expanded topics, keyboard accessibility, all navigation anchors, no invented data or fake booking, product regressions.
+- ✅ [Screenshots artifact 13074121577](https://github.com/dbauto/thryvems-landingpage/actions/runs/41282595446/artifacts/13074121577) reviewed: 390px mobile opening after font adjustment, 1280px full page, seven-category expanded desktop view; all readable, original brand palette/card style preserved.
+- ✅ **No backend impact:** public static HTML/CSS and presentation only. Database schema/relationships, app APIs/workflows, permissions, scopes, classifications, identity/security, integrations, events and backend tests untouched. Existing architecture synchronization is **Pending**. Future booking requires separate approval and privacy/backend change assessment.
+- ✅ React QMS app itself untouched: UI-GUIDELINES §10 app-specific dark/light, permissions, View as and token-diff checks do not apply. Existing public responsive checks performed.
+- ⏳ Live site has not been changed; owner must approve PR merge and GitHub Pages deployment.
