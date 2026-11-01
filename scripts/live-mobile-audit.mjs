@@ -19,6 +19,19 @@ try{
        navLinks:document.querySelectorAll('nav a[href],header a[href]').length,
        hasH1:Boolean(document.querySelector('h1'))
      }));
+     if(details.documentWidth>details.viewport+1){
+       details.overflowCandidates=await page.evaluate(()=>{
+         return [...document.querySelectorAll('body *')].map(el=>{
+           const rect=el.getBoundingClientRect();
+           const st=getComputedStyle(el);
+           return {tag:el.tagName.toLowerCase(),className:String(el.className?.baseVal??el.className??'').slice(0,110),
+             text:(el.textContent??'').replace(/\s+/g,' ').slice(0,75),
+             right:Math.round(rect.right),left:Math.round(rect.left),width:Math.round(rect.width),
+             scroll:el.scrollWidth,client:el.clientWidth,overflowX:st.overflowX,position:st.position};
+         }).filter(x=>x.right>innerWidth+1||x.left< -1)
+           .sort((a,b)=>b.right-a.right).slice(0,12);
+       });
+     }
      await page.screenshot({path:'test-results/phase1-live/'+name+'-'+width+'.png',animations:'disabled'});
      const pass=response.status()===200&&details.documentWidth<=details.viewport+1&&details.navLinks>0&&details.hasH1;
      checks.push({page:name,width,status:pass?'PASS':'FAIL',http:response.status(),...details});
