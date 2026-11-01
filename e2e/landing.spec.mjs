@@ -416,3 +416,111 @@ test('company links lead to real sections, no unverified booking or broken catal
  await expect(productLink).toBeAttached();
  await page.screenshot({path:'test-results/screenshots/company-accessible-catalog.png'});
 });
+
+test('company tells a four-stage connected story as objects and route travel with scroll',async({page})=>{
+ await page.setViewportSize({width:1280,height:900});
+ await page.goto('/index.html');
+ const story=page.locator('#company-story');
+ await expect(page.locator('html')).toHaveClass(/company-motion-enabled/);
+ await expect(story.locator('[data-motion-object]')).toHaveCount(4);
+ await expect(story.locator('[data-motion-chapter]')).toHaveCount(4);
+ const seek=p=>page.evaluate(p=>{
+  const el=document.querySelector('#company-story');
+  const top=el.getBoundingClientRect().top+scrollY;
+  const travel=el.offsetHeight-innerHeight;
+  window.scrollTo({top:top+travel*p,behavior:'instant'});
+ },p);
+ const progress=()=>story.evaluate(el=>Number(el.style.getPropertyValue('--story-progress')));
+ const arrival=i=>story.locator('[data-motion-object="'+i+'"]').evaluate(el=>Number(el.style.getPropertyValue('--arrival')));
+ const dot=()=>story.locator('.company-motion-traveler').evaluate(el=>Number(el.getAttribute('cx'))+Number(el.getAttribute('cy')));
+ await seek(.06);
+ await expect.poll(progress).toBeGreaterThan(.05);
+ await expect.poll(()=>arrival(1)).toBeLessThan(.25);
+ const startDot=await dot();
+ await page.screenshot({path:'test-results/screenshots/company-story-learn.png'});
+ await seek(.37);
+ await expect.poll(progress).toBeGreaterThan(.35);
+ await expect.poll(()=>arrival(1)).toBeGreaterThan(.90);
+ await expect(story.locator('[data-motion-chapter="1"]')).toHaveClass(/is-active/);
+ const middleDot=await dot();
+ expect(middleDot).not.toBe(startDot);
+ await page.screenshot({path:'test-results/screenshots/company-story-train.png'});
+ await seek(.63);
+ await expect.poll(()=>arrival(2)).toBeGreaterThan(.80);
+ await expect(story.locator('[data-motion-chapter="2"]')).toHaveClass(/is-active/);
+ await page.screenshot({path:'test-results/screenshots/company-story-consultancy.png'});
+ await seek(.94);
+ await expect.poll(()=>arrival(3)).toBeGreaterThan(.95);
+ await expect(story.locator('[data-motion-chapter="3"]')).toHaveClass(/is-active/);
+ await expect(story.locator('.company-motion-current')).toHaveText('04');
+ const finalDot=await dot();
+ expect(finalDot).not.toBe(middleDot);
+ await page.screenshot({path:'test-results/screenshots/company-story-thryvems.png'});
+ await seek(.06);
+ await expect.poll(()=>arrival(3)).toBeLessThan(.08);
+ await expect(story.locator('.company-motion-current')).toHaveText('01');
+ await expect(story.locator('[data-motion-chapter="0"]')).toHaveClass(/is-active/);
+});
+
+for(const width of [390,768,1280,1920]){
+ test('company motion graphics keep existing layout readable at '+width+'px',async({page})=>{
+  await page.setViewportSize({width,height:900});
+  await page.goto('/index.html');
+  await expect(page.locator('#company-story .company-motion-object')).toHaveCount(4);
+  await expect(page.locator('#programs .company-standard')).toHaveCount(7);
+  await expect(page.locator('#contact button')).toBeDisabled();
+  const story=page.locator('#company-story');
+  if(width<=860){
+    const shape=await story.evaluate(el=>({
+      sticky:getComputedStyle(el.querySelector('.company-motion-sticky')).position,
+      height:el.getBoundingClientRect().height,
+      allVisible:[...el.querySelectorAll('.company-motion-object')].every(x=>getComputedStyle(x).opacity==='1')
+    }));
+    expect(shape.sticky).toBe('relative');
+    expect(shape.height).toBeLessThan(1450);
+    expect(shape.allVisible).toBe(true);
+  } else {
+    await story.scrollIntoViewIfNeeded();
+    await expect.poll(()=>story.evaluate(el=>getComputedStyle(el.querySelector('.company-motion-sticky')).position)).toBe('sticky');
+  }
+  const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(2);
+  await page.screenshot({path:'test-results/screenshots/company-story-'+width+'.png'});
+ });
+}
+
+test('company story remains legible, accessible and static with reduced motion or missing JS',async({page})=>{
+ await page.setViewportSize({width:1280,height:900});
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await page.goto('/index.html');
+ await expect(page.locator('html')).not.toHaveClass(/company-motion-enabled/);
+ const s=await page.locator('#company-story').evaluate(el=>({
+   sticky:getComputedStyle(el.querySelector('.company-motion-sticky')).position,
+   height:el.getBoundingClientRect().height,
+   opacity:[...el.querySelectorAll('.company-motion-object')].map(e=>getComputedStyle(e).opacity),
+ }));
+ expect(s.sticky).not.toBe('sticky');
+ expect(s.height).toBeLessThan(1100);
+ expect(s.opacity.every(x=>Number(x)===1)).toBe(true);
+ await expect(page.locator('#company-story')).toContainText('ThryveMS');
+ await page.screenshot({path:'test-results/screenshots/company-story-reduced-motion.png'});
+ await page.route('**/thync-thryve-motion.js*',route=>route.abort());
+ await page.reload();
+ await expect(page.locator('#company-story .company-motion-object')).toHaveCount(4);
+ await expect(page.locator('#company-story .company-motion-chapter')).toHaveCount(4);
+ await expect(page.locator('#company-story')).toBeVisible();
+});
+
+test('company service sections have different scroll entrances without interrupting details',async({page})=>{
+ await page.setViewportSize({width:1280,height:900});
+ await page.goto('/index.html');
+ const item=page.locator('.company-step').first();
+ await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
+ await expect.poll(()=>item.evaluate(el=>Number(el.style.getPropertyValue('--scene-reveal')))).toBeLessThan(.05);
+ await item.scrollIntoViewIfNeeded();
+ await expect.poll(()=>item.evaluate(el=>Number(el.style.getPropertyValue('--scene-reveal')))).toBeGreaterThan(.65);
+ const first=page.locator('#standard-quality summary');
+ await first.click();
+ await expect(page.locator('#standard-quality')).toHaveAttribute('open','');
+ await expect(page.locator('#standard-quality')).toContainText('ISO 9001 Internal Auditor Training');
+});
