@@ -48,3 +48,6 @@ Annual billing takes 20% off the whole monthly total, added users included. To c
 
 ## Proposed company custom domain
 The company apex `thyncandthryve.com` is staged in root `CNAME` for the existing branch-based GitHub Pages deployment. It **is not confirmed live**: The registered spelling was confirmed by the user's Cloudflare dashboard screenshot. Cloudflare DNS API access and HTTPS verification are outstanding. The site owner needs to complete the non-destructive DNS/Pages checks in [plan/github-pages-domain.md](plan/github-pages-domain.md). No changes to any existing email DNS or QMS app/backend.
+
+## Cookie notice on the public company and product pages
+The public pages display an informational cookie banner (acknowledgement stored locally). The full notice is at `cookies.html`. There are **no optional analytics or advertising cookies**, so no opt-in tracking controls are enabled. This cookie-only change does not activate contact forms or human verification; those require separate configured provider-side protection as documented in [public inquiry PR #11](https://github.com/dbauto/thryvems-landingpage/pull/11) and [backend CM PR #24](https://github.com/dbauto/thryvems-backend/pull/24).
