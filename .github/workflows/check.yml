@@ -31,6 +31,8 @@ jobs:
         continue-on-error: true
       - name: Verify Google indexing technical readiness
         run: npm run audit:indexing-readiness
+      - name: Validate commercial SEO target intents and buyer information
+        run: npm run audit:commercial-seo
       - name: Upload screenshots and test report
         if: always()
         uses: actions/upload-artifact@v4
@@ -41,4 +43,5 @@ jobs:
             playwright-report/
             phase1-live-audit.json
             phase2-indexing-readiness.json
+            phase3-commercial-audit.json
           if-no-files-found: ignore
