@@ -95,3 +95,15 @@
 - Integrations, backend events, server-side tests and QMS application: unchanged.
 - No personal information captured. Company enquiry form remains inactive, and the ThryveMS product page and pricing are unchanged.
 - Existing backend architecture synchronization remains **Pending**. No backend PR is needed for this static-only enhancement.
+
+## 1 Nov 2026 — secure public landing enquiry readiness and cookie notice (pending deployment)
+
+**Backend impact: YES (planned public-site service), not the ThryveMS app backend.** Linked change-management PR: https://github.com/dbauto/thryvems-backend/pull/24. The company and product pages add privacy-first cookie information, a human-verification slot, and an inquiry client that fails closed until a verified server reports readiness. The active preview delivery message is removed; neither form sends information without a configured server. **No backend handler is implemented in this PR**.
+
+- Database schemas/relationships: unchanged, no QMS storage or new table. Submission retention and processor agreement still require decisions.
+- APIs: future marketing-only same-origin `GET /api/inquiry/config` and `POST /api/inquiry` need separate implementation, schema validation and rejection paths.
+- Workflows/integrations: future Turnstile server-side verification and provider-accepted email to a private runtime-configured mailbox; not available yet.
+- Permissions/security: public endpoint will need rate limits, origin and hostname checks, replay protection, content validation, and no raw PII in logs. Existing QMS tenant isolation, process scope and classification remain unchanged.
+- Events/tests: future redacted delivery metrics and backend regression/abuse/inbox-delivery tests are mandatory.
+- Frontend tests: cookie notice and mocked positive/negative readiness/delivery cases added; these do **not** confirm real email delivery.
+- Existing ThryveMS backend synchronization remains **Pending**. Do not mark this website integration synchronized or production-ready.
