@@ -485,7 +485,9 @@ for(const width of [390,768,1280,1920]){
   }
   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(2);
+  await story.locator('.company-motion-board').scrollIntoViewIfNeeded();
   await page.screenshot({path:'test-results/screenshots/company-story-'+width+'.png'});
+  if(width===390)await page.screenshot({path:'test-results/screenshots/company-story-mobile-graphic.png'});
  });
 }
 
@@ -523,4 +525,26 @@ test('company service sections have different scroll entrances without interrupt
  await first.click();
  await expect(page.locator('#standard-quality')).toHaveAttribute('open','');
  await expect(page.locator('#standard-quality')).toContainText('ISO 9001 Internal Auditor Training');
+});
+
+
+test('company Solutions and How we work cards continue the scroll-motion story without changing links or prices',async({page})=>{
+ await page.setViewportSize({width:1280,height:900});
+ await page.goto('/index.html');
+ await expect(page.locator('.company-solution-plans > a')).toHaveCount(3);
+ await expect(page.locator('.company-work-steps > div')).toHaveCount(4);
+ const query=selector=>page.locator(selector).first().evaluate(el=>Number(el.style.getPropertyValue('--scene-reveal')));
+ const enter=selector=>page.evaluate(selector=>{
+  const el=document.querySelector(selector);
+  window.scrollTo({top:el.getBoundingClientRect().top+scrollY-innerHeight*.5,behavior:'instant'});
+ },selector);
+ await enter('.company-solution-plans');
+ await expect.poll(()=>query('.company-solution-plans > a')).toBeGreaterThan(.65);
+ await expect(page.locator('.company-solution-plans')).toContainText('₱4,000');
+ await expect(page.locator('.company-solution-plans')).toContainText('₱6,500');
+ await page.screenshot({path:'test-results/screenshots/company-solutions-motion.png'});
+ await enter('.company-work-steps');
+ await expect.poll(()=>query('.company-work-steps > div')).toBeGreaterThan(.65);
+ await expect(page.locator('.company-work-steps')).toContainText('Run & improve');
+ await page.screenshot({path:'test-results/screenshots/company-how-we-work-motion.png'});
 });
