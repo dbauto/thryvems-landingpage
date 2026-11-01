@@ -2,6 +2,8 @@
   'use strict';
   const forms = [...document.querySelectorAll('[data-inquiry-form]')];
   if (!forms.length) return;
+  // Enter in a field must not trigger a native GET submission while offline.
+  forms.forEach(form => form.addEventListener('submit', event => event.preventDefault()));
   // Fail closed: a live server must expose its readiness and public Turnstile
   // site key. Never interpret a static page or a client-side check as delivery.
   const setStatus = (form, text, state = '') => {
