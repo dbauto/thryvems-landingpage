@@ -2,6 +2,5 @@
   "name": "thync-thryve-public-inquiries",
   "main": "index.mjs",
   "compatibility_date": "2026-10-01",
-  "workers_dev": true,
-  "send_email": [{ "name": "EMAIL", "remote": true }]
+  "workers_dev": true
 }
