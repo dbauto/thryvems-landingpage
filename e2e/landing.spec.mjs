@@ -680,5 +680,5 @@ test('cookie notice remains within mobile viewport and can be dismissed',async({
  await banner.getByRole('button',{name:'Got it'}).click();
  await expect(banner).toHaveCount(0);
  await page.goto('/thryvems.html');
- expect(await page.evaluate(()=>document.documentElement.scrollWidth <= window.innerWidth+1)).toBe(true);
+ await expect(page.locator('.site-cookie-notice')).toHaveCount(0);
 });
