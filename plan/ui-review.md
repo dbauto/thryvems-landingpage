@@ -156,5 +156,5 @@
 ## 1 Nov 2026 — GitHub Pages company apex domain PR (pending domain activation)
 - ✅ No UI/layout/font/colour/menu/component/copy/animation/form code changed. The existing static site is the visual reference.
 - ✅ Existing QMS app `app/` untouched; app-specific §10 light/dark/View as/security checklist N/A. Existing landing regression tests must still pass.
-- ⏳ GitHub Check (typecheck/build/browser), screenshot artifacts and final progress commit: pending execution.
+- ✅ [GitHub Check 41289855912](https://github.com/dbauto/thryvems-landingpage/actions/runs/41289855912): typecheck **passed**, static build **passed**, Chromium Playwright **34/34 passed (39.7s)**, including exact CNAME served from the build and 390/768/1280/1920px no-horizontal-overflow regressions, company/product navigation, favicon, pricing and reduced-motion. [Screenshot artifact](https://github.com/dbauto/thryvems-landingpage/actions/runs/41289855912/artifacts/13077235316) generated; inspected company 390px and 1280px, product 390px and company header/fav icon layout. No visual UI source edits.
 - ⏳ No DNS/HTTPS/custom domain verification; current Cloudflare plugin cannot list the owning zone and the domain spelling remains to be independently confirmed. No publication claim.
