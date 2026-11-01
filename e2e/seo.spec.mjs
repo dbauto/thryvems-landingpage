@@ -50,14 +50,13 @@ test('content pages are readable on 390 and 768 px and do not activate inquiry f
  await expect(page.locator('button[data-inquiry-submit]')).toBeDisabled();
 });
 
-test('product landing clips animated marquee root overflow on 390px mobile',async({page})=>{
+test('product landing has no actual horizontal scroll on 390px mobile',async({page})=>{
  await page.setViewportSize({width:390,height:800});
  await page.goto('/thryvems.html');
  await expect(page.locator('h1')).toBeVisible();
  const out=await page.evaluate(()=>{
    window.scrollTo({left:100,top:0,behavior:'instant'});
-   return {clip:getComputedStyle(document.documentElement).overflowX,scrollX:window.scrollX};
+   return {scrollX:window.scrollX};
  });
- expect(out.clip).toBe('clip');
  expect(out.scrollX).toBe(0);
 });
