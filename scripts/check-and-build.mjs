@@ -4,6 +4,8 @@ import assert from 'node:assert/strict';
 
 const root = process.cwd();
 const html = readFileSync(resolve(root,'thryvems.html'),'utf8');
+const companyHtml = readFileSync(resolve(root,'index.html'),'utf8');
+const companyCss = readFileSync(resolve(root,'thync-thryve-company.css'),'utf8');
 const pricingJs = readFileSync(resolve(root,'thryvems-pricing.js'),'utf8');
 const motionJs = readFileSync(resolve(root,'thryvems-motion.js'),'utf8');
 const css = readFileSync(resolve(root,'thryvems-motion.css'),'utf8');
@@ -19,6 +21,22 @@ for (const word of ['Base','Mid','Enterprise','ThryveMS','Thync &amp; Thryve','R
   assert(html.includes(word),'Missing business content '+word);
 }
 assert(!html.includes('iQMS'),'Old product name must not appear in ThryveMS page');
+// Company website must be an honest, accessible service catalog rather than
+// outdated placeholder schedules, unsupported booking, or single-standard claims.
+for (const required of ['id="iso-guide"','id="programs"','id="consultancy-areas"','id="about"',
+  'id="contact"','Training and consultancy','ISO 9001:2026','ISO 14001:2026',
+  'ISO 45001:2018','ISO/IEC 27001','ISO 22000:2018','ISO 31000:2018',
+  'ISO 13485:2016','thryvems.html']) {
+  assert(companyHtml.includes(required),'Company homepage missing: '+required);
+}
+assert.equal((companyHtml.match(/<details class="company-standard"/g)||[]).length,7,
+  'The seven ISO topic groups must be expandable and shared between training/consultancy');
+assert(!/\[DATE\]|\[One line|\[Company story|\[Credentials/.test(companyHtml),
+  'No invented schedule, company background or accreditation placeholders');
+assert(companyHtml.includes('Enquiry form not yet active') &&
+  companyHtml.includes('disabled aria-disabled="true"'), 'Do not claim working lead submission');
+assert(companyHtml.includes('thync-thryve-company.css'), 'Company styles not loaded');
+assert.match(companyCss,/company-catalog-grid/);
 assert.match(pricingJs, /fee:4000,incl:15,per:300,max:25/);
 assert.match(pricingJs, /fee:6500,incl:25,per:260,max:75/);
 assert.match(pricingJs, /annual\?0\.8:1/);
@@ -36,13 +54,13 @@ assert.match(html, /class="hero product-hero"/);
 assert(!html.includes('puzzle-piece'), 'Rejected puzzle hero must not appear');
 assert(html.indexOf('id="system"') < html.indexOf('class="problem"'), 'The product scroll story should start immediately after the hero');
 for (const file of ['thryvems-motion.css','thryvems-product-hero.css','thryvems-story-preview.css','thryvems-after-problem-motion.css','thryvems-after-problem-motion.js','thryvems-motion.js','thryvems-pricing.js',
-  'assets/thryvems-logo.svg','assets/thryvems-logo.png','assets/thync-thryve-logo.png']) {
+  'assets/thryvems-logo.svg','assets/thryvems-logo.png','assets/thync-thryve-logo.png','thync-thryve-company.css']) {
   assert(existsSync(join(root,file)), 'Referenced asset missing: '+file);
 }
 const dest=resolve(root,'dist');
 rmSync(dest,{recursive:true,force:true});
 mkdirSync(dest,{recursive:true});
-for(const file of ['index.html','thryvems.html','thryvems-motion.css','thryvems-product-hero.css','thryvems-story-preview.css','thryvems-after-problem-motion.css','thryvems-motion.js','thryvems-after-problem-motion.js','thryvems-pricing.js']) {
+for(const file of ['index.html','thync-thryve-company.css','thryvems.html','thryvems-motion.css','thryvems-product-hero.css','thryvems-story-preview.css','thryvems-after-problem-motion.css','thryvems-motion.js','thryvems-after-problem-motion.js','thryvems-pricing.js']) {
   copyFileSync(resolve(root,file), join(dest,file));
 }
 cpSync(resolve(root,'assets'),join(dest,'assets'),{recursive:true});
