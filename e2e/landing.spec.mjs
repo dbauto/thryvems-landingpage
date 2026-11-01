@@ -341,3 +341,73 @@ test('implementation progress never crosses numbered steps at desktop and mobile
    await page.screenshot({path:'test-results/screenshots/implementation-progress-'+width+'.png'});
  }
 });
+
+test('company homepage shows ISO guidance and shared training/consultancy scope without fake bookings',async({page})=>{
+ await page.setViewportSize({width:1280,height:900});
+ await page.goto('/index.html');
+ await expect(page).toHaveTitle(/Thync & Thryve/);
+ await expect(page.locator('#iso-guide')).toContainText('Not sure which ISO standard applies');
+ await expect(page.locator('#programs .company-standard')).toHaveCount(7);
+ await expect(page.locator('#programs')).toContainText('Training and consultancy');
+ await expect(page.locator('#programs')).toContainText('proposed');
+ await expect(page.locator('#about')).toContainText('ISO training, consultancy and digital QMS solutions.');
+ await expect(page.locator('#about')).not.toContainText('[One line');
+ await expect(page.locator('#schedule')).not.toContainText('[DATE]');
+ await expect(page.locator('#schedule')).not.toContainText('Register');
+ await expect(page.locator('#contact button')).toBeDisabled();
+ await expect(page.locator('#contact')).toContainText('does not send or save enquiries');
+ await expect(page.locator('a[href="thryvems.html"]').first()).toBeAttached();
+ const areas=[
+  ['quality','ISO 9001 Lead Auditor Training'],
+  ['environment','Environmental Aspects and Impacts Assessment Workshop'],
+  ['safety','Hazard Identification and Risk Assessment Workshop'],
+  ['technology','ISO/IEC 42001:2023'],
+  ['food','HACCP Principles and Application'],
+  ['governance','ISO 31000:2018'],
+  ['sectors','ISO/IEC 17025:2017'],
+ ];
+ for(const [area,program] of areas){
+  const details=page.locator('#standard-'+area);
+  await details.locator('summary').click();
+  await expect(details).toHaveAttribute('open','');
+  await expect(details).toContainText(program);
+  await expect(details).toContainText('Consultancy');
+  await expect(details.locator('.company-standards-cta')).toHaveAttribute('href','#contact');
+ }
+ await page.screenshot({path:'test-results/screenshots/company-training-consultancy-expanded.png',fullPage:true});
+ await page.locator('#standard-quality summary').click();
+ await expect(page.locator('#standard-quality')).not.toHaveAttribute('open','');
+});
+
+for(const width of [390,768,1280,1920]){
+ test('company homepage is readable and scroll-free horizontally at '+width+'px',async({page})=>{
+  await page.setViewportSize({width,height:900});
+  await page.goto('/index.html');
+  await expect(page.getByRole('heading',{level:1})).toContainText('Think it through');
+  await expect(page.locator('#programs .company-standard')).toHaveCount(7);
+  const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
+  if(overflow>2){
+   const offenders=await page.evaluate(()=>[...document.querySelectorAll('body *')].filter(el=>{
+    const r=el.getBoundingClientRect();return r.width>0&&(r.right>innerWidth+2||r.left< -2)
+   }).slice(0,10).map(el=>({tag:el.tagName,text:el.textContent?.slice(0,45),width:Math.round(el.getBoundingClientRect().width)})));
+   console.log('Company overflow',width,JSON.stringify(offenders));
+  }
+  expect(overflow).toBeLessThanOrEqual(2);
+  await page.screenshot({path:'test-results/screenshots/company-'+width+'.png',fullPage:true});
+ });
+}
+
+test('company links lead to real sections, no unverified booking or broken catalog anchors',async({page})=>{
+ await page.goto('/index.html');
+ const internalLinks=await page.locator('a[href^="#"]').evaluateAll(nodes=>nodes.map(a=>a.getAttribute('href')));
+ const missing=await page.evaluate(links=>links.filter(h=>h.length>1&&!document.getElementById(h.slice(1))),internalLinks);
+ expect(missing).toEqual([]);
+ await expect(page.getByRole('link',{name:'Explore training programs'})).toHaveAttribute('href','#programs');
+ await expect(page.locator('#programs')).toContainText('independent bodies');
+ await page.locator('#standard-sectors summary').focus();
+ await page.keyboard.press('Enter');
+ await expect(page.locator('#standard-sectors')).toHaveAttribute('open','');
+ const productLink=page.locator('a[href="thryvems.html"]').first();
+ await expect(productLink).toBeAttached();
+ await page.screenshot({path:'test-results/screenshots/company-accessible-catalog.png'});
+});
