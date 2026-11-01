@@ -4,8 +4,8 @@ import assert from 'node:assert/strict';
 
 const root = process.cwd();
 const apexDomain = readFileSync(resolve(root, 'CNAME'), 'utf8').trim();
-assert.equal(apexDomain, 'thycandthryve.com', 'GitHub Pages must target only the approved company apex domain');
-assert(!/\\s/.test(apexDomain), 'GitHub Pages CNAME must contain only one domain');
+assert.equal(apexDomain, 'thycandthryve.com', 'GitHub Pages must target only the proposed company apex domain');
+assert(!apexDomain.includes(' '), 'GitHub Pages CNAME must contain only one domain');
 const html = readFileSync(resolve(root,'thryvems.html'),'utf8');
 const companyHtml = readFileSync(resolve(root,'index.html'),'utf8');
 const companyCss = readFileSync(resolve(root,'thync-thryve-company.css'),'utf8');
