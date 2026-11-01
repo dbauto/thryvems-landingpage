@@ -200,3 +200,11 @@
 - ✅ The public configuration remains `enabled:false`, endpoint empty, and the form continues to fail closed until approved Worker setup. No visual redesign or fake success state added.
 - ✅ [Source Check 41306201511](https://github.com/dbauto/thryvems-landingpage/actions/runs/41306201511): JavaScript syntax/typecheck and **12 Worker unit tests PASS**, static build PASS, Chromium **40/40** e2e PASS (53.2 s), including retained 390/768/1280/1920 responsiveness and synthetic provider response tests.
 - ⚠️ No live provider account activation, email receipt or real Turnstile token negative/replay tested. Screenshots are existing baseline artifacts, no UI changes requiring new designs.
+
+## 2 Nov 2026 — Technical SEO and static content pages (PR #20)
+- ✅ Six-item company homepage navigation order, wording, existing official logos, colors, Montserrat/Inter, cards, product motion, pricing, forms, cookies and security checks preserved. New pages use an existing-brand stylesheet; homepage adds a small visible ISO qualifier to the existing slogan and a contextual linked resource section only.
+- ✅ No new QMS app menu, UI route, classification, access, upload or process control affected. QMS §10 Light/dark, View As and mobile sidebar are **not applicable** to this public marketing HTML repo.
+- ✅ Nine new static content pages have one H1, 600–1200 visible words, six visible FAQ items, canonical/OG/Twitter/JSON-LD metadata, brand-consistent layout; 11 canonical URLs in sitemap. Website and ThryveMS metadata updated; cookies remain noindex.
+- ⚠️ Google Business Profile contact coordinates, street, phone, free consultation and training dates are deliberately withheld pending confirmation, so no invented business claims.
+- ⚠️ Live Lighthouse/CrUX thresholds, actual indexing, external HTTPS, GSC/GA4 account settings and link-building **not verified**; do not claim metrics achieved. See `plan/seo-implementation-20261102.md`.
+- 📷 Screenshots captured by GitHub Playwright Check under `landing-browser-evidence`; actual Check result and test counts recorded in `plan/progress.md` only after a passing run.
