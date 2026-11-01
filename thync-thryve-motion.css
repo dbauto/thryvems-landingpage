@@ -171,3 +171,26 @@
   .company-motion-object,.company-step,.company-standard,.company-delivery-card{opacity:1!important;transform:none!important;animation:none!important;transition:none!important}
   .company-motion-track span{transform:scaleX(1)}
 }
+
+/* Continue the scroll narrative into the company's existing Solutions and
+   How we work cards. Their content, colors, prices and links stay unchanged. */
+@media(prefers-reduced-motion:no-preference){
+  .company-motion-enabled .company-solution-plans > a,
+  .company-motion-enabled .company-work-steps > div{
+    opacity:calc(.53 + var(--scene-reveal,1)*.47);
+    transform:translate3d(
+      calc((1 - var(--scene-reveal,1))*var(--start-x,-42px)),
+      calc((1 - var(--scene-reveal,1))*35px),0);
+  }
+  .company-motion-enabled .company-solution-plans > a:nth-child(even),
+  .company-motion-enabled .company-work-steps > div:nth-child(even){--start-x:42px}
+  .company-motion-enabled .company-solution-plans > a:focus-visible{
+    outline:3px solid #5DD6BE;outline-offset:3px;
+  }
+}
+@media(max-width:860px) and (prefers-reduced-motion:no-preference){
+  .company-motion-enabled .company-solution-plans > a,
+  .company-motion-enabled .company-work-steps > div{
+    transform:translate3d(0,calc((1 - var(--scene-reveal,1))*22px),0)
+  }
+}
