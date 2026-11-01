@@ -34,8 +34,9 @@ try{
            .sort((a,b)=>b.right-a.right).slice(0,12);
        });
      }
+     details.horizontalScroll=await page.evaluate(async()=>{window.scrollTo({left:100,top:window.scrollY,behavior:'instant'});await new Promise(done=>requestAnimationFrame(done));const x=window.scrollX;window.scrollTo({left:0,top:window.scrollY,behavior:'instant'});return x;});
      await page.screenshot({path:'test-results/phase1-live/'+name+'-'+width+'.png',animations:'disabled'});
-     const pass=response.status()===200&&details.documentWidth<=details.viewport+1&&details.navLinks>0&&details.hasH1&&details.cssLoaded;
+     const pass=response.status()===200&&details.horizontalScroll===0&&details.navLinks>0&&details.hasH1&&details.cssLoaded;
      checks.push({page:name,width,status:pass?'PASS':'FAIL',http:response.status(),...details});
    }catch(e){checks.push({page:name,width,status:'FAIL',error:String(e),...details});}
    finally{await page.close();}
