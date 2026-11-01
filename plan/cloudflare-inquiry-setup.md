@@ -1,15 +1,25 @@
-# Direct Gmail inquiries via Cloudflare — Pending
+# Public inquiries through Cloudflare Turnstile + FormSubmit — Pending
 
-Use the existing company and product forms and Managed Turnstile widget. The Worker source is in `workers/inquiries/index.mjs` and is NOT deployed. No Formspree dependency is required after activation.
+**Scope:** Change **only email delivery** from a Cloudflare Email Service binding to FormSubmit. Keep the existing company and ThryveMS forms, the Cloudflare Worker, Managed Turnstile widget, strict Origin check, bounded input and fail-closed default.
 
-## Deployment gates
+The Worker in `workers/inquiries/index.mjs` calls `https://formsubmit.co/ajax/{configuredRecipient}` **server-side**, only after Turnstile Siteverify returns success with the expected hostname and action. The recipient comes from the Worker runtime environment (`RECIPIENT_EMAIL`); it is not published in frontend JavaScript. The API success is checked explicitly; provider errors/timeouts do not show success.
 
-1. Cloudflare recipient `thync.thryve@gmail.com` was registered in the Thync & Thryve Cloudflare account (not yet verified); the mailbox owner must select Cloudflare's verification link.
-2. Cloudflare's connected accounts currently show **no managed zone** for `thyncandthryve.com`. Cloudflare Email Service requires a domain onboarded to the account for outbound sender identity. The DNS administrator must establish appropriate authorized domain access and approve any email-service onboarding. **Do not replace existing MX records or disturb Google Workspace/email service.** Email Sending manages `cf-bounce` records; review DNS/SPF/DKIM/DMARC individually. Do not assume Cloudflare Email Routing must replace existing mail.
-3. After sender domain verification, set `SENDER_EMAIL` to an authorized sender under that domain, `RECIPIENT_EMAIL` to the verified fixed recipient, `EMAIL_ENABLED=1`, and store `TURNSTILE_SECRET` as a Cloudflare Worker secret. Never put the secret in repo, the public website, or logs. Limit email binding destination to the verified recipient.
-4. Configure a suitable HTTPS Worker URL and add only that public URL to the landing-site config in a separate PR; only then set `enabled:true`. Add strict CORS and per-IP rate limiting with Cloudflare rules; reject token replay/expiry and bad Origin/source/hostname/action. Verify actual receipt at the intended inbox using synthetic test data and prove invalid tokens reject with zero email.
-5. Do not merge or deploy this branch or mark backend synchronization complete without reviewing backend architecture CM PR and user approval.
+## Provider and privacy
 
-Cloudflare docs: https://developers.cloudflare.com/email-service/get-started/send-emails/ and https://developers.cloudflare.com/email-service/configuration/send-bindings/ and https://developers.cloudflare.com/turnstile/get-started/server-side-validation/
+- FormSubmit is free and needs **no account** or domain ownership. The first synthetic submission sends a one-time activation email to the recipient. The mailbox owner must confirm the activation link; until then, receipt is not verified.
+- FormSubmit states that it retains submissions for **30 days**. Inform visitors of this third-party processing and review privacy/legal disclosures **before activation**.
+- FormSubmit has its own spam protection and may block server-to-server calls or require CAPTCHA under certain conditions. This is **not tested**. No provider access, inbox readback, or guarantee of successful delivery yet.
+- FormSubmit docs: https://formsubmit.co/ , https://formsubmit.co/ajax-documentation and https://formsubmit.co/documentation .
+- Sending to this single verified recipient does not require granting Cloudflare control of the website domain, purchasing a plan, changing MX/SPF/DKIM/DMARC or verifying a sender domain.
 
-**Backend impact:** This is a public landing inquiry API and outgoing mail integration, with server-side security, events and tests. No QMS schemas, relationships, authentication, roles, client isolation, process scope, classifications or internal APIs modified. Document the planned service and traceability through a separate backend PR. Status **Pending**.
+## Deployment and security gates
+
+1. Keep the production static configuration `site-inquiry-config.js` as `enabled:false` and `endpoint:''` until approved; **no current user inquiry can send**.
+2. Deploy the Cloudflare Worker only after separate owner approval and choose the approved `.workers.dev` HTTPS URL. Set `TURNSTILE_SECRET` via Cloudflare Worker Secrets (never in git or public client). Set `RECIPIENT_EMAIL` securely as a Worker environment value, and `EMAIL_ENABLED=1` only at the end of qualification.
+3. Protect the public Worker route with an abuse/rate-limit rule. Require validated Origin, server-side Siteverify, expected hostname/action, bounded input and reject missing, stale and reused challenge tokens.
+4. Send a **synthetic** first message to initiate FormSubmit email activation, and have the mailbox owner confirm the activation email. Verify an actual synthetic accepted message in the inbox, plus negative token and blocked origin tests. Confirm what FormSubmit returns before activation, and test for possible origin/IP blocking or double captcha.
+5. Update privacy and cookie/verification disclosures with provider and retention facts; review third-party personal-data transfer and any response retention obligations.
+6. Only after all gates pass, open a **separate** reviewed enablement PR for the public Worker URL. Merge/production deploy only with the owner's explicit approval.
+7. Keep backend CM [PR #26](https://github.com/dbauto/thryvems-backend/pull/26) marked **Pending** until architecture, traceability and security acceptance are verified and approved.
+
+**No QMS backend impact:** database schema/relationships, QMS APIs, tenant/client and process scope, permissions, classifications and internal workflows stay unchanged. The **public marketing inquiry** email-delivery integration changes, so backend CM documentation is mandatory.
