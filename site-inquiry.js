@@ -4,7 +4,7 @@
   if (!forms.length) return;
 
   // GitHub Pages serves static content. Never send without an explicitly
-  // enabled Formspree recipient AND a server-enforced Turnstile challenge.
+  // enabled HTTPS Worker endpoint AND a server-enforced Turnstile challenge.
   const status = (form, message, tone = '') => {
     const element = form.querySelector('[data-inquiry-status]');
     if (!element) return;
@@ -20,7 +20,7 @@
   }
   const config = window.ThyncPublicInquiry;
   if (config?.enabled !== true ||
-      !/^[a-zA-Z0-9]{8,32}$/.test(config.formId || '') ||
+      !(typeof config.endpoint === 'string' && /^https:\/\/[a-zA-Z0-9.-]+\/[a-zA-Z0-9/_-]*$/.test(config.endpoint) && new URL(config.endpoint).hostname.endsWith('.workers.dev')) ||
       !/^[a-zA-Z0-9_-]{8,128}$/.test(config.turnstileSiteKey || '') ||
       (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1')) {
     return;
@@ -98,11 +98,11 @@
         setButton(button, false);
         status(form, 'Sending your enquiry…');
         try {
-          const response = await fetch('https://formspree.io/f/' + config.formId, {
-            method: 'POST', headers: { Accept: 'application/json' },
-            body: data, mode: 'cors', credentials: 'omit', cache: 'no-store'
+          const response = await fetch(config.endpoint, {
+            method: 'POST', headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify({name,email,company,message,interest,source:formSource,token}), mode: 'cors', credentials: 'omit', cache: 'no-store'
           });
-          if (!response.ok) throw new Error('Formspree rejected the submission');
+          if (!response.ok) throw new Error('The email service rejected the submission');
           form.reset();
           status(form, 'Your enquiry was submitted. We will respond to your work email.', 'success');
         } catch (_) {

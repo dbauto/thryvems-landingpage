@@ -24,8 +24,8 @@ const cookieHtml = readFileSync(resolve(root,'cookies.html'),'utf8');
 const cookieCss = readFileSync(resolve(root,'site-interactions.css'),'utf8');
 const formJs = readFileSync(resolve(root,'site-inquiry.js'),'utf8');
 const formCfg = readFileSync(resolve(root,'site-inquiry-config.js'),'utf8');
-assert(formCfg.includes('enabled: false') && formCfg.includes("formId: ''"), 'Form integration must be disabled pending external setup');
-assert(formJs.includes("'cf-turnstile-response'") && formJs.includes("https://formspree.io/f/"), 'Formspree/Turnstile integration contract missing');
+assert(formCfg.includes('enabled: false') && formCfg.includes("endpoint: ''"), 'Form integration must be disabled pending external setup');
+assert(formJs.includes('JSON.stringify({name,email,company,message,interest,source:formSource,token})') && formJs.includes('fetch(config.endpoint'), 'Formspree/Turnstile integration contract missing');
 assert(!formJs.includes('thync.thryve@gmail.com'), 'Never hardcode real receiving address into public JS');
 for(const page of [companyHtml,html]) {
  assert(page.includes('data-inquiry-form=') && page.includes('site-inquiry-config.js') && page.includes('site-inquiry.js'), 'Protected form and config must be available on both landing pages');

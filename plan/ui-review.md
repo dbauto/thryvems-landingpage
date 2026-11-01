@@ -182,3 +182,9 @@
 - ✅ Backend impact: **external public-marketing integration Pending** (Formspree server verification, data/privacy, events, mail delivery); **no QMS backend impact** (no QMS DB, roles/permissions, org/client/process/classification scopes or APIs). Linked architecture CM [backend PR #24](https://github.com/dbauto/thryvems-backend/pull/24) updated but not approved.
 - ⚠️ First source Check 41293440851 had **one new test-selector failure** because the deferred scripts are in `body`, not `head`; corrected only the test and reran successfully, 40/40.
 - ⏳ Provider account, Turnstile site key and secret, real inbox confirmation, domain restrictions, privacy review, GitHub Pages environment resolution and HTTPS all unverified/not performed. Config remains `enabled:false`; this PR is not ready for production contact collection and should not be merged as if it works.
+
+## 1 Nov 2026 — public inquiry Worker preparation (PR #16)
+- ✅ Existing Thync & Thryve and ThryveMS visual structure, colours, fonts, cards, menus, text, cookie notice, and nav unchanged. No new UI components or QMS app screens. QMS §10 light/dark and View As not applicable to this standalone marketing site. No new mobile layout or graphic changes.
+- ✅ Worker-only logic is disabled pending sender-domain/account provisioning. `site-inquiry-config.js` retains `enabled: false` and empty Worker URL; no data can be sent from the production form.
+- ✅ [Initial Check 41302498614](https://github.com/dbauto/thryvems-landingpage/actions/runs/41302498614) typecheck/build/40 of 40 Chromium tests PASS (51.9s), including unchanged responsive screenshots at 390/768/1280/1920, mock token and delivery tests. New Worker server-side unit tests are part of typecheck.
+- ⚠️ Live verified destination, live Turnstile, real inbox receipt, Cloudflare domain sending and production rate limiting NOT tested. No production deployment approved.

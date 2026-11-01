@@ -684,9 +684,9 @@ test('cookie notice remains within mobile viewport and can be dismissed',async({
 });
 
 
-test('enquiry forms fail closed with no Formspree account or Turnstile configured',async({page})=>{
+test('enquiry forms fail closed with no configured Worker endpoint or Turnstile',async({page})=>{
  let postCount=0;
- await page.route('https://formspree.io/**',route=>{postCount+=1;return route.abort();});
+ await page.route('https://inquiry-test.example.workers.dev/**',route=>{postCount+=1;return route.abort();});
  await page.goto('/index.html');
  const company=page.locator('[data-inquiry-form="company"]');
  await expect(company.locator('[data-inquiry-submit]')).toBeDisabled();
@@ -702,12 +702,12 @@ test('enquiry forms fail closed with no Formspree account or Turnstile configure
 });
 
 test('configured Turnstile protects AJAX company submissions and handles provider errors',async({page})=>{
- await page.route('**/site-inquiry-config.js*',route=>route.fulfill({status:200,contentType:'text/javascript',body:'window.ThyncPublicInquiry={enabled:true,formId:"abcdefgh",turnstileSiteKey:"public-site-key-123"};'}));
+ await page.route('**/site-inquiry-config.js*',route=>route.fulfill({status:200,contentType:'text/javascript',body:'window.ThyncPublicInquiry={enabled:true,endpoint:"https://inquiry-test.example.workers.dev/",turnstileSiteKey:"public-site-key-123"};'}));
  await page.addInitScript(()=>{
    window.turnstile={render:(_slot,options)=>{window.testTurnstileOptions=options;return 'test-widget';},reset:()=>{}};
  });
  let count=0,posted='', success=true;
- await page.route('https://formspree.io/f/abcdefgh',async route=>{
+ await page.route('https://inquiry-test.example.workers.dev/',async route=>{
    count++;
    posted=route.request().postData()||'';
    await route.fulfill({status:success?200:422,contentType:'application/json',body:success?'{"ok":true}':'{"errors":[{"message":"rejected"}]}'});
@@ -724,10 +724,9 @@ test('configured Turnstile protects AJAX company submissions and handles provide
  await submit.click();
  await expect(form.locator('[data-inquiry-status]')).toContainText('Your enquiry was submitted');
  await expect(submit).toBeDisabled();
- expect(posted).toContain('name="cf-turnstile-response"');
- expect(posted).toContain('synthetic-token');
- expect(posted).toContain('name="source"');
- expect(posted).toContain('company');
+ expect(JSON.parse(posted).token).toBe('synthetic-token');
+ expect(JSON.parse(posted).name).toBe('Synthetic Example');
+ expect(JSON.parse(posted).source).toBe('company');
  expect(count).toBe(1);
  success=false;
  await page.evaluate(()=>window.testTurnstileOptions.callback('synthetic-token-2'));
@@ -741,10 +740,10 @@ test('configured Turnstile protects AJAX company submissions and handles provide
 });
 
 test('product form requires human token before submitting any personal data',async({page})=>{
- await page.route('**/site-inquiry-config.js*',route=>route.fulfill({status:200,contentType:'text/javascript',body:'window.ThyncPublicInquiry={enabled:true,formId:"abcdefgh",turnstileSiteKey:"public-site-key-123"};'}));
+ await page.route('**/site-inquiry-config.js*',route=>route.fulfill({status:200,contentType:'text/javascript',body:'window.ThyncPublicInquiry={enabled:true,endpoint:"https://inquiry-test.example.workers.dev/",turnstileSiteKey:"public-site-key-123"};'}));
  await page.addInitScript(()=>{window.turnstile={render:(_slot,opts)=>{window.testTurnstileOptions=opts;return 'widget';},reset:()=>{}};});
  let posts=0;
- await page.route('https://formspree.io/f/abcdefgh',route=>{posts++;return route.fulfill({status:200,contentType:'application/json',body:'{"ok":true}'});});
+ await page.route('https://inquiry-test.example.workers.dev/',route=>{posts++;return route.fulfill({status:200,contentType:'application/json',body:'{"ok":true}'});});
  await page.goto('/thryvems.html');
  const form=page.locator('[data-inquiry-form="thryvems"]');
  const button=form.locator('[data-inquiry-submit]');
