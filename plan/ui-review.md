@@ -110,3 +110,17 @@
 - ✅ **No backend impact:** public static HTML/CSS and presentation only. Database schema/relationships, app APIs/workflows, permissions, scopes, classifications, identity/security, integrations, events and backend tests untouched. Existing architecture synchronization is **Pending**. Future booking requires separate approval and privacy/backend change assessment.
 - ✅ React QMS app itself untouched: UI-GUIDELINES §10 app-specific dark/light, permissions, View as and token-diff checks do not apply. Existing public responsive checks performed.
 - ⏳ Live site has not been changed; owner must approve PR merge and GitHub Pages deployment.
+
+
+## 1 Nov 2026 — PR #8: company Back to top matching the product landing
+
+- ✅ Used the current ThryveMS product landing as the reference: exact 58px desktop/52px mobile bottom-centred circular control, dark green background, white up arrow, tiny TOP label, hover, entrance transition and focus ring. Only the static company homepage has new markup; the product page remains unchanged.
+- ✅ Appears after the same scroll threshold (greater than max of 180px or 22% of viewport height); hidden and taken out of keyboard tab order near the top.
+- ✅ Returns the visitor to the company hero; motion is smooth unless prefers-reduced-motion is enabled, in which case it is immediate.
+- ✅ Clear accessible name “Back to top”; native button works via keyboard, including Enter. Tab/ARIA visibility matches button display.
+- ✅ Existing company typography, logo, menu, mobile layout, ISO catalog, contact preview and product navigation unaffected. Scoped CSS/JS, no added application menu, colors or client data.
+- ✅ [Check 41283695386](https://github.com/dbauto/thryvems-landingpage/actions/runs/41283695386): JavaScript typecheck **success**, static build **success**, Chromium Playwright **24/24 passed**; verifies product button size/position match at 390, 768, 1280 and 1920px, appearance and hide on scroll, smooth return to top, keyboard/reduced motion, original 22 regression tests and no horizontal overflow.
+- ✅ [Screenshot artifact 13074273358](https://github.com/dbauto/thryvems-landingpage/actions/runs/41283695386/artifacts/13074273358) checked at 390px mobile and 1280px desktop: button is centered at the bottom; no clipping and original site identity preserved.
+- ✅ **No backend impact:** public static presentation only. No database/schema, API, business workflows, security/access/classification, external integrations, events or backend tests. Existing backend architecture synchronization remains Pending.
+- ✅ Main QMS app UI untouched. UI-GUIDELINES §10 checks for client roles/light-dark/View as are not applicable to this static public-site button. Responsive, keyboard and reduced motion checks executed.
+- ⏳ PR not merged, live Pages not changed. Owner approval required.
