@@ -5,7 +5,7 @@ Date: 2 Nov 2026 (Asia/Manila) · Site: https://thyncandthryve.com/ · Status: *
 ## Baseline and known limits
 
 - SEO PR #20 published 11 intended canonical pages. Phase 1 PR #21 merged at `cc1c449`; public-network DNS/HTTPS/crawlability previously passed 18/18. Phase 1 **remains pending** its post-merge production mobile 12/12 confirmation and a repeat successful live audit at least 24 h later.
-- The initial offline source review found **11/11 pages reachable within 2 links from the homepage** (10 one click; software within two clicks), but a green build or public search query **cannot confirm Google indexing**.
+- [Source Check 41338610182](https://github.com/dbauto/thryvems-landingpage/actions/runs/41338610182) measured **11/11 pages reachable from the homepage in one click**, source metadata/canonical/sitemap **PASS**, 22/22 audit-related new and existing unit tests (12 existing Worker, 5 Phase 1, 5 Phase 2) and 52/52 existing Chromium e2e PASS. Public domain audit 18/18 and live mobile 12/12 passed in that run. A green build or public search query **cannot confirm Google indexing**.
 - Search Console is **not connected or verifiably authorized** in this workflow. No GSC owner status, sitemap processing, individual Google Index results, crawl dates, Google-selected canonicals, impressions or rankings are currently verified. `plan/google-indexing-evidence.json` intentionally starts all rows `NOT_VERIFIED`.
 - Do not infer company location from device/account data. Do not publish or commit verification TXT values, Google passwords, personal email addresses or token-bearing Search Console links.
 - Search results using `site:` are diagnostic only and **not** the acceptance source. Use the Google Search Console *Page indexing* and *URL Inspection* results to determine actual Google status.
@@ -14,15 +14,15 @@ Date: 2 Nov 2026 (Asia/Manila) · Site: https://thyncandthryve.com/ · Status: *
 
 | ID | Measurement | Completion target | Evidence required | Current |
 | --- | --- | --- | --- | --- |
-| I01 | Source internal-link discovery | All 11/11 pages linked from home in at most 2 clicks | `npm run audit:indexing-readiness`, CI JSON | Await CI |
-| I02 | Static indexability signals | 11/11 intended HTML pages have one H1, matching canonical and no `noindex`; robots/sitemap enumerate exact 11 | CI JSON | Await CI |
+| I01 | Source internal-link discovery | All 11/11 pages linked from home in at most 2 clicks | `npm run audit:indexing-readiness`, CI JSON | **PASS: 11/11, max 1 click** |
+| I02 | Static indexability signals | 11/11 intended HTML pages have one H1, matching canonical and no `noindex`; robots/sitemap enumerate exact 11 | CI JSON | **PASS: 11/11** |
 | I03 | Search Console property ownership | Verified `sc-domain:thyncandthryve.com` property covering apex and www | Owner-approved GSC screenshot/date or access-verified GSC report link | **Pending owner/GSC access** |
 | I04 | Sitemap in Search Console | `https://thyncandthryve.com/sitemap.xml` submitted; Google status **Success**; discovered URLs recorded | GSC → Sitemaps screenshot/report | **Pending** |
 | I05 | Google URL inspection coverage | 11/11 canonical URLs inspected using URL Inspection, with dated Google indexing/crawl/canonical status | 11 evidence rows, no invented `INDEXED` values | **Pending** |
 | I06 | Preventable Google indexing blockers | 0 unresolved issues under publisher control (e.g. 403/404, robots/noindex, wrong canonical, broken HTML/sitemap, redirect loops) | URL Inspection live check and Page indexing report | **Pending** |
-| I07 | Evidence validity | Each non-`NOT_VERIFIED` row has date, report type and non-secret HTTPS evidence link; no duplicate/unrecognized paths | `npm run audit:indexing-readiness` | Await CI |
+| I07 | Evidence validity | Each non-`NOT_VERIFIED` row has date, report type and non-secret HTTPS evidence link; no duplicate/unrecognized paths | `npm run audit:indexing-readiness` | **PASS: 11/11 placeholders valid; 0/11 Google statuses verified** |
 
-**Technical completion:** I01, I02, I07 pass in CI. **Full Phase 2 implementation acceptance:** I01–I07 pass, and owner explicitly reviews Google evidence. The owner may accept the configuration even if Google has not yet indexed every page; Google's indexing decision is a separate outcome.
+**Technical completion:** I01, I02, I07 pass in CI. **Full Phase 2 implementation acceptance:** I01–I07 pass, and owner explicitly reviews Google evidence. The owner may accept the configuration even if Google has not yet indexed every page; Google's indexing decision is a separate outcome. **As of 2 Nov 2026, I01/I02/I07 passed but I03–I06 are PENDING**, so Phase 2 full acceptance is **not** reached.
 
 ## Google success targets, measured separately
 
@@ -35,6 +35,12 @@ Date: 2 Nov 2026 (Asia/Manila) · Site: https://thyncandthryve.com/ · Status: *
 | S05 — diagnosed exclusions | All “Crawled – currently not indexed”, “Discovered – currently not indexed”, duplicate canonical and other exclusions have recorded corrective action or justified exception | Weekly review until stable |
 
 Google states sitemap submission and recrawl requests **do not guarantee indexing or rankings**. Do not mark S01/S02 successful without actual GSC evidence.
+
+## Verified source evidence
+
+- [Phase 2 source Check #41338610182](https://github.com/dbauto/thryvems-landingpage/actions/runs/41338610182): source readiness PASS, 11/11 homepage-reachable in max 1 click; 22/22 unit tests (12 Worker, 5 Phase 1, 5 Phase 2), 52/52 Chromium tests PASS; 18/18 public HTTP/DNS checks and 12/12 live responsive checks PASS.
+- [CI JSON and screenshot artifacts](https://github.com/dbauto/thryvems-landingpage/actions/runs/41338610182/artifacts/13095834801).
+- [Google index evidence manifest](google-indexing-evidence.json) remains 11 `NOT_VERIFIED` entries, not indexed claims. The checklist cannot be fully accepted until verified Search Console account access is provided.
 
 ## Owner-authorized Search Console setup, without website design changes
 
