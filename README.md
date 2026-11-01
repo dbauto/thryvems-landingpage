@@ -44,3 +44,7 @@ Annual billing takes 20% off the whole monthly total, added users included. To c
 - VAT wording under the calculator
 - Contact forms are not connected yet; wire them to email, a CRM or a form service before launch
 - A high-resolution Thync & Thryve logo
+
+
+## Proposed company custom domain
+The company apex `thycandthryve.com` is staged in root `CNAME` for the existing branch-based GitHub Pages deployment. It **is not confirmed live**: Cloudflare DNS access, exact registered spelling and HTTPS verification are outstanding. The site owner needs to complete the non-destructive DNS/Pages checks in [plan/github-pages-domain.md](plan/github-pages-domain.md). No changes to any existing email DNS or QMS app/backend.
