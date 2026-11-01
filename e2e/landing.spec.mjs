@@ -430,6 +430,7 @@ test('company Back to top matches product layout, only appears after scrolling, 
   await expect.poll(()=>topButton.getAttribute('aria-hidden')).toBe('false');
   await expect(topButton).toBeVisible();
   await expect(topButton).toHaveClass(/visible/);
+  await page.waitForTimeout(450); // Measure after the same product entrance transition has settled.
   const companyRect=await topButton.boundingBox();
   expect(companyRect).toBeTruthy();
   expect(Math.abs(companyRect.x + companyRect.width/2-width/2)).toBeLessThan(2);
@@ -448,6 +449,7 @@ test('company Back to top matches product layout, only appears after scrolling, 
   await page.evaluate(()=>window.scrollTo({top:900,behavior:'instant'}));
   const productButton=page.locator('.back-to-top');
   await expect(productButton).toBeVisible();
+  await page.waitForTimeout(450); // The reference button uses a .32s transform transition.
   const productRect=await productButton.boundingBox();
   expect(productRect).toBeTruthy();
   expect(Math.abs(companyRect.x-productRect.x)).toBeLessThan(2);
@@ -461,7 +463,8 @@ test('company Back to top supports keyboard and prefers reduced motion',async({p
  await page.emulateMedia({reducedMotion:'reduce'});
  await page.goto('/index.html');
  await page.evaluate(()=>window.scrollTo({top:920,behavior:'instant'}));
- const button=page.getByRole('button',{name:'Back to top'});
+ const button=page.locator('.company-back-to-top');
+ await expect(button).toHaveAttribute('aria-label','Back to top');
  await expect(button).toBeVisible();
  await expect(button).toHaveAttribute('tabindex','0');
  await button.focus();
