@@ -1,3 +1,5 @@
+> **Superseded historical plan.** Formspree is no longer the selected provider. Current instructions: [Cloudflare Worker + FormSubmit setup](cloudflare-inquiry-setup.md). Do not follow the Formspree steps below or configure a Formspree account. The published form is still disabled until the new service is proven.
+
 # Secure public enquiry setup — Formspree + Cloudflare Turnstile
 
 **Status:** Pending external service setup, owner approval, staging and real-mail verification. This document does **not** claim the forms work. The default public config is disabled.

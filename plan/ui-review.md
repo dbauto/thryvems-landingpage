@@ -194,3 +194,9 @@
 - ✅ [Source Check 41303254749](https://github.com/dbauto/thryvems-landingpage/actions/runs/41303254749) passed typecheck (including **8/8** Worker unit tests), build, Chromium Playwright **40/40 (51.0 s)**, and screenshot artifact [13081593703](https://github.com/dbauto/thryvems-landingpage/actions/runs/41303254749/artifacts/13081593703), covering preserved 390/768/1280/1920 responsive baselines.
 - ✅ Added direct OPTIONS regression test for bodyless 204 and correct CORS headers without an enabled mailer. No live Worker endpoint created or tested.
 - ⚠️ Real email recipient/domain verification, server provider negative testing and live inbox arrival remain unverified; forms still disabled.
+
+## 1 Nov 2026 — FormSubmit-only delivery swap (stacked PR #18)
+- ✅ Existing static Thync & Thryve and ThryveMS pages, colours, fonts, logo/favicon, menu, animation, cookie notice and current inquiry controls **unchanged**. Public UI-GUIDELINES §10 light/dark and QMS role View As not applicable because no QMS app/UI code is modified.
+- ✅ The public configuration remains `enabled:false`, endpoint empty, and the form continues to fail closed until approved Worker setup. No visual redesign or fake success state added.
+- ✅ [Source Check 41306201511](https://github.com/dbauto/thryvems-landingpage/actions/runs/41306201511): JavaScript syntax/typecheck and **12 Worker unit tests PASS**, static build PASS, Chromium **40/40** e2e PASS (53.2 s), including retained 390/768/1280/1920 responsiveness and synthetic provider response tests.
+- ⚠️ No live provider account activation, email receipt or real Turnstile token negative/replay tested. Screenshots are existing baseline artifacts, no UI changes requiring new designs.
