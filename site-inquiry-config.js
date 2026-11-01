@@ -2,5 +2,5 @@
 window.ThyncPublicInquiry = Object.freeze({
   enabled: false,
   formId: '',
-  turnstileSiteKey: ''
+  turnstileSiteKey: '0x4AAAAAAFvEJr964gbZx1e3'
 });
