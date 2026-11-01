@@ -21,7 +21,7 @@ The redesigned `thryvems.html` borrows the scroll-driven editorial presentation 
 - `npm run build`: assert essential sections and pricing constants, then build a static `dist/` preview.
 - `npm run e2e`: Playwright tests and screenshots. The Check workflow runs all three on a PR.
 
-Contact forms are a **preview only** and do not send personal data. A proper intake integration requires separate approval and privacy review.
+Contact forms remain **disabled until the server-side intake service is verified**. Both pages now include a cookie notice and a safe inquiry client which only enables sending if `GET /api/inquiry/config` returns a verified ready state and Cloudflare Turnstile is completed. The future server must independently verify each Turnstile token and acknowledge actual mail acceptance; front-end-only verification is never sufficient. **No email is sent by this repository yet**. See [change management](https://github.com/dbauto/thryvems-backend/pull/24) for the required separate implementation, mail credentials and privacy review.
 
 To run the checks locally: `npm install`, `npx playwright install chromium`, then `npm run typecheck && npm run build && npm run e2e`.
 
@@ -44,3 +44,7 @@ Annual billing takes 20% off the whole monthly total, added users included. To c
 - VAT wording under the calculator
 - Contact forms are not connected yet; wire them to email, a CRM or a form service before launch
 - A high-resolution Thync & Thryve logo
+
+## Production launch status (1 November 2026)
+
+**Pending, not deployed to the custom domain.** The connected invited Cloudflare account has accepted membership but cannot list the target DNS zone; listing Pages projects in the invited account returns HTTP 403. Domain ownership and the exact registered spelling need confirmation. Do not change DNS or enable forms until the release gates in [backend change management](https://github.com/dbauto/thryvems-backend/pull/24) have passed. The private receiving mailbox must be set as Cloudflare secret/configuration, never in source. Cookie details: `cookies.html`. Source includes no optional analytics/advertising scripts.
