@@ -618,3 +618,22 @@ test('company Back to top supports keyboard and prefers reduced motion',async({p
  await expect(button).not.toBeVisible();
  await expect(button).toHaveAttribute('aria-hidden','true');
 });
+
+test('company favicon shows its plant emblem instead of the ThryveMS product icon',async({page})=>{
+ await page.goto('/index.html');
+ const icon=page.locator('head link[rel="icon"]');
+ await expect(icon).toHaveAttribute('type','image/png');
+ await expect(icon).toHaveAttribute('sizes','64x64');
+ await expect(icon).toHaveAttribute('href',/thync-thryve-favicon\.png\?v=20261101-2/);
+ const response=await page.request.get('/assets/thync-thryve-favicon.png');
+ expect(response.ok()).toBe(true);
+ expect(response.headers()['content-type']).toContain('image/png');
+ const data=await response.body();
+ expect(data.readUInt32BE(16)).toBe(64);
+ expect(data.readUInt32BE(20)).toBe(64);
+ expect(data[0]).toBe(137);
+ await expect(page.locator('header img[alt="Thync & Thryve"]')).toHaveAttribute('src','assets/thync-thryve-logo.png');
+ await page.screenshot({path:'test-results/screenshots/company-correct-favicon-header.png'});
+ await page.goto('/thryvems.html');
+ await expect(page.locator('head link[rel="icon"]')).toHaveAttribute('href','./assets/thryvems-logo.png');
+});

@@ -139,3 +139,16 @@
 - ✅ **No backend impact:** public static presentation only. No database/schema, API, business workflows, security/access/classification, external integrations, events or backend tests. Existing backend architecture synchronization remains Pending.
 - ✅ Main QMS app UI untouched. UI-GUIDELINES §10 checks for client roles/light-dark/View as are not applicable to this static public-site button. Responsive, keyboard and reduced motion checks executed.
 - ⏳ PR not merged, live Pages not changed. Owner approval required.
+
+
+## 1 Nov 2026 — PR #10: Thync & Thryve company favicon correction
+
+- ✅ The owner's screenshot identifies the circular green plant emblem in the Thync & Thryve header; the old company browser favicon incorrectly used `thryvems-logo.png`, the separate software product mark.
+- ✅ Created `assets/thync-thryve-favicon.png`, a 64×64 PNG cropped from the supplied highlighted company emblem with the red annotation excluded. Visually inspected the finished circle/leaf mark at tab-icon size.
+- ✅ Company `index.html` now references only its own favicon with a versioned URL to avoid stale icon caching. Existing header logo/wordmark `thync-thryve-logo.png` stays unchanged; `thryvems.html` keeps its independent `thryvems-logo.png` icon.
+- ✅ No header/menu changes, color/font adjustments, card or animation changes, pricing updates, service wording changes, button changes or backend integration.
+- ✅ [Check 41287089483](https://github.com/dbauto/thryvems-landingpage/actions/runs/41287089483) **success**: JavaScript typecheck, static build and Chromium Playwright **33/33 passed**; explicit 64×64 valid PNG checks, correct company-only icon link and original product icon protected, plus 390/768/1280/1920 responsive/animation and Back to top regressions.
+- ✅ [Screenshot evidence](https://github.com/dbauto/thryvems-landingpage/actions/runs/41287089483/artifacts/13075623536): inspected company header—unchanged visual identity. The browser tab chrome is outside page screenshots; favicon icon and correct link verified from loaded asset bytes and page head instead.
+- ✅ **No backend impact** documented in `plan/backend-impact.md`; only public static company branding changed, no schemas/relationships, APIs, workflow, roles, security, classifications, process/client scopes, events/integrations or backend tests. Existing architecture synchronization remains **Pending**.
+- ✅ React QMS app untouched. Its UI-GUIDELINES §10 app-specific permissions, View as, dark/light and token checks are not applicable; all relevant public-page asset, regression and responsive checks passed.
+- ⏳ Owner has already authorized merging this fix following passing gates; release verification must confirm Pages and post-merge Check.
