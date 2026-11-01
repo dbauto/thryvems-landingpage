@@ -95,3 +95,13 @@
 - Integrations, backend events, server-side tests and QMS application: unchanged.
 - No personal information captured. Company enquiry form remains inactive, and the ThryveMS product page and pricing are unchanged.
 - Existing backend architecture synchronization remains **Pending**. No backend PR is needed for this static-only enhancement.
+
+
+## 1 Nov 2026 — correct company favicon/logo (PR #10)
+
+**No backend impact.** The Thync & Thryve public company page previously loaded the unrelated ThryveMS product PNG as its browser favicon. The change uses the plant-in-circle emblem highlighted in the owner's supplied screenshot as a 64×64 isolated favicon asset and updates only the company's `<link rel="icon">` reference. The header's original wordmark/logo and the ThryveMS product page's own favicon are intentionally preserved.
+
+- Database schemas/relationships, client data, storage, migrations and APIs: unchanged.
+- Workflows, permissions, process/client/classification checks, authentication and security: unchanged.
+- Integrations, server events, booking flows, backend tests and data collection: unchanged.
+- This is public static branding only. The backend architecture synchronization remains **Pending**; no backend PR needed.
