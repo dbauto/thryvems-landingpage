@@ -21,7 +21,7 @@ export default {
   const subject=source==='thryvems'?'ThryveMS walkthrough enquiry':'Thync & Thryve service enquiry';
   // FormSubmit hosts the mail delivery step only. Never expose the recipient to the browser,
   // and do not send until a valid server-verified, single-use Turnstile token is accepted.
-  if(!/^[^\\s@/]+@[^\\s@/]+\\.[^\\s@/]+$/.test(env.RECIPIENT_EMAIL))return reply(503,{ok:false,error:'Inquiry service is not configured'},origin);
+  if(!/^[^\s@/]+@[^\s@/]+\.[^\s@/]+$/.test(env.RECIPIENT_EMAIL))return reply(503,{ok:false,error:'Inquiry service is not configured'},origin);
   try{
    const response=await fetch('https://formsubmit.co/ajax/'+env.RECIPIENT_EMAIL,{
     method:'POST',
