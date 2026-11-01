@@ -1,0 +1,44 @@
+/* Thync & Thryve company landing: scoped additions using its existing brand palette,
+   Montserrat headings, Inter body, white/soft-green sections, 20px cards and pills. */
+.company-guide,.company-catalog,.company-training-delivery{scroll-margin-top:20px}
+.company-guide{background:#EEF7F4;padding:64px 24px}
+.company-inner{max-width:1240px;margin:0 auto}
+.company-eyebrow{margin:0 0 14px;font:700 13px Montserrat,system-ui,sans-serif;letter-spacing:.12em;color:#0B7D6B;text-transform:uppercase}
+.company-section-title{font:800 clamp(30px,4vw,44px)/1.14 Montserrat,system-ui,sans-serif;letter-spacing:-.02em;margin:0;max-width:780px}
+.company-intro{font:400 17px/1.68 Inter,system-ui,sans-serif;color:#35594F;max-width:880px;margin:18px 0 0}
+.company-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:30px}
+.company-step{background:white;border:1px solid #E3EEEA;border-radius:20px;padding:26px;min-width:0}
+.company-step h3{font:700 18px/1.3 Montserrat,system-ui,sans-serif;margin:0 0 9px}
+.company-step p{font:400 15px/1.6 Inter,system-ui,sans-serif;color:#35594F;margin:0}
+.company-guide-link{display:inline-block;font:700 15px Montserrat,system-ui,sans-serif;margin-top:24px;color:#0A4639}
+.company-catalog{max-width:1240px;margin:0 auto;padding:88px 24px 94px}
+.company-catalog-head{display:flex;justify-content:space-between;flex-wrap:wrap;align-items:end;gap:22px;margin-bottom:28px}
+.company-catalog-note{background:#EEF7F4;border:1px solid #CDE6DE;border-radius:16px;padding:15px 18px;color:#35594F;font:400 14px/1.6 Inter,system-ui,sans-serif;margin:24px 0 30px}
+.company-catalog-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
+.company-standard{border:1px solid #E3EEEA;border-radius:20px;overflow:hidden;background:#FFFFFF;min-width:0}
+.company-standard[open]{border-color:#B9D3CB}
+.company-standard summary{display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;padding:24px;list-style:none}
+.company-standard summary::-webkit-details-marker{display:none}
+.company-standard summary:focus-visible{outline:3px solid #0B7D6B;outline-offset:-3px}
+.company-standard summary h3{font:700 19px/1.36 Montserrat,system-ui,sans-serif;margin:0}
+.company-standard summary small{display:block;color:#35594F;font:500 13px/1.45 Inter,system-ui,sans-serif;margin-top:9px}
+.company-standard .company-standard-icon{flex:0 0 32px;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#EEF7F4;color:#0A4639;font:700 23px Montserrat,system-ui,sans-serif}
+.company-standard[open] .company-standard-icon{transform:rotate(45deg)}
+.company-standard-content{border-top:1px solid #E3EEEA;padding:24px;color:#35594F;font:400 15px/1.65 Inter,system-ui,sans-serif}
+.company-standard-content p{margin:0 0 14px}
+.company-standard-content h4{font:700 15px/1.4 Montserrat,system-ui,sans-serif;color:#0A4639;margin:22px 0 8px}
+.company-standard-content h4:first-child{margin-top:0}
+.company-standard-content ul{padding-left:21px;margin:8px 0 20px}
+.company-standard-content li{margin-bottom:7px}
+.company-standard-content strong{color:#0A4639}
+.company-standards-cta{display:inline-block;color:#0A4639;font:700 14px Montserrat,system-ui,sans-serif;margin-top:10px}
+.company-training-delivery{max-width:1240px;margin:0 auto;padding:75px 24px 90px}
+.company-delivery-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:30px}
+.company-delivery-card{border:1px solid #E3EEEA;border-radius:20px;padding:27px}
+.company-delivery-card h3{font:700 20px/1.3 Montserrat,system-ui,sans-serif;margin:0 0 10px}
+.company-delivery-card p{font:400 15px/1.65 Inter,system-ui,sans-serif;color:#35594F;margin:0}
+.company-preview-note{display:block;border:1px solid #CDE6DE;border-radius:12px;background:#EEF7F4;padding:13px 15px;color:#35594F;font-size:13px;line-height:1.55}
+.company-contact-preview button:disabled{opacity:.65;cursor:not-allowed}
+.company-status-note{font:400 13px/1.55 Inter,system-ui,sans-serif;color:#C6E3DB;margin:14px 0 0}
+@media(max-width:800px){.company-steps,.company-delivery-grid{grid-template-columns:1fr}.company-catalog-grid{grid-template-columns:1fr}.company-guide{padding:56px 20px}.company-catalog,.company-training-delivery{padding-left:20px;padding-right:20px}}
+@media(prefers-reduced-motion:no-preference){.company-standard .company-standard-icon{transition:transform .2s ease}.company-step,.company-delivery-card{transition:border-color .2s ease,transform .2s ease}.company-step:hover,.company-delivery-card:hover{border-color:#B9D3CB;transform:translateY(-3px)}}
