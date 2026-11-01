@@ -107,7 +107,7 @@ export async function runAudit() {
   }catch(e){add('real-404',false,{error:String(e)});}
   const passed=checks.filter(x=>x.status==='PASS').length;
   const report={schema:1,checkedAt:new Date().toISOString(),host:'thyncandthryve.com',
-    passed,failed:checks.length-passed,total:checks.length,phase1Complete:passed===checks.length,
+    passed,failed:checks.length-passed,total:checks.length,automatedChecksPass:passed===checks.length,\n    phase1Complete:false,manualGatesPending:['live-responsive-evidence','second-independent-successful-run'],
     note:'HTTPS trust is checked by Node fetch for every HTTPS URL; Google index status is out of scope.',
     checks};
   const filename=process.env.AUDIT_REPORT||'phase1-live-audit.json';
