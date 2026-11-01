@@ -152,3 +152,9 @@
 - ✅ **No backend impact** documented in `plan/backend-impact.md`; only public static company branding changed, no schemas/relationships, APIs, workflow, roles, security, classifications, process/client scopes, events/integrations or backend tests. Existing architecture synchronization remains **Pending**.
 - ✅ React QMS app untouched. Its UI-GUIDELINES §10 app-specific permissions, View as, dark/light and token checks are not applicable; all relevant public-page asset, regression and responsive checks passed.
 - ⏳ Owner has already authorized merging this fix following passing gates; release verification must confirm Pages and post-merge Check.
+
+## 1 Nov 2026 — GitHub Pages company apex domain PR (pending domain activation)
+- ✅ No UI/layout/font/colour/menu/component/copy/animation/form code changed. The existing static site is the visual reference.
+- ✅ Existing QMS app `app/` untouched; app-specific §10 light/dark/View as/security checklist N/A. Existing landing regression tests must still pass.
+- ⏳ GitHub Check (typecheck/build/browser), screenshot artifacts and final progress commit: pending execution.
+- ⏳ No DNS/HTTPS/custom domain verification; current Cloudflare plugin cannot list the owning zone and the domain spelling remains to be independently confirmed. No publication claim.
