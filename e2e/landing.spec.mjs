@@ -637,3 +637,9 @@ test('company favicon shows its plant emblem instead of the ThryveMS product ico
  await page.goto('/thryvems.html');
  await expect(page.locator('head link[rel="icon"]')).toHaveAttribute('href','./assets/thryvems-logo.png');
 });
+
+test('GitHub Pages custom apex domain configuration is included in publication assets',async({request})=>{
+ const result=await request.get('/CNAME');
+ expect(result.status()).toBe(200);
+ expect((await result.text()).trim()).toBe('thycandthryve.com');
+});
