@@ -6,7 +6,8 @@ const mime={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8',
 createServer((req,res)=>{
  let url;
  try {url=new URL(req.url,'http://localhost');} catch {res.writeHead(400).end();return;}
- const path=resolve(root,decodeURIComponent(url.pathname).replace(/^\/+/,'' )||'index.html');
+ let path=resolve(root,decodeURIComponent(url.pathname).replace(/^\/+/,'' )||'index.html');
+ if(path.startsWith(root+sep)&&existsSync(path)&&statSync(path).isDirectory())path=resolve(path,'index.html');
  if(!(path===root||path.startsWith(root+sep))||!existsSync(path)||!statSync(path).isFile()){res.writeHead(404).end('Not found');return;}
  res.writeHead(200,{'content-type':mime[extname(path)]||'application/octet-stream','cache-control':'no-store'});
  res.end(readFileSync(path));
