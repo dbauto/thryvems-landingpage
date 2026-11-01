@@ -51,3 +51,8 @@ The company apex `thyncandthryve.com` is staged in root `CNAME` for the existing
 
 ## Cookie notice on the public company and product pages
 The public pages display an informational cookie banner (acknowledgement stored locally). The full notice is at `cookies.html`. There are **no optional analytics or advertising cookies**, so no opt-in tracking controls are enabled. This cookie-only change does not activate contact forms or human verification; those require separate configured provider-side protection as documented in [public inquiry PR #11](https://github.com/dbauto/thryvems-landingpage/pull/11) and [backend CM PR #24](https://github.com/dbauto/thryvems-backend/pull/24).
+
+## Prepared guarded contact forms (not enabled)
+The public site remains static on GitHub Pages. Company inquiries and ThryveMS walkthrough requests now include a **disabled-by-default** Formspree/Cloudflare Turnstile adapter. No actual submissions occur while `site-inquiry-config.js` has `enabled: false` or missing public identifiers. A single Formspree form can route both request types to the designated mailbox, with a `source` value.
+
+Complete the manual provider onboarding in [plan/formspree-turnstile-setup.md](plan/formspree-turnstile-setup.md) and verify server-side CAPTCHA and real inbox delivery **before** enabling. Neither the recipient email nor private Turnstile secret belongs in this public repo. Submission success only means Formspree returned HTTP success; an actual inbox test is additionally required.

@@ -22,6 +22,15 @@ const storyCss = readFileSync(resolve(root,'thryvems-story-preview.css'),'utf8')
 const cookieJs = readFileSync(resolve(root,'site-cookie-notice.js'),'utf8');
 const cookieHtml = readFileSync(resolve(root,'cookies.html'),'utf8');
 const cookieCss = readFileSync(resolve(root,'site-interactions.css'),'utf8');
+const formJs = readFileSync(resolve(root,'site-inquiry.js'),'utf8');
+const formCfg = readFileSync(resolve(root,'site-inquiry-config.js'),'utf8');
+assert(formCfg.includes('enabled: false') && formCfg.includes("formId: ''"), 'Form integration must be disabled pending external setup');
+assert(formJs.includes("'cf-turnstile-response'") && formJs.includes("https://formspree.io/f/"), 'Formspree/Turnstile integration contract missing');
+assert(!formJs.includes('thync.thryve@gmail.com'), 'Never hardcode real receiving address into public JS');
+for(const page of [companyHtml,html]) {
+ assert(page.includes('data-inquiry-form=') && page.includes('site-inquiry-config.js') && page.includes('site-inquiry.js'), 'Protected form and config must be available on both landing pages');
+ assert(page.includes('data-human-check') && page.includes('data-inquiry-submit disabled'), 'Unconfigured form must fail closed');
+}
 for (const page of [companyHtml,html]) {
   assert(page.includes('site-cookie-notice.js') && page.includes('site-interactions.css'), 'Cookie notice must be on both landing pages');
 }
@@ -49,7 +58,7 @@ assert.equal((companyHtml.match(/<details class="company-standard"/g)||[]).lengt
 assert(!/\[DATE\]|\[One line|\[Company story|\[Credentials/.test(companyHtml),
   'No invented schedule, company background or accreditation placeholders');
 assert(companyHtml.includes('Enquiry form not yet active') &&
-  companyHtml.includes('disabled aria-disabled="true"'), 'Do not claim working lead submission');
+  companyHtml.includes('data-inquiry-submit disabled aria-disabled="true"'), 'Do not claim working lead submission');
 assert(companyHtml.includes('thync-thryve-company.css'), 'Company styles not loaded');
 assert.match(companyCss,/company-catalog-grid/);
 const companyFavicon = readFileSync(resolve(root,'assets/thync-thryve-favicon.png'));
@@ -100,7 +109,7 @@ for (const file of ['thryvems-motion.css','thryvems-product-hero.css','thryvems-
 const dest=resolve(root,'dist');
 rmSync(dest,{recursive:true,force:true});
 mkdirSync(dest,{recursive:true});
-for(const file of ['cookies.html','site-cookie-notice.js','site-interactions.css','index.html','thync-thryve-company.css','thync-thryve-motion.css','thync-thryve-motion.js','thync-thryve-back-to-top.js','thryvems.html','thryvems-motion.css','thryvems-product-hero.css','thryvems-story-preview.css','thryvems-after-problem-motion.css','thryvems-motion.js','thryvems-after-problem-motion.js','thryvems-pricing.js']) {
+for(const file of ['cookies.html','site-cookie-notice.js','site-interactions.css','site-inquiry-config.js','site-inquiry.js','index.html','thync-thryve-company.css','thync-thryve-motion.css','thync-thryve-motion.js','thync-thryve-back-to-top.js','thryvems.html','thryvems-motion.css','thryvems-product-hero.css','thryvems-story-preview.css','thryvems-after-problem-motion.css','thryvems-motion.js','thryvems-after-problem-motion.js','thryvems-pricing.js']) {
   copyFileSync(resolve(root,file), join(dest,file));
 }
 cpSync(resolve(root,'assets'),join(dest,'assets'),{recursive:true});

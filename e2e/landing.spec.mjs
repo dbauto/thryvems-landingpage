@@ -652,7 +652,7 @@ test('company and product cookie notice appears without optional tracking', asyn
  await expect(banner.getByRole('link',{name:'Cookie details'})).toHaveAttribute('href','./cookies.html');
  await page.goto('/thryvems.html');
  await expect(page.locator('.site-cookie-notice')).toBeVisible();
- await expect(page.locator('.contact-form')).toContainText('Preview only');
+ await expect(page.locator('.contact-form')).toContainText('Enquiries are not available yet');
  await page.goto('/cookies.html');
  await expect(page.getByRole('heading',{name:'Cookie notice'})).toBeVisible();
  await expect(page.getByText('We currently do not use optional analytics, advertising, or marketing cookies')).toBeVisible();
@@ -681,4 +681,81 @@ test('cookie notice remains within mobile viewport and can be dismissed',async({
  await expect(banner).toHaveCount(0);
  await page.goto('/thryvems.html');
  await expect(page.locator('.site-cookie-notice')).toHaveCount(0);
+});
+
+
+test('enquiry forms fail closed with no Formspree account or Turnstile configured',async({page})=>{
+ let postCount=0;
+ await page.route('https://formspree.io/**',route=>{postCount+=1;return route.abort();});
+ await page.goto('/index.html');
+ const company=page.locator('[data-inquiry-form="company"]');
+ await expect(company.locator('[data-inquiry-submit]')).toBeDisabled();
+ await expect(company).toContainText('not send or save enquiries yet');
+ await expect(page.locator('.site-cookie-notice')).toBeVisible();
+ await expect(page.locator('script[src*="site-inquiry-config.js"]')).toHaveCount(1);
+ await expect(page.locator('script[src*="site-inquiry.js"]')).toHaveCount(1);
+ await page.goto('/thryvems.html');
+ const product=page.locator('[data-inquiry-form="thryvems"]');
+ await expect(product.locator('[data-inquiry-submit]')).toBeDisabled();
+ await expect(product).toContainText('human verification');
+ expect(postCount).toBe(0);
+});
+
+test('configured Turnstile protects AJAX company submissions and handles provider errors',async({page})=>{
+ await page.route('**/site-inquiry-config.js*',route=>route.fulfill({status:200,contentType:'text/javascript',body:'window.ThyncPublicInquiry={enabled:true,formId:"abcdefgh",turnstileSiteKey:"public-site-key-123"};'}));
+ await page.addInitScript(()=>{
+   window.turnstile={render:(_slot,options)=>{window.testTurnstileOptions=options;return 'test-widget';},reset:()=>{}};
+ });
+ let count=0,posted='', success=true;
+ await page.route('https://formspree.io/f/abcdefgh',async route=>{
+   count++;
+   posted=route.request().postData()||'';
+   await route.fulfill({status:success?200:422,contentType:'application/json',body:success?'{"ok":true}':'{"errors":[{"message":"rejected"}]}'});
+ });
+ await page.goto('/index.html');
+ const form=page.locator('[data-inquiry-form="company"]');
+ const submit=form.locator('[data-inquiry-submit]');
+ await expect(submit).toBeDisabled();
+ await form.locator('[name="name"]').fill('Synthetic Example');
+ await form.locator('[name="email"]').fill('example@example.invalid');
+ await form.locator('[name="message"]').fill('Synthetic enquiry to test the form client.');
+ await page.evaluate(()=>window.testTurnstileOptions.callback('synthetic-token'));
+ await expect(submit).toBeEnabled();
+ await submit.click();
+ await expect(form.locator('[data-inquiry-status]')).toContainText('Your enquiry was submitted');
+ await expect(submit).toBeDisabled();
+ expect(posted).toContain('name="cf-turnstile-response"');
+ expect(posted).toContain('synthetic-token');
+ expect(posted).toContain('name="source"');
+ expect(posted).toContain('company');
+ expect(count).toBe(1);
+ success=false;
+ await page.evaluate(()=>window.testTurnstileOptions.callback('synthetic-token-2'));
+ await expect(submit).toBeEnabled();
+ await form.locator('[name="name"]').fill('Synthetic Example');
+ await form.locator('[name="email"]').fill('example@example.invalid');
+ await submit.click();
+ await expect(form.locator('[data-inquiry-status]')).toContainText('could not submit');
+ await expect(submit).toBeDisabled();
+ expect(count).toBe(2);
+});
+
+test('product form requires human token before submitting any personal data',async({page})=>{
+ await page.route('**/site-inquiry-config.js*',route=>route.fulfill({status:200,contentType:'text/javascript',body:'window.ThyncPublicInquiry={enabled:true,formId:"abcdefgh",turnstileSiteKey:"public-site-key-123"};'}));
+ await page.addInitScript(()=>{window.turnstile={render:(_slot,opts)=>{window.testTurnstileOptions=opts;return 'widget';},reset:()=>{}};});
+ let posts=0;
+ await page.route('https://formspree.io/f/abcdefgh',route=>{posts++;return route.fulfill({status:200,contentType:'application/json',body:'{"ok":true}'});});
+ await page.goto('/thryvems.html');
+ const form=page.locator('[data-inquiry-form="thryvems"]');
+ const button=form.locator('[data-inquiry-submit]');
+ await expect(button).toBeDisabled();
+ await form.locator('[name="name"]').fill('Synthetic Applicant');
+ await form.locator('[name="email"]').fill('applicant@example.invalid');
+ await form.evaluate(el=>el.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true})));
+ expect(posts).toBe(0);
+ await page.evaluate(()=>window.testTurnstileOptions.callback('synthetic-token'));
+ await expect(button).toBeEnabled();
+ await page.evaluate(()=>window.testTurnstileOptions['expired-callback']());
+ await expect(button).toBeDisabled();
+ expect(posts).toBe(0);
 });

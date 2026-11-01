@@ -8,3 +8,14 @@
 @media(max-width:860px){.site-cookie-notice{top:86px;bottom:auto;max-width:420px}}
 @media(max-width:600px){.site-cookie-notice{top:76px;bottom:auto;left:12px;right:12px;flex-direction:column;align-items:stretch;gap:14px;padding:18px}.site-cookie-dismiss{align-self:flex-start}}
 @media(prefers-reduced-motion:reduce){.site-cookie-notice{transition:none}}
+
+/* Form messages use the same existing company and product colours. */
+.site-inquiry-status{font:400 13px/1.55 Inter,system-ui,sans-serif;margin:0;color:#35594F}
+.site-inquiry-status[data-state="error"],.site-inquiry-status[data-state="success"]{color:#0A4639;font-weight:600}
+.site-inquiry-form button:disabled{opacity:.65;cursor:not-allowed}
+.site-inquiry-form button:focus-visible{outline:3px solid #0B7D6B;outline-offset:3px}
+.site-human-check{min-height:0}
+.site-data-note{font:400 13px/1.5 Inter,system-ui,sans-serif;margin:0}
+.site-data-note a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.contact-form .site-inquiry-status{color:#F0FBF8;opacity:1}
+.contact-form .site-inquiry-status[data-state="error"]{color:#FFFFFF;font-weight:600}
