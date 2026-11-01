@@ -15,3 +15,7 @@
 @media(max-width:860px){.site-cookie-notice{top:86px;bottom:auto;max-width:420px}}
 @media(max-width:600px){.site-cookie-notice{top:76px;bottom:auto;left:12px;right:12px;flex-direction:column;align-items:stretch;gap:14px;padding:18px}.site-cookie-dismiss{align-self:flex-start}}
 @media(prefers-reduced-motion:reduce){.site-cookie-notice{transition:none}}
+
+/* Product form sits on a dark surface; keep its pending/failed notices readable. */
+.contact-form .site-inquiry-status{color:#F0FBF8;opacity:1}
+.contact-form .site-inquiry-status[data-state="error"]{color:#FFFFFF;font-weight:600}
