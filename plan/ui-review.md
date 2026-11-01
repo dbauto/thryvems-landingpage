@@ -208,3 +208,12 @@
 - ⚠️ Google Business Profile contact coordinates, street, phone, free consultation and training dates are deliberately withheld pending confirmation, so no invented business claims.
 - ⚠️ Live Lighthouse/CrUX thresholds, actual indexing, external HTTPS, GSC/GA4 account settings and link-building **not verified**; do not claim metrics achieved. See `plan/seo-implementation-20261102.md`.
 - 📷 Screenshots captured by GitHub Playwright Check under `landing-browser-evidence`; actual Check result and test counts recorded in `plan/progress.md` only after a passing run.
+
+## 2 Nov 2026 — SEO Phase 1: live release evidence and scoped mobile overflow fix (draft PR #21)
+
+- ✅ Existing company six-item menu, colours, fonts, hero, animations, pricing, cards, accessibility labels and disabled inquiry forms retained. Only the product landing's `main#top` gains a narrowly scoped horizontal-overflow containment property; no redesign or new navigation.
+- ✅ [Check 41335613398](https://github.com/dbauto/thryvems-landingpage/actions/runs/41335613398) **SUCCESS**, typecheck/Worker tests, static build and **52/52 local Chromium e2e passed**, including original product scroll-story centered-hold test and new 390px actual horizontal scroll regression. No user data used.
+- ✅ Same Check: independent public-network **18/18** HTTPS/DNS/canonical/sitemap/robots/404 probes passed. No DNS changes indicated.
+- ⚠️ Production Chromium at 390, 768, 1280, 1920px for company, product and consultancy: **11/12** PASS and screenshots captured [artifact](https://github.com/dbauto/thryvems-landingpage/actions/runs/41335613398/artifacts/13095003461); production product 390px still has **2px actual sideways scroll** because PR CSS is not deployed. Screenshot capture is recorded; independent manual visual review is not claimed.
+- ✅ QMS app UI-GUIDELINES §10 app-only light/dark, role View As, access, app sidebar, token palette and components **not applicable** (no app UI edits). Static marketing CSS and full existing browser regression tested. No change to server APIs, integrations, forms or security.
+- ⏳ **NOT ACCEPTED:** need owner approval and merge, verify actual deployed CSS, rerun production 12/12, inspect screenshots, repeat successful domain + responsive audits at least 24h apart before Phase 1 sign-off. Google indexing is Phase 2, not tested.

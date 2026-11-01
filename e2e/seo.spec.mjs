@@ -49,3 +49,31 @@ test('content pages are readable on 390 and 768 px and do not activate inquiry f
  await page.goto('/');
  await expect(page.locator('button[data-inquiry-submit]')).toBeDisabled();
 });
+
+test('product landing has no actual horizontal scroll on 390px mobile',async({page})=>{
+ await page.setViewportSize({width:390,height:800});
+ await page.goto('/thryvems.html');
+ await expect(page.locator('h1')).toBeVisible();
+ const out=await page.evaluate(()=>{
+   window.scrollTo({left:100,top:0,behavior:'instant'});
+   return {scrollX:window.scrollX};
+ });
+ if(out.scrollX!==0) {
+  const rootCauses=await page.evaluate(()=>{
+    const root=document.documentElement;
+    const baseline=root.scrollWidth;
+    const children=[...document.body.children];
+    const samples=[];
+    for(const el of children){
+      const original=el.style.display;
+      el.style.display='none';
+      const result=root.scrollWidth;
+      el.style.display=original;
+      samples.push({tag:el.tagName,cls:String(el.className).slice(0,80),id:el.id,afterHide:result,delta:baseline-result});
+    }
+    return {baseline,samples:samples.filter(x=>x.delta>0).sort((a,b)=>b.delta-a.delta)};
+  });
+  console.log('390 mobile root overflow culprit',JSON.stringify(rootCauses));
+ }
+ expect(out.scrollX).toBe(0);
+});
