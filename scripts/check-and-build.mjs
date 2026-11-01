@@ -106,6 +106,51 @@ for (const file of ['thryvems-motion.css','thryvems-product-hero.css','thryvems-
   'assets/thryvems-logo.svg','assets/thryvems-logo.png','assets/thync-thryve-logo.png','assets/thync-thryve-favicon.png','thync-thryve-company.css','thync-thryve-motion.css','thync-thryve-motion.js','thync-thryve-back-to-top.js']) {
   assert(existsSync(join(root,file)), 'Referenced asset missing: '+file);
 }
+
+// SEO QA: static pages must be searchable without JavaScript and have aligned metadata.
+const seoSlugs = [
+ 'iso-consultancy-philippines',
+ 'iso-9001-certification-philippines',
+ 'iso-14001-certification-philippines',
+ 'iso-45001-consultant-philippines',
+ 'iso-27001-consultant-philippines',
+ 'iso-22000-consultant-philippines',
+ 'trainings/iso-internal-auditor-training-philippines',
+ 'learn/how-to-get-iso-certified-philippines',
+ 'learn/iso-certification-cost-philippines'
+];
+const sitemap = readFileSync(resolve(root,'sitemap.xml'),'utf8');
+const robots = readFileSync(resolve(root,'robots.txt'),'utf8');
+assert(robots.includes('Sitemap: https://thyncandthryve.com/sitemap.xml'),'Missing sitemap directive');
+assert(sitemap.includes('<urlset') && !sitemap.includes('dbauto.github.io'),'Invalid sitemap origin');
+const seoPages = [
+ {slug:'',body:companyHtml,file:'index.html'},
+ {slug:'thryvems.html',body:html,file:'thryvems.html'},
+ ...seoSlugs.map(slug=>({slug:slug+'/',body:readFileSync(resolve(root,slug,'index.html'),'utf8'),file:slug+'/index.html'}))
+];
+for (const page of seoPages) {
+ const canonical = 'https://thyncandthryve.com/' + page.slug;
+ assert(page.body.includes('<html lang="en-PH">'),page.file+' missing PH language');
+ assert(page.body.includes('rel="canonical" href="'+canonical+'"'),page.file+' incorrect canonical');
+ assert(sitemap.includes('<loc>'+canonical+'</loc>'),page.file+' missing sitemap URL');
+ assert(!page.body.includes('name="robots" content="noindex'),page.file+' accidentally nonindexed');
+ const title=page.body.match(/<title>([^<]+)<\/title>/)?.[1]||'';
+ const desc=page.body.match(/<meta name="description" content="([^"]+)"/)?.[1]||'';
+ assert(title.length>10&&title.length<=72,page.file+' missing useful title');
+ assert(desc.length>75&&desc.length<=155,page.file+' invalid description');
+ assert((page.body.match(/<h1[ >]/g)||[]).length===1,page.file+' must have one H1');
+ assert(page.body.includes('application/ld+json'),page.file+' missing structured data');
+ assert(page.body.includes('property="og:title"') && page.body.includes('name="twitter:card"'),page.file+' missing social metadata');
+ if(page.slug.endsWith('/')) {
+  const visible=page.body.replace(/<script[\s\S]*?<\/script>/g,'').replace(/<[^>]+>/g,' ');
+  const count=visible.trim().split(/\s+/).length;
+  assert(count>=600&&count<=1200,page.file+' expected substantial original content, got '+count);
+  assert((page.body.match(/<details>/g)||[]).length>=5,page.file+' missing FAQs');
+ }
+}
+assert.equal((sitemap.match(/<loc>/g)||[]).length,seoPages.length,'sitemap includes non-canonical or unbuilt pages');
+assert(html.includes('rel="canonical" href="https://thyncandthryve.com/thryvems.html"'),'Product canonical points to GitHub Pages');
+
 const dest=resolve(root,'dist');
 rmSync(dest,{recursive:true,force:true});
 mkdirSync(dest,{recursive:true});
@@ -114,7 +159,9 @@ for(const file of ['cookies.html','site-cookie-notice.js','site-interactions.css
 }
 cpSync(resolve(root,'assets'),join(dest,'assets'),{recursive:true});
 copyFileSync(resolve(root,'CNAME'),join(dest,'CNAME'));
+for(const file of ['seo-service.css','robots.txt','sitemap.xml','404.html']) copyFileSync(resolve(root,file),join(dest,file));
+for(const slug of seoSlugs) cpSync(resolve(root,slug),join(dest,slug),{recursive:true});
 for (const file of ['thryvems-after-problem-motion.css','thryvems-after-problem-motion.js']) {
   assert(existsSync(join(dest,file)), 'Build output is missing motion asset: '+file);
 }
-console.log('Static build validation passed. Product page, calculator, company homepage, and assets copied to dist.');
+console.log('Static build validation passed. SEO content, sitemap, canonicals, homepage, product, and assets copied to dist.');
