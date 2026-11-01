@@ -47,4 +47,4 @@ Annual billing takes 20% off the whole monthly total, added users included. To c
 
 
 ## Proposed company custom domain
-The company apex `thycandthryve.com` is staged in root `CNAME` for the existing branch-based GitHub Pages deployment. It **is not confirmed live**: Cloudflare DNS access, exact registered spelling and HTTPS verification are outstanding. The site owner needs to complete the non-destructive DNS/Pages checks in [plan/github-pages-domain.md](plan/github-pages-domain.md). No changes to any existing email DNS or QMS app/backend.
+The company apex `thyncandthryve.com` is staged in root `CNAME` for the existing branch-based GitHub Pages deployment. It **is not confirmed live**: The registered spelling was confirmed by the user's Cloudflare dashboard screenshot. Cloudflare DNS API access and HTTPS verification are outstanding. The site owner needs to complete the non-destructive DNS/Pages checks in [plan/github-pages-domain.md](plan/github-pages-domain.md). No changes to any existing email DNS or QMS app/backend.
