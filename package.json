@@ -4,10 +4,11 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "typecheck": "node --check thryvems-motion.js && node --check thryvems-pricing.js && node --check thync-thryve-back-to-top.js && node --check thync-thryve-motion.js && node --check site-cookie-notice.js && node --check site-inquiry-config.js && node --check site-inquiry.js && node --check workers/inquiries/index.mjs && node --test tests/cloudflare-inquiries.test.mjs && node --check scripts/check-and-build.mjs && node --check scripts/serve.mjs && node --check scripts/live-seo-audit.mjs && node --test tests/live-seo-audit.test.mjs",
+    "typecheck": "node --check thryvems-motion.js && node --check thryvems-pricing.js && node --check thync-thryve-back-to-top.js && node --check thync-thryve-motion.js && node --check site-cookie-notice.js && node --check site-inquiry-config.js && node --check site-inquiry.js && node --check workers/inquiries/index.mjs && node --test tests/cloudflare-inquiries.test.mjs && node --check scripts/check-and-build.mjs && node --check scripts/serve.mjs && node --check scripts/live-seo-audit.mjs && node --test tests/live-seo-audit.test.mjs && node --check scripts/live-mobile-audit.mjs",
     "build": "node scripts/check-and-build.mjs",
     "e2e": "playwright test",
-    "audit:live": "node scripts/live-seo-audit.mjs"
+    "audit:live": "node scripts/live-seo-audit.mjs",
+    "audit:live-mobile": "node scripts/live-mobile-audit.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.56.1"
