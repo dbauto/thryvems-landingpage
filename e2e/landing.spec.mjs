@@ -641,5 +641,5 @@ test('company favicon shows its plant emblem instead of the ThryveMS product ico
 test('GitHub Pages custom apex domain configuration is included in publication assets',async({request})=>{
  const result=await request.get('/CNAME');
  expect(result.status()).toBe(200);
- expect((await result.text()).trim()).toBe('thycandthryve.com');
+ expect((await result.text()).trim()).toBe('thyncandthryve.com');
 });
