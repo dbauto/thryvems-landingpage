@@ -8,7 +8,7 @@ export default {
   if(!ALLOWED_ORIGINS.has(origin))return reply(403,{ok:false,error:'Origin not allowed'},origin);
   if(request.method==='OPTIONS')return reply(204,{ok:true},origin);
   if(request.method!=='POST')return reply(405,{ok:false,error:'Method not allowed'},origin);
-  if(!env.TURNSTILE_SECRET||!env.EMAIL||!env.SENDER_EMAIL||!env.RECIPIENT_EMAIL||!env.EMAIL_ENABLED)return reply(503,{ok:false,error:'Inquiry service is not configured'},origin);
+  if(!env.TURNSTILE_SECRET||!env.EMAIL||!env.SENDER_EMAIL||!env.RECIPIENT_EMAIL||env.EMAIL_ENABLED!=='1')return reply(503,{ok:false,error:'Inquiry service is not configured'},origin);
   if(Number(request.headers.get('content-length')||0)>16000)return reply(413,{ok:false,error:'Submission is too large'},origin);
   const type=request.headers.get('content-type')||'';
   if(!type.startsWith('application/json'))return reply(415,{ok:false,error:'Expected JSON'},origin);
