@@ -136,3 +136,12 @@
 
 ## 2 Nov 2026 — Thync & Thryve technical/content SEO (PR #20)
 **No backend impact.** This PR edits only public static HTML metadata, crawlable content, robots/sitemap/404 files, a shared branded CSS for **new** content pages, build-time copy/SEO validation, and browser tests. The existing inquiry Worker, Turnstile verification, email integration, cookies and production form enablement are **not changed**. There is no change to database schemas, table relationships, QMS APIs, process/workflow events, permissions, client isolation, confidentiality classifications, integrations, credentials, QMS backend tests or any other application backend architecture. The existing [backend CM #26](https://github.com/dbauto/thryvems-backend/pull/26) is separately merged for public inquiry delivery and is not altered by SEO work. No new backend change-management PR is necessary. The **only** integration references are inert Organization/Service/FAQ/Software/Course structured-data descriptions, with no address or phone claims pending real facts.
+
+## 2 Nov 2026 — Phase 1 live SEO verification (PR pending)
+
+**No QMS backend impact.** This change adds a read-only production-site verification script and its deterministic tests, CI evidence and runbook. It does not modify the marketing site's static HTML, DNS, certificate configuration, deployment configuration, app APIs, or production data. It sends only unauthenticated GET requests to the public company domain.
+
+- Database schemas/relationships/migrations: unchanged.
+- QMS and public inquiry APIs/workflows, roles/permissions, tenant/process scope, classification/security, authentication, integrations, backend events and tests: unchanged.
+- Existing public marketing inquiry integration remains disabled. Unrelated backend change-management [PR #26](https://github.com/dbauto/thryvems-backend/pull/26) remains **Pending**; this audit neither completes nor alters it.
+- No new backend architecture PR is necessary. GitHub Pages domain DNS and HTTPS remain separate external deployment prerequisites requiring authorized account access and owner approval.
