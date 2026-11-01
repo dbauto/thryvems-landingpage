@@ -80,11 +80,11 @@ for (const file of ['thryvems-motion.css','thryvems-product-hero.css','thryvems-
 const dest=resolve(root,'dist');
 rmSync(dest,{recursive:true,force:true});
 mkdirSync(dest,{recursive:true});
-for(const file of ['index.html','thync-thryve-company.css','thync-thryve-motion.css','thync-thryve-motion.js','thync-thryve-back-to-top.js','thryvems.html','thryvems-motion.css','thryvems-product-hero.css','thryvems-story-preview.css','thryvems-after-problem-motion.css','thryvems-motion.js','thryvems-after-problem-motion.js','thryvems-pricing.js']) {
+for(const file of ['index.html','thync-thryve-company.css','thync-thryve-motion.css','thync-thryve-motion.js','thync-thryve-back-to-top.js','thryvems.html','thryvems-motion.css','thryvems-product-hero.css','thryvems-story-preview.css','thryvems-after-problem-motion.css','thryvems-motion.js','thryvems-after-problem-motion.js','thryvems-pricing.js','site-cookie-notice.js','site-inquiry.js','site-interactions.css','cookies.html']) {
   copyFileSync(resolve(root,file), join(dest,file));
 }
 cpSync(resolve(root,'assets'),join(dest,'assets'),{recursive:true});
-for (const file of ['thryvems-after-problem-motion.css','thryvems-after-problem-motion.js']) {
+for (const file of ['thryvems-after-problem-motion.css','thryvems-after-problem-motion.js','site-cookie-notice.js','site-inquiry.js','site-interactions.css','cookies.html']) {
   assert(existsSync(join(dest,file)), 'Build output is missing motion asset: '+file);
 }
 console.log('Static build validation passed. Product page, calculator, company homepage, and assets copied to dist.');
