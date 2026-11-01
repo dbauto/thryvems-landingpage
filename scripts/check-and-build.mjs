@@ -6,6 +6,7 @@ const root = process.cwd();
 const html = readFileSync(resolve(root,'thryvems.html'),'utf8');
 const companyHtml = readFileSync(resolve(root,'index.html'),'utf8');
 const companyCss = readFileSync(resolve(root,'thync-thryve-company.css'),'utf8');
+const companyBackToTopJs = readFileSync(resolve(root,'thync-thryve-back-to-top.js'),'utf8');
 const pricingJs = readFileSync(resolve(root,'thryvems-pricing.js'),'utf8');
 const motionJs = readFileSync(resolve(root,'thryvems-motion.js'),'utf8');
 const css = readFileSync(resolve(root,'thryvems-motion.css'),'utf8');
@@ -37,6 +38,11 @@ assert(companyHtml.includes('Enquiry form not yet active') &&
   companyHtml.includes('disabled aria-disabled="true"'), 'Do not claim working lead submission');
 assert(companyHtml.includes('thync-thryve-company.css'), 'Company styles not loaded');
 assert.match(companyCss,/company-catalog-grid/);
+assert(companyHtml.includes('class="company-back-to-top"') && companyHtml.includes('aria-label="Back to top"'),
+  'Company page must include the accessible Back to top button');
+assert(companyHtml.includes('thync-thryve-back-to-top.js'), 'Company Back to top behavior must load');
+assert.match(companyCss,/\.company-back-to-top\.visible/);
+assert.match(companyBackToTopJs,/window\.scrollTo/);
 assert.match(pricingJs, /fee:4000,incl:15,per:300,max:25/);
 assert.match(pricingJs, /fee:6500,incl:25,per:260,max:75/);
 assert.match(pricingJs, /annual\?0\.8:1/);
@@ -54,13 +60,13 @@ assert.match(html, /class="hero product-hero"/);
 assert(!html.includes('puzzle-piece'), 'Rejected puzzle hero must not appear');
 assert(html.indexOf('id="system"') < html.indexOf('class="problem"'), 'The product scroll story should start immediately after the hero');
 for (const file of ['thryvems-motion.css','thryvems-product-hero.css','thryvems-story-preview.css','thryvems-after-problem-motion.css','thryvems-after-problem-motion.js','thryvems-motion.js','thryvems-pricing.js',
-  'assets/thryvems-logo.svg','assets/thryvems-logo.png','assets/thync-thryve-logo.png','thync-thryve-company.css']) {
+  'assets/thryvems-logo.svg','assets/thryvems-logo.png','assets/thync-thryve-logo.png','thync-thryve-company.css','thync-thryve-back-to-top.js']) {
   assert(existsSync(join(root,file)), 'Referenced asset missing: '+file);
 }
 const dest=resolve(root,'dist');
 rmSync(dest,{recursive:true,force:true});
 mkdirSync(dest,{recursive:true});
-for(const file of ['index.html','thync-thryve-company.css','thryvems.html','thryvems-motion.css','thryvems-product-hero.css','thryvems-story-preview.css','thryvems-after-problem-motion.css','thryvems-motion.js','thryvems-after-problem-motion.js','thryvems-pricing.js']) {
+for(const file of ['index.html','thync-thryve-company.css','thync-thryve-back-to-top.js','thryvems.html','thryvems-motion.css','thryvems-product-hero.css','thryvems-story-preview.css','thryvems-after-problem-motion.css','thryvems-motion.js','thryvems-after-problem-motion.js','thryvems-pricing.js']) {
   copyFileSync(resolve(root,file), join(dest,file));
 }
 cpSync(resolve(root,'assets'),join(dest,'assets'),{recursive:true});
