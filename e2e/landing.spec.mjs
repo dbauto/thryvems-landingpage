@@ -560,3 +560,61 @@ test('company Solutions and How we work cards continue the scroll-motion story w
  for(let i=0;i<workGaps.length-1;i++)expect(workGaps[i+1].left-workGaps[i].right).toBeGreaterThanOrEqual(0);
  await page.screenshot({path:'test-results/screenshots/company-how-we-work-motion.png'});
 });
+
+test('company Back to top matches product layout, only appears after scrolling, and returns to hero',async({page})=>{
+ for(const width of [390,768,1280,1920]){
+  await page.setViewportSize({width,height:900});
+  await page.goto('/index.html');
+  const topButton=page.getByRole('button',{name:'Back to top',includeHidden:true});
+  await expect(topButton).toHaveCount(1);
+  await expect(topButton).not.toBeVisible();
+  await expect(topButton).toHaveAttribute('aria-hidden','true');
+  await expect(topButton).toHaveAttribute('tabindex','-1');
+  await page.evaluate(()=>window.scrollTo({top:Math.min(document.documentElement.scrollHeight-innerHeight,850),behavior:'instant'}));
+  await expect.poll(()=>topButton.getAttribute('aria-hidden')).toBe('false');
+  await expect(topButton).toBeVisible();
+  await expect(topButton).toHaveClass(/visible/);
+  await page.waitForTimeout(450); // Measure after the same product entrance transition has settled.
+  const companyRect=await topButton.boundingBox();
+  expect(companyRect).toBeTruthy();
+  expect(Math.abs(companyRect.x + companyRect.width/2-width/2)).toBeLessThan(2);
+  expect(companyRect.width).toBe(width<=760?52:58);
+  expect(Math.abs(900-companyRect.y-companyRect.height-(width<=760?16:Math.max(18,Math.min(width*.024,32))))).toBeLessThan(2);
+  const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(2);
+  await page.screenshot({path:'test-results/screenshots/company-back-to-top-'+width+'.png'});
+  await topButton.click();
+  await expect.poll(()=>page.evaluate(()=>scrollY),{timeout:12000}).toBeLessThan(10);
+  await expect(topButton).not.toBeVisible();
+  await expect(topButton).toHaveAttribute('tabindex','-1');
+
+  // Match exact size and centered placement on the reference ThryveMS landing.
+  await page.goto('/thryvems.html');
+  await page.evaluate(()=>window.scrollTo({top:900,behavior:'instant'}));
+  const productButton=page.locator('.back-to-top');
+  await expect(productButton).toBeVisible();
+  await page.waitForTimeout(450); // The reference button uses a .32s transform transition.
+  const productRect=await productButton.boundingBox();
+  expect(productRect).toBeTruthy();
+  expect(Math.abs(companyRect.x-productRect.x)).toBeLessThan(2);
+  expect(Math.abs(companyRect.width-productRect.width)).toBeLessThan(1);
+  expect(Math.abs(companyRect.y-productRect.y)).toBeLessThan(2);
+ }
+});
+
+test('company Back to top supports keyboard and prefers reduced motion',async({page})=>{
+ await page.setViewportSize({width:390,height:844});
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await page.goto('/index.html');
+ await page.evaluate(()=>window.scrollTo({top:920,behavior:'instant'}));
+ const button=page.locator('.company-back-to-top');
+ await expect(button).toHaveAttribute('aria-label','Back to top');
+ await expect(button).toBeVisible();
+ await expect(button).toHaveAttribute('tabindex','0');
+ await button.focus();
+ await expect(button).toBeFocused();
+ await page.keyboard.press('Enter');
+ await expect.poll(()=>page.evaluate(()=>scrollY)).toBeLessThan(10);
+ await expect(button).not.toBeVisible();
+ await expect(button).toHaveAttribute('aria-hidden','true');
+});

@@ -85,3 +85,13 @@
 - React QMS application and ThryveMS product landing: unchanged.
 - A separate company Back to top change is pending in PR #8, with no merge/deployment approval inferred.
 - Existing backend architecture synchronization work stays **Pending**. No backend PR is necessary for this static visual-only change.
+
+## 1 Nov 2026 — company Back to top button (PR #8)
+
+**No backend impact.** This change adds a bottom-centered Back to top button to the public, static Thync & Thryve company homepage, matching the product landing's appearance and scroll behavior. It uses a fixed-position styled button and browser scroll handling only, with no data submission or server calls.
+
+- Database schemas, relationships, data storage, migrations: unchanged.
+- APIs, workflows, user roles and permissions, organization/client and process access, information classification, authentication/security: unchanged.
+- Integrations, backend events, server-side tests and QMS application: unchanged.
+- No personal information captured. Company enquiry form remains inactive, and the ThryveMS product page and pricing are unchanged.
+- Existing backend architecture synchronization remains **Pending**. No backend PR is needed for this static-only enhancement.
