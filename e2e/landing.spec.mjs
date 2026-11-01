@@ -660,6 +660,7 @@ test('company inquiry requires human verification and confirms only accepted ser
  await form.locator('[name=email]').fill('sample@example.invalid');
  await form.locator('[name=interest]').selectOption({label:'Consultancy'});
  await form.locator('[name=message]').fill('Synthetic inquiry');
+ await expect.poll(()=>page.evaluate(()=>typeof window.__callbacks.company)).toBe('function');
  await page.evaluate(()=>window.__callbacks.company('synthetic-human-token'));
  await expect(form.locator('[data-inquiry-submit]')).toBeEnabled();
  await form.locator('[data-inquiry-submit]').click();
@@ -675,6 +676,7 @@ test('rejected delivery never shows successful submission',async({page})=>{
  const form=page.locator('[data-inquiry-form="thryvems"]');
  await form.locator('[name=name]').fill('Sample Contact');
  await form.locator('[name=email]').fill('sample@example.invalid');
+ await expect.poll(()=>page.evaluate(()=>typeof window.__callbacks.thryvems)).toBe('function');
  await page.evaluate(()=>window.__callbacks.thryvems('synthetic-human-token'));
  await form.locator('[data-inquiry-submit]').click();
  await expect(form.locator('[data-inquiry-status]')).toContainText('could not confirm delivery');
