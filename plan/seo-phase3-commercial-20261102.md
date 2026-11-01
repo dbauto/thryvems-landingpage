@@ -19,13 +19,13 @@ The approved six-item menu, existing Montserrat/Inter, colours, cards, responsiv
 
 | ID | Completion criterion | Pass target | Evidence | Current |
 | --- | --- | --- | --- | --- |
-| C01 | One primary search intent per canonical page | Exactly **11/11 mapped**, no duplicate primary terms | `plan/seo-phase3-keyword-map.json`; `npm run audit:commercial-seo` | Await CI |
-| C02 | Unique discoverable metadata | **11/11** distinct page titles and descriptions, title 15–72 chars, description 75–155 chars, exact canonical, one H1 | CI Phase 3 JSON and source checks | Await CI |
-| C03 | Useful commercial content | **4/4** designated pages contain auditable buyer checklists and useful next steps; 600–1200 visible words on all 9 SEO detail pages | Explicit test fragments, build word-count test, editorial review | Await CI |
-| C04 | Current authoritative technical fact | ISO 9001:2026 publication statement links to ISO's actual 16 Sep 2026 announcement | Source URL, checked edition against ISO | Source verified; CI pending |
+| C01 | One primary search intent per canonical page | Exactly **11/11 mapped**, no duplicate primary terms | `plan/seo-phase3-keyword-map.json`; `npm run audit:commercial-seo` | **PASS: 11/11** |
+| C02 | Unique discoverable metadata | **11/11** distinct page titles and descriptions, title 15–72 chars, description 75–155 chars, exact canonical, one H1 | CI Phase 3 JSON and source checks | **PASS: 11/11** |
+| C03 | Useful commercial content | **4/4** designated pages contain auditable buyer checklists and useful next steps; 600–1200 visible words on all 9 SEO detail pages | Explicit test fragments, build word-count test, editorial review | **PASS automated: 4/4, 9/9; owner editorial review pending** |
+| C04 | Current authoritative technical fact | ISO 9001:2026 publication statement links to ISO's actual 16 Sep 2026 announcement | Source URL, checked edition against ISO | **PASS: source and link validated** |
 | C05 | Honest certification separation | Consultant preparation and independent certification-body decision distinguished; **0 invented certificates, prices, testimonials, client names, credentials or service location claims** | Manual editorial spot-check + tests | Manual reviewer signoff pending |
-| C06 | Working existing UI | All existing source checks, build, full Chromium e2e and live mobile 12/12 continue passing; design and six-item navigation unchanged | Exact-head GitHub Check and screenshots | Await CI |
-| C07 | Security/backend boundary | **No** API, database, tenant/security, forms, cookie or backend workflow changes | Diff plus `plan/backend-impact.md` | Static content only; review pending |
+| C06 | Working existing UI | All existing source checks, build, full Chromium e2e and live mobile 12/12 continue passing; design and six-item navigation unchanged | Exact-head GitHub Check and screenshots | **PASS: 53/53 e2e; 12/12 live; 16 new screenshots** |
+| C07 | Security/backend boundary | **No** API, database, tenant/security, forms, cookie or backend workflow changes | Diff plus `plan/backend-impact.md` | **PASS: changes limited to static content/tests/docs** |
 | C08 | Approval and release | Owner review/approval and successful post-merge HTTP 200 + canonical/robots and links checks on production | GitHub merge/release and public checks | **Pending approval** |
 
 **Implementation complete** only when C01–C08 are met with actual CI evidence, release checks and editorial approval; code checks alone cannot prove rankings or business outcomes.
@@ -57,9 +57,9 @@ Google's own [Search Essentials](https://developers.google.com/search/docs/essen
 
 ## Evidence links (fill only after actual runs)
 
-- CI typecheck, build and browser results: **Pending**
-- Phase 3 keyword mapping/metadata JSON: **Pending**
-- Production deployment and rankings/Google Search Console: **Not run**
-- UI appearance review: Same existing components and CSS; source-only edit; production 390/768/1280/1920 screens not retested for this PR yet.
+- [CI code+docs Check #41339949123](https://github.com/dbauto/thryvems-landingpage/actions/runs/41339949123): **SUCCESS**, syntax/typecheck, **27/27 unit tests** (12 Worker, 5 Phase 1, 5 Phase 2, 5 Phase 3), build, **53/53 Chromium tests (52.5s)** including 16 responsive screenshots from the four edited pages; public domain **18/18** and live responsive **12/12**. Phase 2 source discovery **11/11**.
+- Phase 3 keyword map and metadata audit: **PASS 11/11**, 4/4 buyer-guide sections, zero duplicate titles and descriptions.
+- [GitHub screenshot + JSON artifact](https://github.com/dbauto/thryvems-landingpage/actions/runs/41339949123/artifacts/13096389855); representative 390/1280 snapshots were visually reviewed and showed retained existing layout. Production deployment and Google rankings/Search Console: **Not run**.
+- UI appearance review: Same existing components and CSS; local modified-page 390/768/1280/1920 browser checks and screenshots **PASS**; production current site 12/12 unchanged, but modified source is not deployed.
 
 Next after PR checks: request owner review, then only after owner-approved merge verify production. Phase 2 owner GSC setup and URL Inspection remain separate **Pending** requirements.
