@@ -152,3 +152,15 @@
 - ✅ **No backend impact** documented in `plan/backend-impact.md`; only public static company branding changed, no schemas/relationships, APIs, workflow, roles, security, classifications, process/client scopes, events/integrations or backend tests. Existing architecture synchronization remains **Pending**.
 - ✅ React QMS app untouched. Its UI-GUIDELINES §10 app-specific permissions, View as, dark/light and token checks are not applicable; all relevant public-page asset, regression and responsive checks passed.
 - ⏳ Owner has already authorized merging this fix following passing gates; release verification must confirm Pages and post-merge Check.
+
+## 1 Nov 2026 — GitHub Pages company apex domain PR (pending domain activation)
+- ✅ No UI/layout/font/colour/menu/component/copy/animation/form code changed. The existing static site is the visual reference.
+- ✅ Existing QMS app `app/` untouched; app-specific §10 light/dark/View as/security checklist N/A. Existing landing regression tests must still pass.
+- ✅ [GitHub Check 41289855912](https://github.com/dbauto/thryvems-landingpage/actions/runs/41289855912): typecheck **passed**, static build **passed**, Chromium Playwright **34/34 passed (39.7s)**, including exact CNAME served from the build and 390/768/1280/1920px no-horizontal-overflow regressions, company/product navigation, favicon, pricing and reduced-motion. [Screenshot artifact](https://github.com/dbauto/thryvems-landingpage/actions/runs/41289855912/artifacts/13077235316) generated; inspected company 390px and 1280px, product 390px and company header/fav icon layout. No visual UI source edits.
+- ✅ User-supplied Cloudflare DNS screenshot confirms actual company domain spelling `thyncandthryve.com`; screenshot shows five mail-only MX/TXT records (do not edit). Connected Cloudflare plugin cannot list the owning zone or make changes. ⏳ DNS/HTTPS/GitHub custom-domain verification and production publication remain Pending.
+
+## 1 Nov 2026 — Corrected domain after owner Cloudflare screenshot
+- ✅ Screenshot shows `thyncandthryve.com` is the actual zone; corrected the earlier one-letter-missing domain in root CNAME, build assertion, E2E, README and deployment guide.
+- ✅ [Corrected-domain source Check 41290428342](https://github.com/dbauto/thryvems-landingpage/actions/runs/41290428342): JS typecheck **passed**, static build **passed**, Chromium browser tests **34/34 passed (43.8s)** with zero errors; current build CNAME tests exact corrected domain. [Screenshot artifact 13076577860](https://github.com/dbauto/thryvems-landingpage/actions/runs/41290428342/artifacts/13076577860) generated. Existing responsive UI tests executed; UI code unchanged from previously inspected screenshots.
+- ✅ No layout, colours, fonts, menus, actions, security access or QMS UI changes; no additional QMS-specific §10 screenshots applicable.
+- ⏳ Domain DNS, GH Pages custom domain and real HTTPS not yet configured/verified; connected Cloudflare app still cannot write owner zone. No production or mailbox-delivery claim.
