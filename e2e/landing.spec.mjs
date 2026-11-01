@@ -487,7 +487,15 @@ for(const width of [390,768,1280,1920]){
   expect(overflow).toBeLessThanOrEqual(2);
   await story.locator('.company-motion-board').scrollIntoViewIfNeeded();
   await page.screenshot({path:'test-results/screenshots/company-story-'+width+'.png'});
-  if(width===390)await page.screenshot({path:'test-results/screenshots/company-story-mobile-graphic.png'});
+  if(width===390){
+    const gap=await page.locator('.company-motion-board').evaluate(el=>{
+      const label=el.querySelector('.company-motion-board-label').getBoundingClientRect();
+      const first=el.querySelector('.company-motion-object-0').getBoundingClientRect();
+      return first.top-label.bottom;
+    });
+    expect(gap).toBeGreaterThanOrEqual(5);
+    await page.screenshot({path:'test-results/screenshots/company-story-mobile-graphic.png'});
+  }
  });
 }
 
@@ -542,9 +550,13 @@ test('company Solutions and How we work cards continue the scroll-motion story w
  await expect.poll(()=>query('.company-solution-plans > a')).toBeGreaterThan(.65);
  await expect(page.locator('.company-solution-plans')).toContainText('₱4,000');
  await expect(page.locator('.company-solution-plans')).toContainText('₱6,500');
+ const solutionGaps=await page.locator('.company-solution-plans > a').evaluateAll(nodes=>nodes.map(n=>n.getBoundingClientRect()));
+ for(let i=0;i<solutionGaps.length-1;i++)expect(solutionGaps[i+1].top-solutionGaps[i].bottom).toBeGreaterThanOrEqual(0);
  await page.screenshot({path:'test-results/screenshots/company-solutions-motion.png'});
  await enter('.company-work-steps');
  await expect.poll(()=>query('.company-work-steps > div')).toBeGreaterThan(.65);
  await expect(page.locator('.company-work-steps')).toContainText('Run & improve');
+ const workGaps=await page.locator('.company-work-steps > div').evaluateAll(nodes=>nodes.map(n=>n.getBoundingClientRect()));
+ for(let i=0;i<workGaps.length-1;i++)expect(workGaps[i+1].left-workGaps[i].right).toBeGreaterThanOrEqual(0);
  await page.screenshot({path:'test-results/screenshots/company-how-we-work-motion.png'});
 });
