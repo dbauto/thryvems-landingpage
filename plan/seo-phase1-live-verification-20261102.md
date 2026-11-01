@@ -15,7 +15,8 @@ Confirm that the existing public **Thync & Thryve** GitHub Pages website is acce
 - DNS/HTTPS checks from the isolated execution container could not resolve even the unrelated `dbauto.github.io` hostname; **inconclusive**, not a valid external DNS verdict.
 - Neither connected Cloudflare account can list a managed domain zone, so authoritative DNS record state, certificate status and web traffic configuration **cannot be verified or changed through those connections**.
 - The owner's [domain configuration runbook](github-pages-domain.md) documents the previous lack of public web A/CNAME records at the time of the supplied DNS screenshot; that is historical, **not proof of current DNS state**.
-- There is no evidence here of Search Console indexing or real visitor reachability.
+- **Independent public-network proof now available:** [PR Check 41333953855](https://github.com/dbauto/thryvems-landingpage/actions/runs/41333953855), source SHA `0004bd6bd90eb1426422bc7e1db9726e1e78cab1`, ran at 2 Nov 2026, 01:57 Asia/Manila: **18/18 live production checks PASSED** (apex four A targets; www CNAME; apex HTTPS and www 301 redirects; 11/11 URLs HTTP 200 with canonicals and trusted TLS; robots and sitemap HTTP 200, 11 URLs; true 404). [Raw report and Playwright artifact](https://github.com/dbauto/thryvems-landingpage/actions/runs/41333953855/artifacts/13094616424). This confirms live reachability from GitHub Actions, contrary to the earlier web-checking environment failure; it does **not** establish Google indexing.
+- There is no direct evidence here of Search Console indexing. Public browser-mobile evidence and independent 24-hour repetition remain outstanding.
 
 ## Automated production acceptance metrics
 
@@ -41,19 +42,19 @@ Run `npm run audit:live` in a networked runtime (Node 22). It writes `phase1-liv
 | Criterion | Current verified status | Evidence |
 | --- | --- | --- |
 | Codebase build / SEO page presence | PASS (source only) | Main Check 41331487971 and PR #20 |
-| A1–A8 live production | **PENDING** | Web requester inaccessible; run networked script in the PR Check for specific results |
-| A9 live mobile | **PENDING** | Prior local Playwright tests only |
+| A1–A8 live production | **PASS — 18/18** | GitHub Actions public-runner Check 41333953855, audit 01:57 PHT 2 Nov 2026 |
+| A9 live mobile | **PENDING** | New production Chromium 390/768/1280/1920 screenshots are being tested; do not claim pass before CI |
 | A10 24-hour repeat | **PENDING** | No two successful live probes |
-| DNS account access | **BLOCKED** | Connected Cloudflare accounts returned no zones |
-| Production deployment and GitHub Pages custom domain | **PENDING** | Must verify Settings → Pages domain, publishing source and Enforce HTTPS |
+| DNS account access | **UNAVAILABLE (no change needed based on current audit)** | Both connected Cloudflare accounts returned no zones; public DNS nevertheless passed all targets |
+| Production deployment and GitHub Pages custom domain | **LIVE HTTP/TLS verified; settings review pending** | Public response checks passed; private Pages configuration could not be inspected |
 | Google indexing | Outside Phase 1 | Phase 2 via Search Console |
 
 ## Approved low-risk resolution order (no automatic DNS writes)
 
-1. Determine **which Cloudflare account holds** the live `thyncandthryve.com` zone, or grant the existing connection zone visibility. Do not transfer zones or change nameservers.
+1. Public DNS/HTTPS now passes: **no DNS remediation is indicated by this audit**. If future changes are necessary, first determine which Cloudflare account manages the zone and get approval; do not transfer zones, change nameservers or touch mail settings.
 2. Read current apex/www DNS records and GitHub → Settings → Pages (custom domain, HTTPS and publishing source), then reconcile with the [owner DNS runbook](github-pages-domain.md). **Preserve all existing MX, SPF, DKIM, DMARC, Workspace, verification and subdomain records.** Any DNS edit requires explicit owner approval based on current records.
-3. Re-run `npm run audit:live` from a public-network GitHub runner and fix the **actual failed checks** in the responsible hosting layer. PR #20 already contains the 11 static pages; do not rewrite them to compensate for DNS.
-4. Capture actual public browser screenshots for 390, 768, 1280 and 1920 px including company, product and one SEO detail page; check nav and horizontal overflow.
+3. Keep `npm run audit:live` as a regression check, document any future actual failures and repair only their demonstrated root causes. PR #20 already contains the 11 static pages; do not rewrite them to compensate for DNS.
+4. Capture actual public browser screenshots for 390, 768, 1280 and 1920 px including company, product and one SEO detail page using `npm run audit:live-mobile`; check nav and horizontal overflow.
 5. Repeat live audit at least 24 hours after first clean run. Log two artifact links, timestamp, commit SHA and a screenshot sheet. Mark Phase 1 **PASSED** only when all A1–A10 succeed. Never interpret a green CI run with a non-blocking probe as Phase 1 success.
 
 ## Backend impact
