@@ -20,7 +20,7 @@
 
 | Canonical page | Primary keyword | Secondary terms (target naturally; not repeated unnaturally) | Intent |
 |---|---|---|---|
-| `/` | ISO consultancy Philippines | ISO consulting services Philippines, ISO training consultancy | Brand / commercial |
+| `/` | ISO training and consultancy Philippines | ISO consultancy services, ISO training Philippines, Thync & Thryve | Brand / broad commercial |
 | `/iso-consultancy-philippines/` | ISO consultancy Philippines | ISO consultant Philippines, ISO certification consultant | Commercial comparison |
 | `/iso-9001-certification-philippines/` | ISO 9001 certification Philippines | ISO 9001 consultant Manila, ISO 9001:2026 requirements, quality management consultancy | Transactional / commercial |
 | `/iso-14001-certification-philippines/` | ISO 14001 certification Philippines | ISO 14001 consultant, environmental management systems | Commercial |
