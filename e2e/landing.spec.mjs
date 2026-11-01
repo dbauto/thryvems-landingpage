@@ -385,6 +385,11 @@ for(const width of [390,768,1280,1920]){
   await page.goto('/index.html');
   await expect(page.getByRole('heading',{level:1})).toContainText('Think it through');
   await expect(page.locator('#programs .company-standard')).toHaveCount(7);
+  await expect(page.locator('a[href="#iso-guide"]').first()).toBeAttached();
+  if(width===390){
+    const headingPx=await page.locator('#top h1').evaluate(el=>parseFloat(getComputedStyle(el).fontSize));
+    expect(headingPx).toBeLessThanOrEqual(48);
+  }
   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
   if(overflow>2){
    const offenders=await page.evaluate(()=>[...document.querySelectorAll('body *')].filter(el=>{
