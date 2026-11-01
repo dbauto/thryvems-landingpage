@@ -105,3 +105,6 @@
 - Workflows, permissions, process/client/classification checks, authentication and security: unchanged.
 - Integrations, server events, booking flows, backend tests and data collection: unchanged.
 - This is public static branding only. The backend architecture synchronization remains **Pending**; no backend PR needed.
+
+## 1 Nov 2026 — company apex domain configuration for GitHub Pages (pending external DNS)
+**No backend impact.** Add `CNAME` (`thycandthryve.com`) and include it in the existing static build so GitHub Pages can recognize the proposed custom domain on the configured publishing branch. No changes to QMS schema, relationships, APIs, workflows, roles, permissions, security/access/classification or process scope, integrations, application events or backend tests. DNS/SSL is a **public website deployment configuration**, not a change to QMS app contracts. No backend PR is needed. Existing [public intake change management PR #24](https://github.com/dbauto/thryvems-backend/pull/24) remains Pending and unrelated to domain-only setup. Cloudflare zone, DNS changes, actual HTTPS and GitHub Pages custom domain verification are not accessible via the connected accounts; do not mark the domain live.
