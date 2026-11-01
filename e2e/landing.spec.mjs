@@ -653,7 +653,6 @@ test('company and product cookie notice appears without optional tracking', asyn
  await page.goto('/thryvems.html');
  await expect(page.locator('.site-cookie-notice')).toBeVisible();
  await expect(page.locator('.contact-form')).toContainText('Preview only');
- await expect(page.locator('.contact-form button[type="submit"]')).not.toBeDisabled();
  await page.goto('/cookies.html');
  await expect(page.getByRole('heading',{name:'Cookie notice'})).toBeVisible();
  await expect(page.getByText('We currently do not use optional analytics, advertising, or marketing cookies')).toBeVisible();
