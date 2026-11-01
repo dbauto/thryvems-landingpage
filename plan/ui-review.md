@@ -188,3 +188,9 @@
 - ✅ Worker-only logic is disabled pending sender-domain/account provisioning. `site-inquiry-config.js` retains `enabled: false` and empty Worker URL; no data can be sent from the production form.
 - ✅ [Initial Check 41302498614](https://github.com/dbauto/thryvems-landingpage/actions/runs/41302498614) typecheck/build/40 of 40 Chromium tests PASS (51.9s), including unchanged responsive screenshots at 390/768/1280/1920, mock token and delivery tests. New Worker server-side unit tests are part of typecheck.
 - ⚠️ Live verified destination, live Turnstile, real inbox receipt, Cloudflare domain sending and production rate limiting NOT tested. No production deployment approved.
+
+## 1 Nov 2026 — Worker CORS preflight correctness (PR #17)
+- ✅ No website HTML, CSS, navigation, labels, fonts, colours, existing form UX, CNAME or cookie notice changed. Marketing desktop/mobile and QMS light/dark/View As checks N/A as no QMS app/UI edits.
+- ✅ [Source Check 41303254749](https://github.com/dbauto/thryvems-landingpage/actions/runs/41303254749) passed typecheck (including **8/8** Worker unit tests), build, Chromium Playwright **40/40 (51.0 s)**, and screenshot artifact [13081593703](https://github.com/dbauto/thryvems-landingpage/actions/runs/41303254749/artifacts/13081593703), covering preserved 390/768/1280/1920 responsive baselines.
+- ✅ Added direct OPTIONS regression test for bodyless 204 and correct CORS headers without an enabled mailer. No live Worker endpoint created or tested.
+- ⚠️ Real email recipient/domain verification, server provider negative testing and live inbox arrival remain unverified; forms still disabled.
