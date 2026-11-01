@@ -38,6 +38,9 @@ assert(!/\[DATE\]|\[One line|\[Company story|\[Credentials/.test(companyHtml),
   'No invented schedule, company background or accreditation placeholders');
 assert(companyHtml.includes('Enquiry form not yet active') &&
   companyHtml.includes('disabled aria-disabled="true"'), 'Do not claim working lead submission');
+assert(companyHtml.includes('site-inquiry.js') && html.includes('site-inquiry.js'), 'Both forms need secure submission gating');
+assert(companyHtml.includes('site-cookie-notice.js') && html.includes('site-cookie-notice.js'), 'Both pages need the cookie notice');
+assert(!html.includes('This is a visual preview. No enquiry was sent.'), 'Remove fake success state');
 assert(companyHtml.includes('thync-thryve-company.css'), 'Company styles not loaded');
 assert.match(companyCss,/company-catalog-grid/);
 assert(companyHtml.includes('class="company-back-to-top"') && companyHtml.includes('aria-label="Back to top"'), 'Company back to top button missing');
@@ -71,7 +74,7 @@ assert.match(html, /class="hero product-hero"/);
 assert(!html.includes('puzzle-piece'), 'Rejected puzzle hero must not appear');
 assert(html.indexOf('id="system"') < html.indexOf('class="problem"'), 'The product scroll story should start immediately after the hero');
 for (const file of ['thryvems-motion.css','thryvems-product-hero.css','thryvems-story-preview.css','thryvems-after-problem-motion.css','thryvems-after-problem-motion.js','thryvems-motion.js','thryvems-pricing.js',
-  'assets/thryvems-logo.svg','assets/thryvems-logo.png','assets/thync-thryve-logo.png','thync-thryve-company.css','thync-thryve-motion.css','thync-thryve-motion.js','thync-thryve-back-to-top.js']) {
+  'assets/thryvems-logo.svg','assets/thryvems-logo.png','assets/thync-thryve-logo.png','thync-thryve-company.css','thync-thryve-motion.css','thync-thryve-motion.js','thync-thryve-back-to-top.js','site-cookie-notice.js','site-inquiry.js','site-interactions.css','cookies.html']) {
   assert(existsSync(join(root,file)), 'Referenced asset missing: '+file);
 }
 const dest=resolve(root,'dist');
