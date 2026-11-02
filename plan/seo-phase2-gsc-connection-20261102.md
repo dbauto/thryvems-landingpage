@@ -1,6 +1,6 @@
 # Phase 2 Search Console connection evidence — 2 Nov 2026
 
-**Measured status: connected reporting source, no data rows returned. Google indexing and sitemap acceptance remain UNKNOWN.**
+**Measured status (updated 2 Nov 2026): sitemap successfully submitted and fetched; Google Search Console now reports 11 submitted/discovered pages with 0 warnings/errors. URL indexing remains UNKNOWN.**
 
 ## Connected property
 
@@ -25,6 +25,23 @@ All successful data calls completed with an empty `data` array and `total_rows=0
 
 **Do not write `INDEXED`, `EXCLUDED` or `0 indexed` to the evidence manifest based on these empty analytics/sitemap feeds.** All eleven individual URL Inspection rows remain `NOT_VERIFIED`.
 
+## Update after sitemap submission — 2 Nov 2026
+
+The user provided a Google Search Console Sitemaps screenshot showing **“Sitemap submitted successfully”**, the full URL `https://thyncandthryve.com/sitemap.xml`, and **11 discovered pages**. The **Status column is concealed by the confirmation popup**, so its exact processing status is not directly observed.
+
+Immediately afterward, the connected Search Console sitemap report returned **one row**:
+
+| Field | Verified value |
+| --- | --- |
+| path | `https://thyncandthryve.com/sitemap.xml` |
+| submitted | **11** |
+| last_submitted | `2026-11-02T08:12:49.352Z` |
+| last_downloaded | `2026-11-02T08:12:49.869Z` |
+| errors | **0** |
+| warnings | **0** |
+
+This supersedes the earlier empty sitemap report. **Google has received and downloaded the sitemap**; this is not proof that any URL is indexed or that the hidden Google processing Status column says Success. Search Analytics still returned 0 rows in the most recent check, which is not proof of zero real Google impressions. The 11 individual URL Inspection entries are deliberately left `NOT_VERIFIED`.
+
 ## What is independently verified
 
 Earlier [public Check #41406506285](https://github.com/dbauto/thryvems-landingpage/actions/runs/41406506285) passed website DNS/HTTPS/canonical/sitemap/robots/404 checks (18/18) and public responsive checks (12/12). It does **not** report Google's indexing decision. The 11 sitemap entries and static on-page indexability are already validated in repository CI.
@@ -32,7 +49,7 @@ Earlier [public Check #41406506285](https://github.com/dbauto/thryvems-landingpa
 ## Next owner-side Google actions (not supported through this connector)
 
 1. Open [Google Search Console](https://search.google.com/search-console), select the **existing Domain property** `thyncandthryve.com`, and check whether the signed-in user is a verified owner. No new DNS record or duplicate property is indicated by the accessible account name alone.
-2. Go to **Indexing → Sitemaps**. If `https://thyncandthryve.com/sitemap.xml` is not listed as successfully submitted, submit `sitemap.xml`. Record the Google report status and discovered URLs. [Google's official sitemap instructions](https://support.google.com/webmasters/answer/7451001) require owner permission to submit in the UI.
+2. **Sitemap submission is already complete; do not submit it again.** Go to **Indexing → Sitemaps**, dismiss the popup, and verify whether the submitted sitemap's visible **Status** field is **Success**. The connector confirms 11 submitted, Google download, 0 errors and warnings.
 3. Use the top URL Inspection box on `https://thyncandthryve.com/`, then the other 10 canonical URLs in [the evidence manifest](google-indexing-evidence.json). Capture **URL is on Google** or Google reason for exclusion, actual crawl and Google-selected canonical. Request indexing only for eligible URLs when useful, not repeatedly. [Official URL Inspection instructions](https://support.google.com/webmasters/answer/9012289/).
 4. Update `plan/google-indexing-evidence.json` only with actual dated, nonsecret Google status evidence. Record impressions/clicks after Search Analytics starts returning rows; do not estimate from an empty feed.
 
@@ -42,7 +59,7 @@ Google explains that newly created or added Search Console properties can take u
 
 - **I01, I02 and I07:** Passed (source tests, 11/11, evidence manifest valid).
 - **I03:** Partial — connected property visible, but owner-level permission and verified ownership not directly confirmed.
-- **I04:** Pending — 0 sitemap report rows, not proof of rejection or absence.
+- **I04:** PARTIAL — GSC confirms submission, 11 submitted/discovered, downloaded, 0 errors/warnings; exact Google processing status not yet visible.
 - **I05:** Pending — 0/11 URL Inspection results; connector cannot run them.
 - **I06:** Pending — no Google-specific exclusion/crawl report accessible, despite public technical site probes passing.
 - **SEO outcomes:** Not measurable from available rows.
