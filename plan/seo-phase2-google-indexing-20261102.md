@@ -1,66 +1,49 @@
-# SEO Phase 2 — Google discovery and indexing: measurable acceptance
+# SEO Phase 2 — Google indexing verification
 
-Date: 2 Nov 2026 (Asia/Manila) · Site: https://thyncandthryve.com/ · Status: **IN PROGRESS / NOT ACCEPTED**.
+Date: 2 November 2026 (Asia/Irkutsk). Site: https://thyncandthryve.com/. Existing property: `sc-domain:thyncandthryve.com`.
 
-## Baseline and known limits
+Status: **11/11 URL inspections complete; Google indexing outcome pending; owner acceptance pending.**
 
-- SEO PR #20 published 11 intended canonical pages. Phase 1 PR #21 merged at `cc1c449`; public-network DNS/HTTPS/crawlability previously passed 18/18. Phase 1 **remains pending** its post-merge production mobile 12/12 confirmation and a repeat successful live audit at least 24 h later.
-- [Source Check 41338610182](https://github.com/dbauto/thryvems-landingpage/actions/runs/41338610182) measured **11/11 pages reachable from the homepage in one click**, source metadata/canonical/sitemap **PASS**, 22/22 audit-related new and existing unit tests (12 existing Worker, 5 Phase 1, 5 Phase 2) and 52/52 existing Chromium e2e PASS. Public domain audit 18/18 and live mobile 12/12 passed in that run. A green build or public search query **cannot confirm Google indexing**.
-- **Update, 2 Nov 2026:** Windsor.ai's Google Search Console connector now exposes **`sc-domain:thyncandthryve.com`**, so the domain-property data connection is accessible. However, connector data access **does not establish GSC owner-level permissions**, whether a sitemap was submitted/accepted, Google Page indexing state, latest crawl, Google-selected canonical, or real organic search visits. Source manifest remains all 11 `NOT_VERIFIED`, and indexed-page counts must not be inferred from an empty Search Analytics response.
-- Do not infer company location from device/account data. Do not publish or commit verification TXT values, Google passwords, personal email addresses or token-bearing Search Console links.
-- Search results using `site:` are diagnostic only and **not** the acceptance source. Use the Google Search Console *Page indexing* and *URL Inspection* results to determine actual Google status.
+## Direct Google evidence
 
-## Phase 2 technical and Google metrics
+The existing Microsoft Edge Search Console session is accessible. The sitemap table shows **Success**, submitted and last read **2 Nov 2026**, with **11 discovered pages** and **0 discovered videos**. It was not resubmitted. Error/warning counts of zero were supplied by the user; those counters are not displayed in the observed table.
 
-| ID | Measurement | Completion target | Evidence required | Current |
-| --- | --- | --- | --- | --- |
-| I01 | Source internal-link discovery | All 11/11 pages linked from home in at most 2 clicks | `npm run audit:indexing-readiness`, CI JSON | **PASS: 11/11, max 1 click** |
-| I02 | Static indexability signals | 11/11 intended HTML pages have one H1, matching canonical and no `noindex`; robots/sitemap enumerate exact 11 | CI JSON | **PASS: 11/11** |
-| I03 | Search Console property ownership | Verified `sc-domain:thyncandthryve.com` property covering apex and www | Owner-approved GSC screenshot/date or access-verified GSC report link | **PARTIAL: connector account visible; owner-level permissions NOT VERIFIED** |
-| I04 | Sitemap in Search Console | `https://thyncandthryve.com/sitemap.xml` submitted; Google status **Success**; discovered URLs recorded | GSC → Sitemaps screenshot/report | **PENDING: connector returned 0 sitemap rows; submission/success not established** |
-| I05 | Google URL inspection coverage | 11/11 canonical URLs inspected using URL Inspection, with dated Google indexing/crawl/canonical status | 11 evidence rows, no invented `INDEXED` values | **PENDING: connector does not expose URL Inspection; 0/11 inspected** |
-| I06 | Preventable Google indexing blockers | 0 unresolved issues under publisher control (e.g. 403/404, robots/noindex, wrong canonical, broken HTML/sitemap, redirect loops) | URL Inspection live check and Page indexing report | **Pending** |
-| I07 | Evidence validity | Each non-`NOT_VERIFIED` row has date, report type and non-secret HTTPS evidence link; no duplicate/unrecognized paths | `npm run audit:indexing-readiness` | **PASS: 11/11 placeholders valid; 0/11 Google statuses verified** |
+The canonical URL list comes directly from repository `sitemap.xml`. Per-page observations are in [google-indexing-evidence.json](google-indexing-evidence.json); the [browser observation notes](google-indexing-observations-20261102.md) explain provenance and interpretation. These replace the earlier connector-only unknowns in [the historical reporting readout](seo-phase2-gsc-connection-20261102.md).
 
-**Technical completion:** I01, I02, I07 pass in CI. **Full Phase 2 implementation acceptance:** I01–I07 pass, and owner explicitly reviews Google evidence. The owner may accept the configuration even if Google has not yet indexed every page; Google's indexing decision is a separate outcome. **As of 2 Nov 2026, I01/I02/I07 passed, I03 connection is visible but owner rights are unverified, and I04–I06 remain PENDING**, so Phase 2 full acceptance is **not** reached.
+Google Index results, Live Test results and crawl requests are recorded separately. A passing live test or accepted request does not establish indexing. No rankings, impressions, clicks or organic leads were measured. No account identifiers, verification tokens or generated inspection IDs are committed.
 
-## Google success targets, measured separately
+## Measurable acceptance
 
-| Result | Target | When / how measured |
+| ID | Measurement | Current evidence |
 | --- | --- | --- |
-| S01 — branded homepage | Homepage indexed in Google's index and URL Inspection reports “URL is on Google” | Review at days 7, 14, 30 |
-| S02 — priority Google coverage | Aim for **8/11 indexed by day 60** (target, not guaranteed) | URL Inspection status per exact URL, dated |
-| S03 — discovery | 11/11 URLs known to Google via submitted sitemap or URL Inspection | Review day 14 and day 30; distinguish “discovered” from “indexed” |
-| S04 — relevant impressions | Establish first Search Console Search results baseline; zero is valid | First available 28-day period; compare equal future periods |
-| S05 — diagnosed exclusions | All “Crawled – currently not indexed”, “Discovered – currently not indexed”, duplicate canonical and other exclusions have recorded corrective action or justified exception | Weekly review until stable |
+| I01 | All 11 canonical pages reachable from home within 2 clicks | PASS: 11/11, maximum 1 click in local source audit |
+| I02 | Canonicals, H1, robots and exact sitemap coverage | PASS: 11/11 source checks; all 11 production pages HTTP 200 with matching declared canonical |
+| I03 | Existing Domain property access and owner permission | PASS: Settings explicitly reports You are a verified owner; existing Domain property retained |
+| I04 | Sitemap processed successfully | PASS: Success, 11 discovered pages; last read 2 Nov 2026 |
+| I05 | Dated URL Inspection for all 11 exact sitemap URLs | PASS: 11/11 inspected; 0 indexed, 11 not indexed, all unknown to Google |
+| I06 | Preventable Google indexing blockers diagnosed | PASS: 11/11 live tests report URL is available to Google; one indexing request accepted for each; no publisher-controlled blocker observed |
+| I07 | Evidence validity | PASS: all 11 dated direct Google observations have report type and public-safe HTTPS report link |
 
-Google states sitemap submission and recrawl requests **do not guarantee indexing or rankings**. Do not mark S01/S02 successful without actual GSC evidence.
+Full Phase 2 acceptance remains subject to owner review. Source readiness does not establish Google indexing or satisfy the separate Phase 1 independent 24-hour repeat requirement.
 
-## Verified source evidence
+## Google outcomes and follow-up
 
-- [Phase 2 source Check #41338610182](https://github.com/dbauto/thryvems-landingpage/actions/runs/41338610182): source readiness PASS, 11/11 homepage-reachable in max 1 click; 22/22 unit tests (12 Worker, 5 Phase 1, 5 Phase 2), 52/52 Chromium tests PASS; 18/18 public HTTP/DNS checks and 12/12 live responsive checks PASS.
-- [CI JSON and screenshot artifacts](https://github.com/dbauto/thryvems-landingpage/actions/runs/41338610182/artifacts/13095834801).
-- [Google index evidence manifest](google-indexing-evidence.json) remains 11 `NOT_VERIFIED` entries, not indexed claims. Search Console is connected for reporting, but **owner-level permission, sitemap acceptance and individual URL indexing require separate verification**.
-- [2 Nov 2026 connected-Search-Console readout](seo-phase2-gsc-connection-20261102.md) records account visibility, empty returned reporting rows, dates tested, connector limitations and the next required Google actions without adding sensitive account identifiers.
+| Outcome | Target | Current |
+| --- | --- | --- |
+| S01 | Branded homepage indexed | NOT MET: Google reports URL is not on Google; unknown to Google; crawl and selected canonical N/A |
+| S02 | Aim for 8/11 indexed by day 60 | NOT MET at baseline: 0/11 indexed; target is not guaranteed |
+| S03 | 11 URLs discovered via submitted sitemap | PASS for sitemap discovery: 11 discovered pages; individual inspection reports can still show no referring sitemap |
+| S04 | Establish actual 28-day Search Console impressions/clicks baseline | Not measured in this task |
+| S05 | Record explanation and corrective action for exclusions | Per-page exact reasons and request outcomes in manifest |
 
-## Owner-authorized Search Console setup, without website design changes
+For accepted requests, wait for Google to process its priority crawl queue and reinspect later. Do not repeatedly request the same URL. If an exclusion persists, use its new crawl/availability/canonical evidence to scope a fix. Do not change robots or canonicals solely because the current result is unknown to Google.
 
-1. Open [Google Search Console](https://search.google.com/search-console) in the **company-controlled Google account**, select the **existing** Domain property `thyncandthryve.com`. Its reporting connection is visible, so **do not create a duplicate property or touch DNS without a demonstrated ownership problem**.
-2. Check owner permissions for that property inside Search Console (a connected read-only reporting account is not evidence of owner rights). Keep verification tokens and Google user addresses out of the repository.
-3. If authorized as property owner, go to **Indexing → Sitemaps** and submit `sitemap.xml` **unless it is already listed as successfully submitted**. Record Google status and discovered count. `robots.txt` already includes its canonical location.
-4. Inspect the homepage first through **URL Inspection**, then the 10 other exact sitemap URLs. Record each Google index state, last crawl and Google-selected canonical where available. If necessary, use **Test live URL** and **Request indexing** for eligible key pages; requests must come from a verified owner/full GSC user and may be rate-limited. Do not repeat requests unnecessarily.
-5. Record public-safe evidence link, review date, and Google report in `plan/google-indexing-evidence.json` through a **separate PR**. Avoid saving verification codes, staff identities, user contact details or customer data. Update only verified outcomes.
-6. Review at days 7, 14, 30 and 60; capture impressions, clicks, Google coverage, URL inspection reasons and action owner. Escalate any preventable technical issue with a scoped PR. Do not automatically change page canonicals or remove low-traffic pages.
+## Validation and limitations
 
-## Safeguards and backend impact
+Local checks on this documentation branch: syntax/typecheck and **30/30 unit tests PASS**, static build PASS, **53/53 Chromium e2e PASS**, source discovery **11/11 PASS** with maximum 1 click, commercial source **11/11 PASS**, production responsive **12/12 PASS**, and released commercial content **4/4 PASS**. Screenshot artifacts were generated; no website design change requires visual approval.
 
-All automated *repository* tooling remains source-level/CI QA. The separately connected **read-only** Windsor.ai Search Console connector now retrieves (currently empty) reporting rows; it cannot submit a sitemap, inspect a URL or request indexing. No automated Google write was performed. This documentation only records those read results and does not activate analytics or change web hosting configuration. No privacy-consent or visitor tracking change.
+Production DNS/HTTPS audit: **16/18 PASS**. The two direct Node DNS queries fail locally with `ECONNREFUSED` (apex A and www CNAME). All HTTPS page checks, permanent redirects, robots, sitemap and real 404 pass. DNS verification remains limited by this environment; these errors do not establish a production DNS defect. Use an independent resolver/runner before diagnosing DNS or claiming Phase 1 fully accepted.
 
-**No backend impact.** Database schemas, relationships, QMS APIs, workflows, permissions, security, tenant/process/classification checks, integrations/events and backend tests are unchanged; no backend CM PR required. Existing backend marketing-email deployment work remains separate.
+## Backend and release impact
 
-## Sources
-
-- [Google: Technical requirements for indexing](https://developers.google.com/search/docs/essentials/technical)
-- [Google: Build and submit a sitemap](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap)
-- [Google: Ask for a recrawl](https://developers.google.com/search/docs/crawling-indexing/ask-google-to-recrawl)
-- [Google: URL inspection and troubleshooting](https://support.google.com/webmasters/answer/12482179)
+**No backend impact.** Documentation and external Google crawl requests only; no website source, database schemas/relationships, QMS APIs, workflows, permissions, tenant/process/classification/security rules, integrations/events or backend tests changed. No backend change-management PR needed. No hosting, DNS, tracking or consent changes. This branch requires a separate PR and owner approval before merge; no direct push to main.

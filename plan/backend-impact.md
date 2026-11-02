@@ -181,3 +181,7 @@
 - Database schemas and relationships: unchanged.
 - APIs, workflows, permissions, tenant/process/classification isolation, security, integrations and events: no **implementation** or contract changes; a connected reporting account is an external user authorization, not a backend service integration.
 - Backend tests and infrastructure: unchanged; no new backend PR. Existing backend R1 change-management PRs #12, #27, #28 remain independently pending.
+
+## 2 Nov 2026 — direct Google indexing verification
+
+**No backend impact.** Documentation records direct Search Console URL Inspection/live testing and owner-authorized Google crawl requests. No website source, database schemas/relationships, API contracts, workflows, permissions, tenant/process/classification/security rules, integrations/events or backend tests changed. Google crawl requests are external webmaster actions, not a backend integration. No DNS, hosting, consent or tracking change; no backend change-management PR required.

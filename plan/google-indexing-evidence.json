@@ -1,88 +1,345 @@
 {
   "schemaVersion": 1,
   "property": "sc-domain:thyncandthryve.com",
-  "ownerVerified": false,
-  "sitemapSubmitted": false,
-  "sitemapGoogleStatus": "NOT_VERIFIED",
-  "lastReviewedAt": null,
-  "note": "All rows begin NOT_VERIFIED. Do not change status without dated Google Search Console evidence; do not paste verification tokens or user emails.",
+  "ownerVerified": true,
+  "sitemapSubmitted": true,
+  "sitemapGoogleStatus": "Success",
+  "lastReviewedAt": "2026-11-02",
+  "note": "Dated direct Microsoft Edge / Google Search Console observations. EXCLUDED is the existing schema generic non-indexed bucket; exact Google reason is stored separately. Live test availability and indexing requested do not mean indexed. No inspection IDs, account emails or secrets stored. Settings confirms verified owner. Full Phase 2 acceptance remains pending owner review; indexing outcome remains 0/11.",
   "pages": [
     {
       "path": "/",
-      "status": "NOT_VERIFIED",
-      "checkedAt": null,
-      "googleReport": null,
-      "evidenceUrl": null
+      "status": "EXCLUDED",
+      "checkedAt": "2026-11-02",
+      "googleReport": "URL Inspection (Google Index): URL is not on Google; Page is not indexed: URL is unknown to Google",
+      "evidenceUrl": "https://search.google.com/search-console/inspect?resource_id=sc-domain%3Athyncandthryve.com",
+      "url": "https://thyncandthryve.com/",
+      "indexed": false,
+      "reason": "URL is unknown to Google",
+      "lastCrawl": "N/A",
+      "googleSelectedCanonical": "N/A",
+      "userDeclaredCanonicalInIndexReport": "N/A",
+      "discovery": "No referring sitemaps detected; referring page: None detected",
+      "liveTest": {
+        "displayedTimezone": "Not labelled by Google",
+        "googleResult": "URL is available to Google",
+        "testedOnDisplayed": "2 Nov 2026, 16:33",
+        "status": "PASS"
+      },
+      "indexingRequest": {
+        "appropriate": true,
+        "checkedAt": "2026-11-02",
+        "nextAction": "Wait for Google processing and reinspect; do not resubmit",
+        "status": "REQUESTED",
+        "attempts": 1,
+        "googleResult": "Indexing requested; URL was added to a priority crawl queue"
+      }
     },
     {
       "path": "/thryvems.html",
-      "status": "NOT_VERIFIED",
-      "checkedAt": null,
-      "googleReport": null,
-      "evidenceUrl": null
+      "status": "EXCLUDED",
+      "checkedAt": "2026-11-02",
+      "googleReport": "URL Inspection (Google Index): URL is not on Google; Page is not indexed: URL is unknown to Google",
+      "evidenceUrl": "https://search.google.com/search-console/inspect?resource_id=sc-domain%3Athyncandthryve.com",
+      "url": "https://thyncandthryve.com/thryvems.html",
+      "indexed": false,
+      "reason": "URL is unknown to Google",
+      "lastCrawl": "N/A",
+      "googleSelectedCanonical": "N/A",
+      "userDeclaredCanonicalInIndexReport": "N/A",
+      "discovery": "No referring sitemaps detected; referring page: None detected",
+      "liveTest": {
+        "displayedTimezone": "Not labelled by Google",
+        "googleResult": "URL is available to Google",
+        "testedOnDisplayed": "2 Nov 2026, 16:34",
+        "status": "PASS"
+      },
+      "indexingRequest": {
+        "appropriate": true,
+        "checkedAt": "2026-11-02",
+        "nextAction": "Wait for Google processing and reinspect; do not resubmit",
+        "status": "REQUESTED",
+        "attempts": 1,
+        "googleResult": "Indexing requested; URL was added to a priority crawl queue"
+      }
     },
     {
       "path": "/iso-consultancy-philippines/",
-      "status": "NOT_VERIFIED",
-      "checkedAt": null,
-      "googleReport": null,
-      "evidenceUrl": null
+      "status": "EXCLUDED",
+      "checkedAt": "2026-11-02",
+      "googleReport": "URL Inspection (Google Index): URL is not on Google; Page is not indexed: URL is unknown to Google",
+      "evidenceUrl": "https://search.google.com/search-console/inspect?resource_id=sc-domain%3Athyncandthryve.com",
+      "url": "https://thyncandthryve.com/iso-consultancy-philippines/",
+      "indexed": false,
+      "reason": "URL is unknown to Google",
+      "lastCrawl": "N/A",
+      "googleSelectedCanonical": "N/A",
+      "userDeclaredCanonicalInIndexReport": "N/A",
+      "discovery": "No referring sitemaps detected; referring page: None detected",
+      "liveTest": {
+        "displayedTimezone": "Not labelled by Google",
+        "googleResult": "URL is available to Google",
+        "testedOnDisplayed": "2 Nov 2026, 16:36",
+        "status": "PASS"
+      },
+      "indexingRequest": {
+        "appropriate": true,
+        "checkedAt": "2026-11-02",
+        "nextAction": "Wait for Google processing and reinspect; do not resubmit",
+        "status": "REQUESTED",
+        "attempts": 1,
+        "googleResult": "Indexing requested; URL was added to a priority crawl queue"
+      }
     },
     {
       "path": "/iso-9001-certification-philippines/",
-      "status": "NOT_VERIFIED",
-      "checkedAt": null,
-      "googleReport": null,
-      "evidenceUrl": null
+      "status": "EXCLUDED",
+      "checkedAt": "2026-11-02",
+      "googleReport": "URL Inspection (Google Index): URL is not on Google; Page is not indexed: URL is unknown to Google",
+      "evidenceUrl": "https://search.google.com/search-console/inspect?resource_id=sc-domain%3Athyncandthryve.com",
+      "url": "https://thyncandthryve.com/iso-9001-certification-philippines/",
+      "indexed": false,
+      "reason": "URL is unknown to Google",
+      "lastCrawl": "N/A",
+      "googleSelectedCanonical": "N/A",
+      "userDeclaredCanonicalInIndexReport": "N/A",
+      "discovery": "No referring sitemaps detected; referring page: None detected",
+      "liveTest": {
+        "displayedTimezone": "Not labelled by Google",
+        "googleResult": "URL is available to Google",
+        "testedOnDisplayed": "2 Nov 2026, 16:37",
+        "status": "PASS"
+      },
+      "indexingRequest": {
+        "appropriate": true,
+        "checkedAt": "2026-11-02",
+        "nextAction": "Wait for Google processing and reinspect; do not resubmit",
+        "status": "REQUESTED",
+        "attempts": 1,
+        "googleResult": "Indexing requested; URL was added to a priority crawl queue"
+      }
     },
     {
       "path": "/iso-14001-certification-philippines/",
-      "status": "NOT_VERIFIED",
-      "checkedAt": null,
-      "googleReport": null,
-      "evidenceUrl": null
+      "status": "EXCLUDED",
+      "checkedAt": "2026-11-02",
+      "googleReport": "URL Inspection (Google Index): URL is not on Google; Page is not indexed: URL is unknown to Google",
+      "evidenceUrl": "https://search.google.com/search-console/inspect?resource_id=sc-domain%3Athyncandthryve.com",
+      "url": "https://thyncandthryve.com/iso-14001-certification-philippines/",
+      "indexed": false,
+      "reason": "URL is unknown to Google",
+      "lastCrawl": "N/A",
+      "googleSelectedCanonical": "N/A",
+      "userDeclaredCanonicalInIndexReport": "N/A",
+      "discovery": "No referring sitemaps detected; referring page: None detected",
+      "liveTest": {
+        "displayedTimezone": "Not labelled by Google",
+        "googleResult": "URL is available to Google",
+        "testedOnDisplayed": "2 Nov 2026, 16:37",
+        "status": "PASS"
+      },
+      "indexingRequest": {
+        "appropriate": true,
+        "checkedAt": "2026-11-02",
+        "nextAction": "Wait for Google processing and reinspect; do not resubmit",
+        "status": "REQUESTED",
+        "attempts": 1,
+        "googleResult": "Indexing requested; URL was added to a priority crawl queue"
+      }
     },
     {
       "path": "/iso-45001-consultant-philippines/",
-      "status": "NOT_VERIFIED",
-      "checkedAt": null,
-      "googleReport": null,
-      "evidenceUrl": null
+      "status": "EXCLUDED",
+      "checkedAt": "2026-11-02",
+      "googleReport": "URL Inspection (Google Index): URL is not on Google; Page is not indexed: URL is unknown to Google",
+      "evidenceUrl": "https://search.google.com/search-console/inspect?resource_id=sc-domain%3Athyncandthryve.com",
+      "url": "https://thyncandthryve.com/iso-45001-consultant-philippines/",
+      "indexed": false,
+      "reason": "URL is unknown to Google",
+      "lastCrawl": "N/A",
+      "googleSelectedCanonical": "N/A",
+      "userDeclaredCanonicalInIndexReport": "N/A",
+      "discovery": "No referring sitemaps detected; referring page: None detected",
+      "liveTest": {
+        "displayedTimezone": "Not labelled by Google",
+        "googleResult": "URL is available to Google",
+        "testedOnDisplayed": "2 Nov 2026, 16:38",
+        "status": "PASS"
+      },
+      "indexingRequest": {
+        "appropriate": true,
+        "checkedAt": "2026-11-02",
+        "nextAction": "Wait for Google processing and reinspect; do not resubmit",
+        "status": "REQUESTED",
+        "attempts": 1,
+        "googleResult": "Indexing requested; URL was added to a priority crawl queue"
+      }
     },
     {
       "path": "/iso-27001-consultant-philippines/",
-      "status": "NOT_VERIFIED",
-      "checkedAt": null,
-      "googleReport": null,
-      "evidenceUrl": null
+      "status": "EXCLUDED",
+      "checkedAt": "2026-11-02",
+      "googleReport": "URL Inspection (Google Index): URL is not on Google; Page is not indexed: URL is unknown to Google",
+      "evidenceUrl": "https://search.google.com/search-console/inspect?resource_id=sc-domain%3Athyncandthryve.com",
+      "url": "https://thyncandthryve.com/iso-27001-consultant-philippines/",
+      "indexed": false,
+      "reason": "URL is unknown to Google",
+      "lastCrawl": "N/A",
+      "googleSelectedCanonical": "N/A",
+      "userDeclaredCanonicalInIndexReport": "N/A",
+      "discovery": "No referring sitemaps detected; referring page: None detected",
+      "liveTest": {
+        "displayedTimezone": "Not labelled by Google",
+        "googleResult": "URL is available to Google",
+        "testedOnDisplayed": "2 Nov 2026, 16:40",
+        "status": "PASS"
+      },
+      "indexingRequest": {
+        "appropriate": true,
+        "checkedAt": "2026-11-02",
+        "nextAction": "Wait for Google processing and reinspect; do not resubmit",
+        "status": "REQUESTED",
+        "attempts": 1,
+        "googleResult": "Indexing requested; URL was added to a priority crawl queue"
+      }
     },
     {
       "path": "/iso-22000-consultant-philippines/",
-      "status": "NOT_VERIFIED",
-      "checkedAt": null,
-      "googleReport": null,
-      "evidenceUrl": null
+      "status": "EXCLUDED",
+      "checkedAt": "2026-11-02",
+      "googleReport": "URL Inspection (Google Index): URL is not on Google; Page is not indexed: URL is unknown to Google",
+      "evidenceUrl": "https://search.google.com/search-console/inspect?resource_id=sc-domain%3Athyncandthryve.com",
+      "url": "https://thyncandthryve.com/iso-22000-consultant-philippines/",
+      "indexed": false,
+      "reason": "URL is unknown to Google",
+      "lastCrawl": "N/A",
+      "googleSelectedCanonical": "N/A",
+      "userDeclaredCanonicalInIndexReport": "N/A",
+      "discovery": "No referring sitemaps detected; referring page: None detected",
+      "liveTest": {
+        "displayedTimezone": "Not labelled by Google",
+        "googleResult": "URL is available to Google",
+        "testedOnDisplayed": "2 Nov 2026, 16:41",
+        "status": "PASS"
+      },
+      "indexingRequest": {
+        "appropriate": true,
+        "checkedAt": "2026-11-02",
+        "nextAction": "Wait for Google processing and reinspect; do not resubmit",
+        "status": "REQUESTED",
+        "attempts": 1,
+        "googleResult": "Indexing requested; URL was added to a priority crawl queue"
+      }
     },
     {
       "path": "/trainings/iso-internal-auditor-training-philippines/",
-      "status": "NOT_VERIFIED",
-      "checkedAt": null,
-      "googleReport": null,
-      "evidenceUrl": null
+      "status": "EXCLUDED",
+      "checkedAt": "2026-11-02",
+      "googleReport": "URL Inspection (Google Index): URL is not on Google; Page is not indexed: URL is unknown to Google",
+      "evidenceUrl": "https://search.google.com/search-console/inspect?resource_id=sc-domain%3Athyncandthryve.com",
+      "url": "https://thyncandthryve.com/trainings/iso-internal-auditor-training-philippines/",
+      "indexed": false,
+      "reason": "URL is unknown to Google",
+      "lastCrawl": "N/A",
+      "googleSelectedCanonical": "N/A",
+      "userDeclaredCanonicalInIndexReport": "N/A",
+      "discovery": "No referring sitemaps detected; referring page: None detected",
+      "liveTest": {
+        "displayedTimezone": "Not labelled by Google",
+        "googleResult": "URL is available to Google",
+        "testedOnDisplayed": "2 Nov 2026, 16:43",
+        "status": "PASS"
+      },
+      "indexingRequest": {
+        "appropriate": true,
+        "checkedAt": "2026-11-02",
+        "nextAction": "Wait for Google processing and reinspect; do not resubmit",
+        "status": "REQUESTED",
+        "attempts": 1,
+        "googleResult": "Indexing requested; URL was added to a priority crawl queue"
+      }
     },
     {
       "path": "/learn/how-to-get-iso-certified-philippines/",
-      "status": "NOT_VERIFIED",
-      "checkedAt": null,
-      "googleReport": null,
-      "evidenceUrl": null
+      "status": "EXCLUDED",
+      "checkedAt": "2026-11-02",
+      "googleReport": "URL Inspection (Google Index): URL is not on Google; Page is not indexed: URL is unknown to Google",
+      "evidenceUrl": "https://search.google.com/search-console/inspect?resource_id=sc-domain%3Athyncandthryve.com",
+      "url": "https://thyncandthryve.com/learn/how-to-get-iso-certified-philippines/",
+      "indexed": false,
+      "reason": "URL is unknown to Google",
+      "lastCrawl": "N/A",
+      "googleSelectedCanonical": "N/A",
+      "userDeclaredCanonicalInIndexReport": "N/A",
+      "discovery": "No referring sitemaps detected; referring page: None detected",
+      "liveTest": {
+        "displayedTimezone": "Not labelled by Google",
+        "googleResult": "URL is available to Google",
+        "testedOnDisplayed": "2 Nov 2026, 16:44",
+        "status": "PASS"
+      },
+      "indexingRequest": {
+        "appropriate": true,
+        "checkedAt": "2026-11-02",
+        "nextAction": "Wait for Google processing and reinspect; do not resubmit",
+        "status": "REQUESTED",
+        "attempts": 1,
+        "googleResult": "Indexing requested; URL was added to a priority crawl queue"
+      }
     },
     {
       "path": "/learn/iso-certification-cost-philippines/",
-      "status": "NOT_VERIFIED",
-      "checkedAt": null,
-      "googleReport": null,
-      "evidenceUrl": null
+      "status": "EXCLUDED",
+      "checkedAt": "2026-11-02",
+      "googleReport": "URL Inspection (Google Index): URL is not on Google; Page is not indexed: URL is unknown to Google",
+      "evidenceUrl": "https://search.google.com/search-console/inspect?resource_id=sc-domain%3Athyncandthryve.com",
+      "url": "https://thyncandthryve.com/learn/iso-certification-cost-philippines/",
+      "indexed": false,
+      "reason": "URL is unknown to Google",
+      "lastCrawl": "N/A",
+      "googleSelectedCanonical": "N/A",
+      "userDeclaredCanonicalInIndexReport": "N/A",
+      "discovery": "No referring sitemaps detected; referring page: None detected",
+      "liveTest": {
+        "displayedTimezone": "Not labelled by Google",
+        "googleResult": "URL is available to Google",
+        "testedOnDisplayed": "2 Nov 2026, 16:46",
+        "status": "PASS"
+      },
+      "indexingRequest": {
+        "appropriate": true,
+        "checkedAt": "2026-11-02",
+        "nextAction": "Wait for Google processing and reinspect; do not resubmit",
+        "status": "REQUESTED",
+        "attempts": 1,
+        "googleResult": "Indexing requested; URL was added to a priority crawl queue"
+      }
     }
-  ]
+  ],
+  "sitemap": {
+    "errorsAndWarnings": "User reports 0 errors and 0 warnings; counts not displayed in the observed table",
+    "url": "https://thyncandthryve.com/sitemap.xml",
+    "submittedDate": "2026-11-02",
+    "checkedAt": "2026-11-02",
+    "discoveredVideos": 0,
+    "discoveredPages": 11,
+    "lastReadDate": "2026-11-02",
+    "evidenceUrl": "https://search.google.com/search-console/sitemaps?resource_id=sc-domain%3Athyncandthryve.com",
+    "status": "Success"
+  },
+  "summary": {
+    "indexingRequestsAccepted": 11,
+    "liveTestsPassed": 11,
+    "phase2Accepted": false,
+    "indexed": 0,
+    "notIndexed": 11,
+    "inspected": 11,
+    "unverified": 0,
+    "unknownToGoogle": 11
+  },
+  "ownershipEvidence": {
+    "checkedAt": "2026-11-02",
+    "googleReport": "Settings: Ownership verification — You are a verified owner",
+    "evidenceUrl": "https://search.google.com/search-console/settings?resource_id=sc-domain%3Athyncandthryve.com"
+  }
 }
