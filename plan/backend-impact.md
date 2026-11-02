@@ -164,3 +164,12 @@
 - Integrations and backend tests: unchanged; linking to ISO's public news page is an ordinary hyperlink, not an integration.
 - Existing backend architecture repository PRs #12, #27 and #28 represent separate pending implementation/synchronization work; this static text change does not resolve or modify them.
 - No backend change-management PR is necessary. Editorial verification of actual commercial offerings, credentials, service areas and public contacts remains pending owner confirmation and must not be invented.
+
+## 2 Nov 2026 — Phase 3 post-merge live proof (verification PR)
+
+**No backend impact.** This is a read-only verification harness, its 3 deterministic unit tests, one non-blocking GitHub Actions production probe, release report and progress entry. It adds no public website content or UI, no user data collection and no new integration credentials. Production probes request only 4 public HTTPS URLs.
+
+- Database schemas and relationships, APIs and business workflows: unchanged.
+- Tenant/process scope, classification, role permissions, security and authentication: unchanged.
+- Integration endpoints, events, backend queues and backend tests: unchanged.
+- No backend change-management PR required; unrelated R1 backend PRs #12, #27 and #28 remain pending independently.

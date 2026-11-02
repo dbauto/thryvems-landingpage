@@ -1,6 +1,6 @@
 # SEO Phase 3 — Commercial content and trustworthy search intent
 
-Date: 2 Nov 2026 (Asia/Manila) · Scope: public static Thync & Thryve site · **Status: technical PR in progress, rankings NOT verified**.
+Date: 2 Nov 2026 (Asia/Manila) · Scope: public static Thync & Thryve site · **Status: Phase 3 source content merged and released; post-release checks PASS. Google indexing/rankings and qualified organic inquiries NOT verified.**
 
 ## Objective
 
@@ -21,14 +21,14 @@ The approved six-item menu, existing Montserrat/Inter, colours, cards, responsiv
 | --- | --- | --- | --- | --- |
 | C01 | One primary search intent per canonical page | Exactly **11/11 mapped**, no duplicate primary terms | `plan/seo-phase3-keyword-map.json`; `npm run audit:commercial-seo` | **PASS: 11/11** |
 | C02 | Unique discoverable metadata | **11/11** distinct page titles and descriptions, title 15–72 chars, description 75–155 chars, exact canonical, one H1 | CI Phase 3 JSON and source checks | **PASS: 11/11** |
-| C03 | Useful commercial content | **4/4** designated pages contain auditable buyer checklists and useful next steps; 600–1200 visible words on all 9 SEO detail pages | Explicit test fragments, build word-count test, editorial review | **PASS automated: 4/4, 9/9; owner editorial review pending** |
+| C03 | Useful commercial content | **4/4** designated pages contain auditable buyer checklists and useful next steps; 600–1200 visible words on all 9 SEO detail pages | Explicit test fragments, build word-count test, editorial review | **PASS: automated 4/4, 9/9; published copy approved by owner, no unsupported organization-specific claims added** |
 | C04 | Current authoritative technical fact | ISO 9001:2026 publication statement links to ISO's actual 16 Sep 2026 announcement | Source URL, checked edition against ISO | **PASS: source and link validated** |
-| C05 | Honest certification separation | Consultant preparation and independent certification-body decision distinguished; **0 invented certificates, prices, testimonials, client names, credentials or service location claims** | Manual editorial spot-check + tests | Manual reviewer signoff pending |
+| C05 | Honest certification separation | Consultant preparation and independent certification-body decision distinguished; **0 invented certificates, prices, testimonials, client names, credentials or service location claims** | Manual editorial spot-check + tests | **PASS: reviewed published wording; certification body separated, no unverified client/credential/pricing claims** |
 | C06 | Working existing UI | All existing source checks, build, full Chromium e2e and live mobile 12/12 continue passing; design and six-item navigation unchanged | Exact-head GitHub Check and screenshots | **PASS: 53/53 e2e; 12/12 live; 16 new screenshots** |
 | C07 | Security/backend boundary | **No** API, database, tenant/security, forms, cookie or backend workflow changes | Diff plus `plan/backend-impact.md` | **PASS: changes limited to static content/tests/docs** |
-| C08 | Approval and release | Owner review/approval and successful post-merge HTTP 200 + canonical/robots and links checks on production | GitHub merge/release and public checks | **Pending approval** |
+| C08 | Approval and release | Owner review/approval and successful post-merge HTTP 200 + canonical/robots and links checks on production | GitHub merge/release and public checks | **PASS: owner approved; [PR #23](https://github.com/dbauto/thryvems-landingpage/pull/23) merged, [Pages deployment](https://github.com/dbauto/thryvems-landingpage/actions/runs/41405365398) successful, independent [live release check](https://github.com/dbauto/thryvems-landingpage/actions/runs/41405690060) 4/4 PASS** |
 
-**Implementation complete** only when C01–C08 are met with actual CI evidence, release checks and editorial approval; code checks alone cannot prove rankings or business outcomes.
+**Phase 3 implementation/release acceptance: PASS (C01–C08).** The owner explicitly approved merging and proceeding; the public GitHub Pages deployment succeeded, and four targeted live page checks (HTTP 200, release content, exact canonical, H1, no noindex) passed. This is **not** proof of Google indexing, rankings or leads. Official service credentials/location/real case studies remain unpublished until source facts are confirmed.
 
 ## Measured Google outcomes — not acceptance of code quality
 
@@ -59,7 +59,9 @@ Google's own [Search Essentials](https://developers.google.com/search/docs/essen
 
 - [CI code+docs Check #41339949123](https://github.com/dbauto/thryvems-landingpage/actions/runs/41339949123): **SUCCESS**, syntax/typecheck, **27/27 unit tests** (12 Worker, 5 Phase 1, 5 Phase 2, 5 Phase 3), build, **53/53 Chromium tests (52.5s)** including 16 responsive screenshots from the four edited pages; public domain **18/18** and live responsive **12/12**. Phase 2 source discovery **11/11**.
 - Phase 3 keyword map and metadata audit: **PASS 11/11**, 4/4 buyer-guide sections, zero duplicate titles and descriptions.
-- [GitHub screenshot + JSON artifact](https://github.com/dbauto/thryvems-landingpage/actions/runs/41339949123/artifacts/13096389855); representative 390/1280 snapshots were visually reviewed and showed retained existing layout. Production deployment and Google rankings/Search Console: **Not run**.
-- UI appearance review: Same existing components and CSS; local modified-page 390/768/1280/1920 browser checks and screenshots **PASS**; production current site 12/12 unchanged, but modified source is not deployed.
+- [GitHub screenshot + JSON artifact](https://github.com/dbauto/thryvems-landingpage/actions/runs/41339949123/artifacts/13096389855); representative 390/1280 snapshots were visually reviewed and showed retained existing layout. The original Phase 3 Pages release **deployed**; Google rankings/Search Console still **not verified**.
+- UI appearance review: Same existing components and CSS; local modified-page 390/768/1280/1920 browser checks and screenshots **PASS**; current production site 12/12 PASS and all four revised content markers published (4/4 live PASS).
 
-Next after PR checks: request owner review, then only after owner-approved merge verify production. Phase 2 owner GSC setup and URL Inspection remain separate **Pending** requirements.
+**Release verification 2 Nov 2026:** [PR #23 merged](https://github.com/dbauto/thryvems-landingpage/pull/23) at `96ec6654c68e33073bc11e5ec7d9aa06bd0b1b3a`; [GitHub Pages deployment 41405365398](https://github.com/dbauto/thryvems-landingpage/actions/runs/41405365398) successful. [Main Check 41405365781](https://github.com/dbauto/thryvems-landingpage/actions/runs/41405365781) successful: 18/18 DNS/HTTPS/source page probes, 12/12 live responsive tests and SEO source checks. [Independent Phase 3 live-content Check 41405690060](https://github.com/dbauto/thryvems-landingpage/actions/runs/41405690060): four of four public pages responded HTTP 200 and contain the new guide section, expected canonical, exactly one H1 and no noindex. Its 3/3 new unit tests, build and 53/53 Chromium checks also pass. [Evidence artifact](https://github.com/dbauto/thryvems-landingpage/actions/runs/41405690060/artifacts/13123835911).
+
+**Remaining external measurement:** Google Search Console Domain verification, index coverage, impressions, rankings and real attributable organic inquiries are **Pending** and cannot be inferred from CI. Phase 2 owner setup and Phase 1 24h repeat sign-off remain separate pending tasks.
