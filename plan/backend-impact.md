@@ -173,3 +173,11 @@
 - Tenant/process scope, classification, role permissions, security and authentication: unchanged.
 - Integration endpoints, events, backend queues and backend tests: unchanged.
 - No backend change-management PR required; unrelated R1 backend PRs #12, #27 and #28 remain pending independently.
+
+## 2 Nov 2026 — Phase 2 connected Google Search Console readout
+
+**No backend impact.** This change records read-only Google Search Console reporting access and an acceptance-status update in project documents. It does not use Google Search Console write APIs, submit sitemaps, add OAuth credentials to code, install analytics tags, or alter website source, cookies, forms or hosting.
+
+- Database schemas and relationships: unchanged.
+- APIs, workflows, permissions, tenant/process/classification isolation, security, integrations and events: no **implementation** or contract changes; a connected reporting account is an external user authorization, not a backend service integration.
+- Backend tests and infrastructure: unchanged; no new backend PR. Existing backend R1 change-management PRs #12, #27, #28 remain independently pending.
