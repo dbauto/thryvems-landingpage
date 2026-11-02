@@ -11,7 +11,8 @@ export const expectedUrls = [
   '/iso-22000-consultant-philippines/',
   '/trainings/iso-internal-auditor-training-philippines/',
   '/learn/how-to-get-iso-certified-philippines/',
-  '/learn/iso-certification-cost-philippines/'
+  '/learn/iso-certification-cost-philippines/',
+  '/learn/', '/trainings/', '/consultancy/', '/about/'
 ];
 const expectedA = ['185.199.108.153','185.199.109.153','185.199.110.153','185.199.111.153'];
 
