@@ -2,9 +2,9 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {expectedUrls,inspectHtml,inspectRobots,inspectSitemap,inspectRedirect,origin} from '../scripts/live-seo-audit.mjs';
 
-test('all 11 canonical URLs are unique',()=>{
- assert.equal(expectedUrls.length,11);
- assert.equal(new Set(expectedUrls).size,11);
+test('all 15 canonical URLs are unique',()=>{
+ assert.equal(expectedUrls.length,15);
+ assert.equal(new Set(expectedUrls).size,15);
 });
 test('HTML checks canonical and prevents noindex',()=>{
  const good='<html lang="en-PH"><link rel="canonical" href="'+origin+'/"><h1>Services</h1>';

@@ -26,7 +26,7 @@ test('robots.txt, sitemap.xml and main canonical all agree',async({page,request}
  const sm=await request.get('/sitemap.xml');
  expect(sm.ok()).toBeTruthy();
  const sitemap=await sm.text();
- expect((sitemap.match(/<loc>/g)||[]).length).toBe(11);
+ expect((sitemap.match(/<loc>/g)||[]).length).toBe(15);
  expect(sitemap).not.toContain('github.io');
  await page.goto('/');
  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href','https://thyncandthryve.com/');
@@ -103,4 +103,36 @@ test('Phase 3 buyer-guide pages keep existing layout at four widths',async({page
    await page.screenshot({path:'test-results/screenshots/seo-phase3-'+name+'-'+width+'.png',animations:'disabled'});
   }
  }
+});
+
+test('six company menu destinations navigate to dedicated pages at 390/768/1280/1920',async({page})=>{
+ const menu=[['HOME','/'],['LEARN','/learn/'],['TRAININGS','/trainings/'],['CONSULTANCY','/consultancy/'],['SOLUTIONS','/thryvems.html'],['ABOUT US','/about/']];
+ const overview=[['learn','LEARN'],['trainings','TRAININGS'],['consultancy','CONSULTANCY'],['about','ABOUT US']];
+ for(const width of [390,768,1280,1920]){
+  await page.setViewportSize({width,height:860});
+  await page.goto('/');
+  const homeNav=page.getByRole('navigation',{name:'Main'});
+  for(const [label,href] of menu)await expect(homeNav.getByRole('link',{name:label,exact:true})).toHaveAttribute('href',href);
+  for(const [slug,selected] of overview){
+   const response=await page.goto('/'+slug+'/',{waitUntil:'load'});
+   expect(response.status()).toBe(200);
+   await page.evaluate(()=>document.fonts.ready);
+   const nav=page.getByRole('navigation',{name:'Main'});
+   for(const [label,href] of menu)await expect(nav.getByRole('link',{name:label,exact:true})).toHaveAttribute('href',href);
+   await expect(nav.getByRole('link',{name:selected,exact:true})).toHaveAttribute('aria-current','page');
+   await expect(page.locator('h1')).toHaveCount(1);
+   await expect(page.locator('meta[name="description"]')).toHaveAttribute('content',/.{75,}/);
+   expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(1);
+   await page.screenshot({path:'test-results/screenshots/menu-'+slug+'-'+width+'.png',animations:'disabled'});
+  }
+ }
+});
+test('main menu navigation works from internal ISO pages',async({page})=>{
+ await page.goto('/iso-9001-certification-philippines/');
+ const nav=page.getByRole('navigation',{name:'Main'});
+ await nav.getByRole('link',{name:'TRAININGS',exact:true}).click();
+ await expect(page).toHaveURL(/\/trainings\/$/);
+ await expect(page.getByRole('heading',{level:1})).toContainText('ISO training');
+ await page.getByRole('navigation',{name:'Main'}).getByRole('link',{name:'ABOUT US',exact:true}).click();
+ await expect(page).toHaveURL(/\/about\/$/);
 });

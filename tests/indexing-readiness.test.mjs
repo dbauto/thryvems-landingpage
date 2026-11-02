@@ -8,10 +8,10 @@ const robots='User-agent: *\nAllow: /\nSitemap: '+SITE+'/sitemap.xml';
 test('internal links parse fragment/root/relative without following external destinations',()=>{
  assert.deepEqual(linksFor('<a href="/#contact">Contact</a><a href="https://example.net/">External</a><a href="../thryvems.html">Product</a>','/learn/'),['/','/thryvems.html']);
 });
-test('11 homepage-reachable, indexable pages and matching sitemap pass',()=>{
+test('15 homepage-reachable, indexable pages and matching sitemap pass',()=>{
  const r=auditSource(full(),xml(),robots);
  assert.equal(r.pass,true);
- assert.equal(r.reachableCount,11);
+ assert.equal(r.reachableCount,15);
  assert.equal(r.maxClicks,1);
 });
 test('blocked, orphaned and missing canonical pages fail closed',()=>{

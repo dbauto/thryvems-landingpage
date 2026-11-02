@@ -4,10 +4,10 @@ import {readFileSync} from 'node:fs';
 import {inspectCommercial,fileFor} from '../scripts/check-commercial-seo.mjs';
 const map=JSON.parse(readFileSync('plan/seo-phase3-keyword-map.json','utf8'));
 const pages=()=>Object.fromEntries(map.pages.map(({path})=>[path,readFileSync(fileFor(path),'utf8')]));
-test('all 11 published pages have one distinct mapped commercial intent',()=>{
+test('all 15 published pages have one distinct mapped commercial intent',()=>{
  const r=inspectCommercial(map,pages());
  assert.equal(r.pass,true);
- assert.equal(r.validated,11);
+ assert.equal(r.validated,15);
  assert.equal(r.duplicateTitles,0);
  assert.equal(r.duplicateDescriptions,0);
 });
