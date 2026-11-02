@@ -10,7 +10,8 @@ export const PAGES=[
   '/iso-22000-consultant-philippines/',
   '/trainings/iso-internal-auditor-training-philippines/',
   '/learn/how-to-get-iso-certified-philippines/',
-  '/learn/iso-certification-cost-philippines/'
+  '/learn/iso-certification-cost-philippines/',
+  '/learn/', '/trainings/', '/consultancy/', '/about/'
 ];
 export const fileFor=url=>url==='/'?'index.html':url.endsWith('/')?url.slice(1)+'index.html':url.slice(1);
 export function linksFor(html,path){
@@ -27,7 +28,7 @@ export function auditSource(pages,xml,robots){
   const problems=[];
   const expected=PAGES.map(p=>SITE+p);
   const listed=[...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1]);
-  if(listed.length!==expected.length||new Set(listed).size!==expected.length||expected.some(p=>!listed.includes(p))) problems.push('Sitemap URLs do not match 11 intended pages');
+  if(listed.length!==expected.length||new Set(listed).size!==expected.length||expected.some(p=>!listed.includes(p))) problems.push('Sitemap URLs do not match intended pages');
   if(!robots.includes('Sitemap: '+SITE+'/sitemap.xml')||/(?:^|\n)Disallow:\s*\/\s*(?:\r?\n|$)/i.test(robots))problems.push('Robots sitemap/crawl rule differs from intended site');
   const graph={};
   const details=[];
