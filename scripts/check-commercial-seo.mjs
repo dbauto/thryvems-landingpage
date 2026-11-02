@@ -5,13 +5,14 @@ const expectedPaths=['/','/thryvems.html','/iso-consultancy-philippines/',
  '/iso-9001-certification-philippines/','/iso-14001-certification-philippines/',
  '/iso-45001-consultant-philippines/','/iso-27001-consultant-philippines/',
  '/iso-22000-consultant-philippines/','/trainings/iso-internal-auditor-training-philippines/',
- '/learn/how-to-get-iso-certified-philippines/','/learn/iso-certification-cost-philippines/'];
+ '/learn/how-to-get-iso-certified-philippines/','/learn/iso-certification-cost-philippines/',
+ '/learn/','/trainings/','/consultancy/','/about/'];
 export const fileFor=p=>p==='/'?'index.html':p.endsWith('/')?p.slice(1)+'index.html':p.slice(1);
 export const clean=s=>s.replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/\s+/g,' ').trim();
 export function inspectCommercial(map,source){
  const problems=[],details=[],seen=new Set(),primaries=new Set(),titles=new Set(),descs=new Set();
  if(map?.schema!==1||!Array.isArray(map.pages))return {pass:false,problems:['Missing SEO keyword map']};
- if(map.pages.length!==expectedPaths.length)problems.push('Expected exactly 11 commercial intent mappings');
+ if(map.pages.length!==expectedPaths.length)problems.push('Expected exactly 15 commercial intent mappings');
  for(const m of map.pages){
   if(!expectedPaths.includes(m.path)||seen.has(m.path))problems.push('Invalid/duplicate SEO path: '+m.path);
   seen.add(m.path);
