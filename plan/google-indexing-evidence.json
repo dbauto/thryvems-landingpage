@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "property": "sc-domain:thyncandthryve.com",
   "ownerVerified": false,
-  "sitemapSubmitted": false,
-  "sitemapGoogleStatus": "NOT_VERIFIED",
-  "lastReviewedAt": null,
-  "note": "All rows begin NOT_VERIFIED. Do not change status without dated Google Search Console evidence; do not paste verification tokens or user emails.",
+  "sitemapSubmitted": true,
+  "sitemapGoogleStatus": "SUBMITTED_STATUS_COLUMN_NOT_VERIFIED",
+  "lastReviewedAt": "2026-11-02",
+  "note": "Google Search Console UI screenshot confirms 'Sitemap submitted successfully' and 11 discovered pages. Connected Search Console sitemap reporting confirms the listed sitemap URL, 11 submitted URLs, Google download and 0 errors/warnings. The GSC processing status column is obscured in the screenshot and is not exposed by the connector; do not mark Google sitemap status 'Success' until its row is visibly checked. All 11 URL Inspection states remain NOT_VERIFIED; discovered does not mean indexed.",
   "pages": [
     {
       "path": "/",
@@ -84,5 +84,10 @@
       "googleReport": null,
       "evidenceUrl": null
     }
-  ]
+  ],
+  "sitemapDiscoveredPages": 11,
+  "sitemapLastSubmittedAt": "2026-11-02T08:12:49.352Z",
+  "sitemapLastDownloadedAt": "2026-11-02T08:12:49.869Z",
+  "sitemapErrors": 0,
+  "sitemapWarnings": 0
 }
