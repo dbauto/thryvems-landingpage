@@ -5,7 +5,7 @@
   "sitemapSubmitted": false,
   "sitemapGoogleStatus": "NOT_VERIFIED",
   "lastReviewedAt": null,
-  "note": "All rows begin NOT_VERIFIED. Do not change status without dated Google Search Console evidence; do not paste verification tokens or user emails.",
+  "note": "All rows begin NOT_VERIFIED. Do not change status without dated Google Search Console evidence; do not paste verification tokens or user emails. Four new company navigation pages are awaiting approved publication and Search Console inspection. The original 11 remain unverified in this main-branch baseline; PR #27's existing observations are pending separate owner approval and must be synchronized without overwriting them.",
   "pages": [
     {
       "path": "/",
@@ -79,6 +79,34 @@
     },
     {
       "path": "/learn/iso-certification-cost-philippines/",
+      "status": "NOT_VERIFIED",
+      "checkedAt": null,
+      "googleReport": null,
+      "evidenceUrl": null
+    },
+    {
+      "path": "/learn/",
+      "status": "NOT_VERIFIED",
+      "checkedAt": null,
+      "googleReport": null,
+      "evidenceUrl": null
+    },
+    {
+      "path": "/trainings/",
+      "status": "NOT_VERIFIED",
+      "checkedAt": null,
+      "googleReport": null,
+      "evidenceUrl": null
+    },
+    {
+      "path": "/consultancy/",
+      "status": "NOT_VERIFIED",
+      "checkedAt": null,
+      "googleReport": null,
+      "evidenceUrl": null
+    },
+    {
+      "path": "/about/",
       "status": "NOT_VERIFIED",
       "checkedAt": null,
       "googleReport": null,
