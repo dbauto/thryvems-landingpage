@@ -243,3 +243,11 @@
 - ✅ QMS UI guideline §10 app roles, light/dark theme, sidebar and classification tests remain **not applicable** to this public-site audit; no QMS app source touched.
 - ✅ **No backend impact**: read-only public GET probes and offline tests; no QMS/marketing API, database, workflow, permissions, client classification or integration change.
 - ⚠️ Google index/search ranking, genuine business credentials, live lead capture and Phase 1 24-hour repeat are separate pending verification; this PR does not assert they passed.
+
+## 2 Nov 2026 — Phase 2 GSC reporting connection evidence (documentation only)
+
+- ✅ No HTML, CSS, menu, typography, layout, component, runtime JS, QMS app UI or website design changes.
+- ✅ Existing website and application colour/font, access and responsive controls unaffected; ThryveMS UI-GUIDELINES §10 source changes not applicable.
+- ✅ External Search Console reporting data inspected read-only; no OAuth secrets, emails, tracking codes, customer records or user data added to the repository.
+- ✅ Backend impact assessed as **No backend impact** with schemas, relationships, APIs, workflows, permissions, security, integrations, events and tests unchanged.
+- ⏳ Sitemap owner-side submission and Google URL Inspection remain **Pending**; no false indexing/ranking claims.
