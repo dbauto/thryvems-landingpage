@@ -1,62 +1,120 @@
 {
   "schema": 1,
   "baseline": "2026-11-02",
-  "note": "Search intent hypotheses only: no claimed search volume, ranking, accreditation, service area, or operating contact information. One primary intent per canonical URL.",
+  "note": "Search-intent targets only; no verified search volume, rank, accreditation, city coverage or business credentials. One primary intent per canonical URL. Secondary phrases describe related topics, not a requirement to repeat exact strings.",
   "pages": [
     {
       "path": "/",
       "primary": "ISO Training & Consultancy Philippines",
-      "intent": "Company and broad service discovery"
+      "intent": "Company and broad service discovery",
+      "secondary": [
+        "ISO training Philippines",
+        "ISO consultancy Philippines"
+      ]
     },
     {
       "path": "/thryvems.html",
       "primary": "QMS Software Philippines",
-      "intent": "QMS software evaluation"
+      "intent": "QMS software evaluation",
+      "secondary": [
+        "quality management software Philippines",
+        "ISO 9001 QMS software"
+      ]
     },
     {
       "path": "/iso-consultancy-philippines/",
-      "primary": "ISO Consultancy Philippines",
-      "intent": "Commercial consultant comparison"
+      "primary": "ISO Consultant Philippines",
+      "intent": "Commercial consultant comparison",
+      "secondary": [
+        "ISO consultancy Philippines",
+        "ISO consulting services Philippines",
+        "ISO gap assessment",
+        "ISO documentation support",
+        "ISO implementation support",
+        "certification audit preparation"
+      ]
     },
     {
       "path": "/iso-9001-certification-philippines/",
       "primary": "ISO 9001 Certification Philippines",
-      "intent": "ISO 9001 preparation and certification process"
+      "intent": "ISO 9001 preparation and certification process",
+      "secondary": [
+        "ISO 9001 consultant Philippines",
+        "QMS consultant Philippines",
+        "quality management system implementation"
+      ]
     },
     {
       "path": "/iso-14001-certification-philippines/",
       "primary": "ISO 14001 Certification Philippines",
-      "intent": "Environmental management preparation"
+      "intent": "Environmental management preparation",
+      "secondary": [
+        "ISO 14001 consultant Philippines",
+        "environmental management system consultancy"
+      ]
     },
     {
       "path": "/iso-45001-consultant-philippines/",
       "primary": "ISO 45001 Consultant Philippines",
-      "intent": "Occupational health and safety consultancy"
+      "intent": "Occupational health and safety consultancy",
+      "secondary": [
+        "ISO 45001 consulting Philippines",
+        "occupational health and safety management system"
+      ]
     },
     {
       "path": "/iso-27001-consultant-philippines/",
       "primary": "ISO 27001 Consultant Philippines",
-      "intent": "Information security consultancy"
+      "intent": "Information security consultancy",
+      "secondary": [
+        "ISO 27001 consulting Philippines",
+        "ISMS consultant Philippines"
+      ]
     },
     {
       "path": "/iso-22000-consultant-philippines/",
       "primary": "ISO 22000 Consultant Philippines",
-      "intent": "Food safety management consultancy"
+      "intent": "Food safety management consultancy",
+      "secondary": [
+        "ISO 22000 consulting Philippines",
+        "food safety management system consultancy"
+      ]
     },
     {
       "path": "/trainings/iso-internal-auditor-training-philippines/",
       "primary": "ISO Internal Auditor Training Philippines",
-      "intent": "Audit training research"
+      "intent": "Audit training research",
+      "secondary": [
+        "ISO internal audit training",
+        "internal auditor course Philippines"
+      ]
     },
     {
       "path": "/learn/how-to-get-iso-certified-philippines/",
       "primary": "ISO Certification in the Philippines",
-      "intent": "Certification steps and buyer guide"
+      "intent": "Certification steps and buyer guide",
+      "secondary": [
+        "how to get ISO certified Philippines",
+        "ISO certification process Philippines"
+      ]
     },
     {
       "path": "/learn/iso-certification-cost-philippines/",
       "primary": "ISO Certification Cost Philippines",
-      "intent": "Cost components and comparing quotations"
+      "intent": "Cost components and comparing quotations",
+      "secondary": [
+        "ISO consultancy fees Philippines",
+        "ISO certification quotation",
+        "certification body audit fees"
+      ]
     }
-  ]
+  ],
+  "research": {
+    "reviewedAt": "2026-11-02",
+    "competitorSources": [
+      "https://iso-philippines.com/iso-consultant-in-philippines/",
+      "https://iso-certification.ph/"
+    ],
+    "interpretation": "Phrases observed in public competitor content; not proof of ranking causes or complete ranking keywords. Copy and business claims are original to this site and based on its published scope."
+  }
 }

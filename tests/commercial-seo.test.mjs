@@ -17,7 +17,7 @@ test('two pages cannot share one target search intent',()=>{
 });
 test('no duplicate titles or descriptions',()=>{
  const html=pages(),a='/iso-9001-certification-philippines/',b='/iso-consultancy-philippines/';
- html[a]=html[a].replace(/<title>[\s\S]*?<\/title>/,'<title>ISO Consultancy Philippines | Thync &amp; Thryve</title>');
+ html[a]=html[a].replace(/<title>[\s\S]*?<\/title>/,html[b].match(/<title>[\s\S]*?<\/title>/)[0]);
  assert(inspectCommercial(map,html).problems.some(x=>x.includes('Duplicate page title')));
 });
 test('unverified title and canonical edits fail audit',()=>{

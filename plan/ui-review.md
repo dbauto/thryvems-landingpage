@@ -251,3 +251,12 @@
 - ✅ External Search Console reporting data inspected read-only; no OAuth secrets, emails, tracking codes, customer records or user data added to the repository.
 - ✅ Backend impact assessed as **No backend impact** with schemas, relationships, APIs, workflows, permissions, security, integrations, events and tests unchanged.
 - ⏳ Sitemap owner-side submission and Google URL Inspection remain **Pending**; no false indexing/ranking claims.
+
+## 2 Nov 2026 — competitor-informed consultancy content
+
+- Existing Montserrat/Inter typography, green palette, whitespace, header/nav labels and service-page layout retained; original and edited consultancy screenshots compared at 375px and 1440px. Mobile heading wraps naturally and content stays readable.
+- Consultancy now describes five linked stages and concrete proposal considerations, with six synchronized FAQs. No fake credentials, client endorsements, projects, cities, industries, prices or certification promises. Owner confirmed supporting business evidence is not available yet.
+- Service page and eight supporting guides: axe WCAG 2 A/AA and 2.1 AA checks report **0 violations** at 375/1440px. All 10 changed routes have no horizontal overflow at these widths; consultancy also checked at 320/768/1024/1280/1920px. Six FAQ answers match JSON-LD; keyboard toggle, no-JS links, dark preference and reduced-motion behavior verified. Browser accessibility tree inspected; native screen reader not run.
+- Reserved the shared logo at its existing rendered 171x42px size. Original consultancy mobile Lighthouse performance was 85 with CLS 0.288; final page measured **99 mobile / 100 desktop**, CLS **0** on both. Accessibility, best practices and SEO **100** on both. These are local lab measurements, not field or ranking guarantees.
+- Baseline homepage axe findings remain: an ARIA attribute on the disabled human-check wrapper and contrast reports involving animated content. The homepage changes only one link label; no site-wide accessibility-compliance claim. The nine edited service/guide pages pass axe. This is a scoped SEO/content update preserving the approved design, not a full homepage accessibility redesign.
+- No CSS colour or font-family changes, new theme, images, runtime JS, QMS component, privacy consent or form behavior. No backend impact. Full details and limitations: [QA summary](seo-consultancy-qa-20261102.json).

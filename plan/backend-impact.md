@@ -181,3 +181,7 @@
 - Database schemas and relationships: unchanged.
 - APIs, workflows, permissions, tenant/process/classification isolation, security, integrations and events: no **implementation** or contract changes; a connected reporting account is an external user authorization, not a backend service integration.
 - Backend tests and infrastructure: unchanged; no new backend PR. Existing backend R1 change-management PRs #12, #27, #28 remain independently pending.
+
+## 2 Nov 2026 — consultancy keyword and service-content update
+
+**No backend impact.** Public static HTML/metadata/internal links, search-intent documentation and reserved logo dimensions only. No schema/relationship, API, QMS workflow, permission/security, tenant/process/classification, integration/event, provider/form/tracking or backend test changes. No new claims about customer credentials, cities or certifications. No backend change-management PR needed.
