@@ -260,3 +260,12 @@
 - Reserved the shared logo at its existing rendered 171x42px size. Original consultancy mobile Lighthouse performance was 85 with CLS 0.288; final page measured **99 mobile / 100 desktop**, CLS **0** on both. Accessibility, best practices and SEO **100** on both. These are local lab measurements, not field or ranking guarantees.
 - Baseline homepage axe findings remain: an ARIA attribute on the disabled human-check wrapper and contrast reports involving animated content. The homepage changes only one link label; no site-wide accessibility-compliance claim. The nine edited service/guide pages pass axe. This is a scoped SEO/content update preserving the approved design, not a full homepage accessibility redesign.
 - No CSS colour or font-family changes, new theme, images, runtime JS, QMS component, privacy consent or form behavior. No backend impact. Full details and limitations: [QA summary](seo-consultancy-qa-20261102.json).
+
+## 3 Nov 2026 — Company navigation hubs (pending visual review and CI)
+
+- ✅ Existing six menu labels and order retained: HOME, LEARN, TRAININGS, CONSULTANCY, SOLUTIONS, ABOUT US; no new top-level item. The current company homepage and ThryveMS product internal nav are kept in their existing styles.
+- ✅ Four dedicated pages reuse `seo-service.css`, Montserrat/Inter, current logo, brand palette, service content structure, breadcrumb, FAQs and footer. No new illustration, font, button, colour or design system.
+- ✅ The existing ISO detail pages and QMS product page retain their content, routes, document/record permissions (not applicable to the public marketing website) and inquiry safety gates.
+- ⏳ Test 390/768/1280/1920px, navigation destinations, no horizontal overflow, keyboard links, correct current-page state and 16 new overview screenshots; record only actual results.
+- ⏳ Release of four new sitemap pages will require additional Search Console review; existing 11 Google indexing requests remain untouched. Do not overwrite pending Google evidence in PR #27.
+- **Backend impact: none**; only static public pages, link destinations, metadata, sitemap and browser/source tests.
