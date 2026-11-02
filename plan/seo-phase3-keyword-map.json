@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "baseline": "2026-11-02",
-  "note": "Search-intent targets only; no verified search volume, rank, accreditation, city coverage or business credentials. One primary intent per canonical URL. Secondary phrases describe related topics, not a requirement to repeat exact strings.",
+  "note": "Search-intent targets only; no verified search volume, rank, accreditation, city coverage or business credentials. One primary intent per canonical URL. Secondary phrases describe related topics, not a requirement to repeat exact strings. Four new navigation hub pages are distinct from previously submitted 11 canonical Google URLs; those new URLs have no Google indexing evidence yet.",
   "pages": [
     {
       "path": "/",
@@ -107,6 +107,26 @@
         "ISO certification quotation",
         "certification body audit fees"
       ]
+    },
+    {
+      "path": "/learn/",
+      "primary": "ISO Learning Resources and Guides",
+      "intent": "ISO learning topic and resource directory"
+    },
+    {
+      "path": "/trainings/",
+      "primary": "ISO Training Topics for Philippine Teams",
+      "intent": "Training programme topic overview and selection"
+    },
+    {
+      "path": "/consultancy/",
+      "primary": "Management System Consultancy Service Areas",
+      "intent": "Standards and consultancy subject directory"
+    },
+    {
+      "path": "/about/",
+      "primary": "About Thync & Thryve",
+      "intent": "Company identity and publicly described offerings"
     }
   ],
   "research": {
