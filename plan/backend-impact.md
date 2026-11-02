@@ -185,3 +185,13 @@
 ## 2 Nov 2026 — consultancy keyword and service-content update
 
 **No backend impact.** Public static HTML/metadata/internal links, search-intent documentation and reserved logo dimensions only. No schema/relationship, API, QMS workflow, permission/security, tenant/process/classification, integration/event, provider/form/tracking or backend test changes. No new claims about customer credentials, cities or certifications. No backend change-management PR needed.
+
+## 3 Nov 2026 — Six-section company top navigation and dedicated overview pages (proposed PR)
+
+**No backend impact.** Four new static informational hub pages (Learn, Trainings, Consultancy, About us), navigation links, sitemap/SEO metadata, and source/browser tests only. The existing product QMS and all public inquiry forms retain their behavior. The 11 previously submitted URLs retain their paths/canonicals. Four new sitemap URLs have no Google indexing evidence yet and must not be claimed indexed.
+
+- Database schemas, relationships, migrations: unchanged.
+- App and public inquiry APIs, workflow/queue logic, events: unchanged.
+- Roles, authentication, authorization, tenant/process isolation, classifications, security, cookies, and confidential information: unchanged.
+- Integrations and backend tests: unchanged. Sitemap content remains public static XML, not a new Google API integration.
+- Existing backend R1 change records are independent and remain Pending. No separate backend architecture PR required.
