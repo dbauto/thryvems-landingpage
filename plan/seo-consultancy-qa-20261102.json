@@ -1,0 +1,172 @@
+{
+  "checkedAt": "2026-11-02T15:58:54.371643+00:00",
+  "source": "Local Chromium against built dist/; baseline HTML reconstructed from origin/main",
+  "changedRoutes": 10,
+  "responsive": {
+    "viewports": [
+      320,
+      375,
+      768,
+      1024,
+      1280,
+      1920
+    ],
+    "consultancyOverflowFailures": 0,
+    "allRoutesAt375And1440": 20,
+    "overflowFailures": 0
+  },
+  "accessibility": {
+    "engine": "axe-core via @axe-core/playwright, WCAG 2 A/AA and 2.1 AA rules",
+    "serviceAndGuidePages": 9,
+    "checkedWidths": [
+      375,
+      1440
+    ],
+    "violations": 0,
+    "homepageBaselineAndAfterRuleIds": [
+      "aria-prohibited-attr",
+      "color-contrast"
+    ],
+    "homepageNotes": "Existing unchanged baseline findings: disabled human-check wrapper ARIA and contrast reports involving animated content. Not a claim of site-wide accessibility conformance. Homepage change is one link label.",
+    "manualChecks": {
+      "faqKeyboardToggle": true,
+      "faqVisibleSchemaParity": true,
+      "faqCount": 6,
+      "noJSNavigationLinks": 6,
+      "noJSMainLinks": 21,
+      "nativeScreenReader": "Not run; browser accessibility tree inspected instead",
+      "darkMode": "Existing light brand remains usable with dark preference; no new theme",
+      "reducedMotion": "Static service page; checked with reduced motion"
+    }
+  },
+  "links": {
+    "internalFragmentLinksChecked": 107,
+    "brokenFragmentLinks": 0
+  },
+  "lighthouse": {
+    "version": "13.6.0",
+    "target": "Built consultancy page at http://127.0.0.1:4173/iso-consultancy-philippines/",
+    "scope": "Lab results only; not field Core Web Vitals or rankings",
+    "originalMobileBeforeLogoReservation": {
+      "performance": 85,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100,
+      "CLS": 0.2881043694838923
+    },
+    "after": [
+      {
+        "mode": "after",
+        "device": "mobile",
+        "version": "13.6.0",
+        "scores": {
+          "performance": 99,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "metrics": {
+          "largest-contentful-paint": 1599.9376000000002,
+          "cumulative-layout-shift": 0,
+          "total-blocking-time": 0
+        },
+        "failedAudits": [
+          {
+            "id": "first-contentful-paint",
+            "title": "First Contentful Paint",
+            "score": 0.94
+          },
+          {
+            "id": "largest-contentful-paint",
+            "title": "Largest Contentful Paint",
+            "score": 0.99
+          },
+          {
+            "id": "bf-cache",
+            "title": "Page prevented back/forward cache restoration",
+            "score": 0
+          },
+          {
+            "id": "document-latency-insight",
+            "title": "Document request latency",
+            "score": 0.5
+          },
+          {
+            "id": "image-delivery-insight",
+            "title": "Improve image delivery",
+            "score": 0.5
+          },
+          {
+            "id": "network-dependency-tree-insight",
+            "title": "Network dependency tree",
+            "score": 0
+          },
+          {
+            "id": "render-blocking-insight",
+            "title": "Render-blocking requests",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "mode": "after",
+        "device": "desktop",
+        "version": "13.6.0",
+        "scores": {
+          "performance": 100,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "metrics": {
+          "largest-contentful-paint": 495.2685,
+          "cumulative-layout-shift": 0,
+          "total-blocking-time": 0
+        },
+        "failedAudits": [
+          {
+            "id": "bf-cache",
+            "title": "Page prevented back/forward cache restoration",
+            "score": 0
+          },
+          {
+            "id": "document-latency-insight",
+            "title": "Document request latency",
+            "score": 0.5
+          },
+          {
+            "id": "image-delivery-insight",
+            "title": "Improve image delivery",
+            "score": 0.5
+          },
+          {
+            "id": "network-dependency-tree-insight",
+            "title": "Network dependency tree",
+            "score": 0
+          },
+          {
+            "id": "render-blocking-insight",
+            "title": "Render-blocking requests",
+            "score": 0
+          }
+        ]
+      }
+    ]
+  },
+  "e2e": {
+    "localPassed": 53,
+    "notes": "Final CI runs required against committed head; local suite passed before final logo reservation and CTA wording cleanup, which received focused responsive/axe/FAQ checks."
+  },
+  "notMeasured": [
+    "actual keyword rankings",
+    "competitor search volumes",
+    "organic impressions or leads",
+    "postmerge production content"
+  ],
+  "pendingBusinessEvidence": [
+    "verified consultant qualifications",
+    "client-approved testimonials and case studies",
+    "actual cities and industries served"
+  ],
+  "backendImpact": "No backend impact"
+}
