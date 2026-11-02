@@ -108,7 +108,9 @@ for (const file of ['thryvems-motion.css','thryvems-product-hero.css','thryvems-
 }
 
 // SEO QA: static pages must be searchable without JavaScript and have aligned metadata.
+const overviewSlugs = ['learn','trainings','consultancy','about'];
 const seoSlugs = [
+ ...overviewSlugs,
  'iso-consultancy-philippines',
  'iso-9001-certification-philippines',
  'iso-14001-certification-philippines',
@@ -144,9 +146,16 @@ for (const page of seoPages) {
  if(page.slug.endsWith('/')) {
   const visible=page.body.replace(/<script[\s\S]*?<\/script>/g,'').replace(/<[^>]+>/g,' ');
   const count=visible.trim().split(/\s+/).length;
-  assert(count>=600&&count<=1200,page.file+' expected substantial original content, got '+count);
+  assert(count>=(overviewSlugs.includes(page.slug.slice(0,-1))?300:600)&&count<=1200,page.file+' expected useful original content, got '+count);
   assert((page.body.match(/<details>/g)||[]).length>=5,page.file+' missing FAQs');
  }
+}
+
+// The existing six company menu labels must navigate to real pages on every public SEO page.
+for(const page of seoPages.filter(p=>p.slug!=='thryvems.html')){
+ const nav=page.body.match(/<nav[^>]*aria-label="Main"[^>]*>[\s\S]*?<\/nav>/i)?.[0];
+ assert(nav,page.file+' missing company navigation');
+ for(const [label,path] of [["HOME","/"],["LEARN","/learn/"],["TRAININGS","/trainings/"],["CONSULTANCY","/consultancy/"],["SOLUTIONS","/thryvems.html"],["ABOUT US","/about/"]]) assert(nav.includes('href="'+path+'"') && nav.includes('>'+label+'</a>'),page.file+' incorrect menu '+label);
 }
 assert.equal((sitemap.match(/<loc>/g)||[]).length,seoPages.length,'sitemap includes non-canonical or unbuilt pages');
 assert(html.includes('rel="canonical" href="https://thyncandthryve.com/thryvems.html"'),'Product canonical points to GitHub Pages');
