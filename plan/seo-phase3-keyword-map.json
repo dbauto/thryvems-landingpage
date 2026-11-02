@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "baseline": "2026-11-02",
+  "note": "Search intent hypotheses only: no claimed search volume, ranking, accreditation, service area, or operating contact information. One primary intent per canonical URL.",
+  "pages": [
+    {
+      "path": "/",
+      "primary": "ISO Training & Consultancy Philippines",
+      "intent": "Company and broad service discovery"
+    },
+    {
+      "path": "/thryvems.html",
+      "primary": "QMS Software Philippines",
+      "intent": "QMS software evaluation"
+    },
+    {
+      "path": "/iso-consultancy-philippines/",
+      "primary": "ISO Consultancy Philippines",
+      "intent": "Commercial consultant comparison"
+    },
+    {
+      "path": "/iso-9001-certification-philippines/",
+      "primary": "ISO 9001 Certification Philippines",
+      "intent": "ISO 9001 preparation and certification process"
+    },
+    {
+      "path": "/iso-14001-certification-philippines/",
+      "primary": "ISO 14001 Certification Philippines",
+      "intent": "Environmental management preparation"
+    },
+    {
+      "path": "/iso-45001-consultant-philippines/",
+      "primary": "ISO 45001 Consultant Philippines",
+      "intent": "Occupational health and safety consultancy"
+    },
+    {
+      "path": "/iso-27001-consultant-philippines/",
+      "primary": "ISO 27001 Consultant Philippines",
+      "intent": "Information security consultancy"
+    },
+    {
+      "path": "/iso-22000-consultant-philippines/",
+      "primary": "ISO 22000 Consultant Philippines",
+      "intent": "Food safety management consultancy"
+    },
+    {
+      "path": "/trainings/iso-internal-auditor-training-philippines/",
+      "primary": "ISO Internal Auditor Training Philippines",
+      "intent": "Audit training research"
+    },
+    {
+      "path": "/learn/how-to-get-iso-certified-philippines/",
+      "primary": "ISO Certification in the Philippines",
+      "intent": "Certification steps and buyer guide"
+    },
+    {
+      "path": "/learn/iso-certification-cost-philippines/",
+      "primary": "ISO Certification Cost Philippines",
+      "intent": "Cost components and comparing quotations"
+    }
+  ]
+}

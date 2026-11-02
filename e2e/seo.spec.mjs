@@ -77,3 +77,30 @@ test('product landing has no actual horizontal scroll on 390px mobile',async({pa
  }
  expect(out.scrollX).toBe(0);
 });
+
+test('Phase 3 buyer-guide pages keep existing layout at four widths',async({page})=>{
+ const pages=[
+  ['consultancy','/iso-consultancy-philippines/'],
+  ['iso9001','/iso-9001-certification-philippines/'],
+  ['cost','/learn/iso-certification-cost-philippines/'],
+  ['steps','/learn/how-to-get-iso-certified-philippines/']
+ ];
+ for(const width of [390,768,1280,1920]){
+  await page.setViewportSize({width,height:860});
+  for(const [name,path] of pages){
+   const res=await page.goto(path,{waitUntil:'load'});
+   expect(res.status()).toBe(200);
+   await page.evaluate(()=>document.fonts.ready);
+   await expect(page.locator('main h2').first()).toBeVisible();
+   const state=await page.evaluate(()=>({
+    scroll:document.documentElement.scrollWidth-window.innerWidth,
+    nav:[...document.querySelectorAll('.seo-nav a')].map(a=>a.textContent.trim()),
+    mainH1:document.querySelectorAll('h1').length
+   }));
+   expect(state.scroll).toBeLessThanOrEqual(1);
+   expect(state.mainH1).toBe(1);
+   expect(state.nav).toEqual(['HOME','LEARN','TRAININGS','CONSULTANCY','SOLUTIONS','ABOUT US']);
+   await page.screenshot({path:'test-results/screenshots/seo-phase3-'+name+'-'+width+'.png',animations:'disabled'});
+  }
+ }
+});
