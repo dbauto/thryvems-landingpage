@@ -181,3 +181,12 @@
 - Database schemas and relationships: unchanged.
 - APIs, workflows, permissions, tenant/process/classification isolation, security, integrations and events: no **implementation** or contract changes; a connected reporting account is an external user authorization, not a backend service integration.
 - Backend tests and infrastructure: unchanged; no new backend PR. Existing backend R1 change-management PRs #12, #27, #28 remain independently pending.
+
+## 2 Nov 2026 — Phase 2 Google sitemap submission evidence (documentation only)
+
+**No backend impact.** The user submitted an already published static sitemap through the Google Search Console UI; this PR documents the submission and updates an indexing evidence manifest. It introduces **no source-code, public site, DNS, API, database or authentication changes**. It does not create or alter Search Console credentials, tracking, event delivery or submission code.
+
+- Database schemas/relationships and application APIs/workflows: unchanged.
+- Tenant isolation, role permissions, process scope, document classifications and security: unchanged.
+- Integrations/events/tests: unchanged; the existing externally connected reporting account only read public sitemap metrics.
+- Backend architecture PRs #12, #27, #28 remain pending and unrelated. No new backend PR needed.
